@@ -1,0 +1,35 @@
+.cmdk-positioner {
+  @apply text-text ml-auto bg-white/70  relative z-50;
+}
+
+.cmdk-animator {
+  @apply w-[600px] border-[1px] border-gray bg-white text-text rounded-lg py-2 overflow-hidden shadow-md;
+}
+
+.cmdk-group-name {
+  @apply p-2.5 text-xs font-bold uppercase opacity-50;
+}
+
+.cmdk-item-wrapper {
+  @apply mx-auto text-text rounded cursor-pointer;
+}
+
+.cmdk-item {
+  @apply flex items-center px-3 gap-2 py-2;
+}
+
+.cmdk-item-name {
+  @apply flex items-center justify-between gap-1 w-full;
+
+  & span {
+    @apply mr-auto;
+  }
+}
+
+#kbar-listbox > [id^="kbar-listbox-item-"]:last-of-type {
+  @apply pb-[10px];
+}
+
+.cmdk-item-active {
+  @apply bg-gray;
+}
