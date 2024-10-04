@@ -37,7 +37,7 @@ const Sidebar = () => {
               }`}
             >
               <Link
-                href={item.value}
+                href={item.disabled ? "/" : item.value}
                 className={`flex py-1 px-3 gap-2.5 items-center hover:bg-gray rounded ${
                   pathname.includes(item.value) &&
                   "bg-primary" + " text-white hover:bg-primary "
