@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import classNames from "classnames";
 // utils
 import { NAVIGATION_ITEMS, NavigationItemToIcon } from "@/utils/navigation";
@@ -14,11 +14,33 @@ import ArrowUpRightIcon from "@/public/icons/arrow-up-right.svg";
 
 const Sidebar = () => {
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const key = event.key;
+      if (key === "0") {
+        router.push("/");
+      } else if (key >= "1" && key <= "8") {
+        const targetIndex = key - 1;
+        const targetItem = NAVIGATION_ITEMS[targetIndex];
+
+        if (targetItem && !targetItem.disabled) {
+          router.push("/" + targetItem.value);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <aside
       className={
-        "hidden flex-col gap-8 lg:flex lg:w-[28%] xl:w-[250px] flex-none"
+        "none flex-col gap-8 lg:flex lg:w-[28%] xl:w-[250px] flex-none"
       }
     >
       <Logo />
