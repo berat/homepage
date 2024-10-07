@@ -2,7 +2,7 @@
 
 ![https://buymeacoffee.com/beratbozkurt0](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)
 
-This repository contains the source code for my personal websites. The sites showcase various projects I've worked on over time. Feel free to explore the code, learn from it, or contribute.
+This repository contains the source code for my most recent website designs, which I am still developing. Feel free to browse the code, learn from it, or contribute to its improvement.
 
 [Click here for a live demo of one of the websites](http://beratbozkurt.net)
 
