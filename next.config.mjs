@@ -2,7 +2,6 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    unoptimized: true,
     domains: [
       "images.unsplash.com",
       "beratbozkurt.net",
