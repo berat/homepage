@@ -107,7 +107,7 @@ export const getBlocks = unstable_cache(
   },
   [],
   {
-    revalidate: 86400, // 1 day,
+    revalidate: 3600, // 1 day,
   }
 );
 
@@ -159,7 +159,7 @@ export const likedPost = unstable_cache(
   },
   [],
   {
-    revalidate: 86400, // 1 day,
+    revalidate: 3600, // 1 day,
   }
 );
 
