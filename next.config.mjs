@@ -6,7 +6,10 @@ const nextConfig = {
       "images.unsplash.com",
       "beratbozkurt.net",
       "prod-files-secure.s3.us-west-2.amazonaws.com",
+      "www.notion.so",
+      "notion.so",
     ],
+    formats: ["image/avif", "image/webp"],
   },
 };
 
