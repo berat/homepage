@@ -46,3 +46,9 @@
 .youtube-embed lite-youtube {
   @apply max-w-full;
 }
+
+/* div span.italic {
+  > .font-semibold {
+    @apply pl-2;
+  }
+} */

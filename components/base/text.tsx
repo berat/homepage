@@ -15,7 +15,7 @@ export default function Text({ title }) {
       "text-text": true,
       "font-semibold": bold,
       "bg-[#e8e8e8] px-1 py-0.5 text-red-600 rounded text-[14.75px]": code,
-      "italic": italic,
+      "italic pr-1": italic,
       "line-through": strikethrough,
       underline: underline,
     });

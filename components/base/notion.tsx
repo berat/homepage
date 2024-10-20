@@ -25,7 +25,7 @@ export default function renderBlock(block) {
       return (
         <h1
           key={block.id}
-          className="w-[96%] lg:w-full  mx-auto text-3xl font-semibold leading-8 py-2 pt-3 lg:pt-6"
+          className="w-[96%] lg:w-full  mx-auto text-3xl font-semibold leading-8 py-2 pt-8 lg:pt-6"
         >
           <Text title={value.rich_text} />
         </h1>
@@ -34,7 +34,7 @@ export default function renderBlock(block) {
       return (
         <h2
           key={block.id}
-          className="w-[96%] lg:w-full  mx-auto text-2xl font-semibold leading-8 py-1.5 pt-3 lg:pt-6"
+          className="w-[96%] lg:w-full  mx-auto text-2xl font-semibold leading-8 py-1.5 pt-8 lg:pt-6"
         >
           <Text title={value.rich_text} />
         </h2>
@@ -43,7 +43,7 @@ export default function renderBlock(block) {
       return (
         <h3
           key={block.id}
-          className="w-[96%] lg:w-full  mx-auto text-xl leading-7 py-1"
+          className="w-[96%] lg:w-full  mx-auto text-xl leading-7 py-2 pt-8"
         >
           <Text title={value.rich_text} />
         </h3>

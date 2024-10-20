@@ -19,12 +19,15 @@ const notion = new Client({
 export const gelAllPublishedPosts = async (length?: number) => {
   const posts: QueryDatabaseResponse = await notion.databases.query({
     database_id: process.env.NOTION_BLOG_ID,
-    filter: {
-      property: "Published",
-      checkbox: {
-        equals: true,
-      },
-    },
+    filter:
+      process.env.NODE_ENV === "production"
+        ? {
+            property: "Published",
+            checkbox: {
+              equals: true,
+            },
+          }
+        : undefined,
     sorts: [
       {
         property: "Date",
@@ -106,6 +109,7 @@ export const getBlocks = async (blockID) => {
 };
 
 export const getSinglePost = async (slug: string) => {
+
   const response = await notion.databases.query({
     database_id: process.env.NOTION_BLOG_ID,
     filter: {
@@ -146,6 +150,8 @@ export const likedPost = async (id: string, count: number) => {
 };
 
 export const updateViewPost = async (id: string, count: number) => {
+  if (process.env.NODE_ENV !== "production") return null;
+
   const response = await notion.pages.update({
     page_id: id,
     properties: {
