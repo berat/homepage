@@ -34,6 +34,7 @@ export const gelAllPublishedPosts = async (length?: number) => {
   });
   const allPosts = posts.results as PageObjectResponse[];
 
+
   if (length) {
     const data = allPosts.slice(0, length).map((post: PageObjectResponse) => {
       return getPageMetaData(post);

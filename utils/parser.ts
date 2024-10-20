@@ -8,6 +8,8 @@ import { PostType } from "@/models/post";
 import { getCategory, defaultDateFormat } from "./helpers";
 
 export const getPageMetaData = (post: PageObjectResponse): PostType | false => {
+
+  console.log('getPageMetaData ~ post:', post.cover)
   const properties = post?.properties as PageObjectResponse["properties"];
 
   if (!properties) return false;

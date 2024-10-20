@@ -11,6 +11,7 @@ interface Props {
 }
 
 const PostCard: React.FC<Props> = ({ post, isPage }) => {
+
   return (
     <article
       className={`${
