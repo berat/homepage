@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    unoptimized: process.env.NODE_ENV === "production" ? false : true,
+    unoptimized: process.env.NODE_ENV === "production" ? false : false,
     remotePatterns: [
       {
         protocol: "https",
