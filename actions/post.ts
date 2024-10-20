@@ -34,7 +34,6 @@ export const gelAllPublishedPosts = async (length?: number) => {
   });
   const allPosts = posts.results as PageObjectResponse[];
 
-
   if (length) {
     const data = allPosts.slice(0, length).map((post: PageObjectResponse) => {
       return getPageMetaData(post);
@@ -56,151 +55,121 @@ export const gelAllPublishedPosts = async (length?: number) => {
   return { data: resultPost, categories: new Set(allCategories) };
 };
 
-export const getBlocks = unstable_cache(
-  async (blockID) => {
-    const blockId = blockID.replaceAll("-", "");
+export const getBlocks = async (blockID) => {
+  const blockId = blockID.replaceAll("-", "");
 
-    const { results } = await notion.blocks.children.list({
-      block_id: blockId,
-      page_size: 100,
-    });
+  const { results } = await notion.blocks.children.list({
+    block_id: blockId,
+    page_size: 100,
+  });
 
-    // Fetches all child blocks recursively
-    // be mindful of rate limits if you have large amounts of nested blocks
-    // See https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
-    const childBlocks = results.map(async (block) => {
-      // @ts-ignore
-      if (block.has_children) {
-        const children = await getBlocks(block.id);
-        return { ...block, children };
-      }
-      return block;
-    });
+  // Fetches all child blocks recursively
+  // be mindful of rate limits if you have large amounts of nested blocks
+  // See https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
+  const childBlocks = results.map(async (block) => {
+    // @ts-ignore
+    if (block.has_children) {
+      const children = await getBlocks(block.id);
+      return { ...block, children };
+    }
+    return block;
+  });
 
-    return Promise.all(childBlocks).then((blocks) =>
-      blocks.reduce((acc, curr) => {
-        if (curr.type === "bulleted_list_item") {
-          if (acc[acc.length - 1]?.type === "bulleted_list") {
-            acc[acc.length - 1][acc[acc.length - 1].type].children?.push(curr);
-          } else {
-            acc.push({
-              id: getRandomInt(10 ** 99, 10 ** 100).toString(),
-              type: "bulleted_list",
-              bulleted_list: { children: [curr] },
-            });
-          }
-        } else if (curr.type === "numbered_list_item") {
-          if (acc[acc.length - 1]?.type === "numbered_list") {
-            acc[acc.length - 1][acc[acc.length - 1].type].children?.push(curr);
-          } else {
-            acc.push({
-              id: getRandomInt(10 ** 99, 10 ** 100).toString(),
-              type: "numbered_list",
-              numbered_list: { children: [curr] },
-            });
-          }
+  return Promise.all(childBlocks).then((blocks) =>
+    blocks.reduce((acc, curr) => {
+      if (curr.type === "bulleted_list_item") {
+        if (acc[acc.length - 1]?.type === "bulleted_list") {
+          acc[acc.length - 1][acc[acc.length - 1].type].children?.push(curr);
         } else {
-          acc.push(curr);
+          acc.push({
+            id: getRandomInt(10 ** 99, 10 ** 100).toString(),
+            type: "bulleted_list",
+            bulleted_list: { children: [curr] },
+          });
         }
-        return acc;
-      }, [])
-    );
-  },
-  [],
-  {
-    revalidate: 900, // 1 day,
-  }
-);
+      } else if (curr.type === "numbered_list_item") {
+        if (acc[acc.length - 1]?.type === "numbered_list") {
+          acc[acc.length - 1][acc[acc.length - 1].type].children?.push(curr);
+        } else {
+          acc.push({
+            id: getRandomInt(10 ** 99, 10 ** 100).toString(),
+            type: "numbered_list",
+            numbered_list: { children: [curr] },
+          });
+        }
+      } else {
+        acc.push(curr);
+      }
+      return acc;
+    }, [])
+  );
+};
 
-export const getSinglePost = unstable_cache(
-  async (slug: string) => {
-    const response = await notion.databases.query({
-      database_id: process.env.NOTION_BLOG_ID,
-      filter: {
-        property: "Slug",
-        formula: {
-          string: {
-            equals: slug,
-          },
+export const getSinglePost = async (slug: string) => {
+  const response = await notion.databases.query({
+    database_id: process.env.NOTION_BLOG_ID,
+    filter: {
+      property: "Slug",
+      formula: {
+        string: {
+          equals: slug,
         },
       },
-    });
+    },
+  });
 
-    const page = response.results[0] as PageObjectResponse;
-    const metadata = getPageMetaData(page);
+  const page = response.results[0] as PageObjectResponse;
+  const metadata = getPageMetaData(page);
 
-    if (!metadata) {
-      return false;
-    }
-    const content = await getBlocks(page.id);
+  if (!metadata) {
+    return false;
+  }
+  const content = await getBlocks(page.id);
 
+  return {
+    post: metadata,
+    content: content,
+  };
+};
+
+export const likedPost = async (id: string, count: number) => {
+  const response = await notion.pages.update({
+    page_id: id,
+    properties: {
+      Like: {
+        number: count,
+      },
+    },
+  });
+
+  return response;
+};
+
+export const updateViewPost = async (id: string, count: number) => {
+  const response = await notion.pages.update({
+    page_id: id,
+    properties: {
+      View: {
+        number: count,
+      },
+    },
+  });
+
+  return response;
+};
+
+export const getPosts = async (length?: number) => {
+  const response = await gelAllPublishedPosts(length);
+
+  if (length) {
     return {
-      post: metadata,
-      content: content,
+      data: response.data as PostType[],
     };
-  },
-  [],
-  {
-    revalidate: 900, // 1 hour,
+  } else {
+    return {
+      data: response.data as PostType[],
+      // @ts-ignore
+      categories: ["Hepsi", ...response.categories] as string[],
+    };
   }
-);
-
-export const likedPost = unstable_cache(
-  async (id: string, count: number) => {
-    const response = await notion.pages.update({
-      page_id: id,
-      properties: {
-        Like: {
-          number: count,
-        },
-      },
-    });
-
-    return response;
-  },
-  [],
-  {
-    revalidate: 3600, // 1 day,
-  }
-);
-
-export const updateViewPost = unstable_cache(
-  async (id: string, count: number) => {
-    const response = await notion.pages.update({
-      page_id: id,
-      properties: {
-        View: {
-          number: count,
-        },
-      },
-    });
-
-    return response;
-  },
-  [],
-  {
-    revalidate: 900, // 15m
-  }
-);
-
-export const getPosts = unstable_cache(
-  async (length?: number) => {
-    const response = await gelAllPublishedPosts(length);
-
-    if (length) {
-      return {
-        data: response.data as PostType[],
-      };
-    } else {
-      return {
-        data: response.data as PostType[],
-        // @ts-ignore
-        categories: ["Hepsi", ...response.categories] as string[],
-      };
-    }
-  },
-  [],
-  {
-    revalidate: 900, // 1hour
-  }
-);
+};
