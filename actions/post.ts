@@ -108,7 +108,7 @@ export const getBlocks = unstable_cache(
   },
   [],
   {
-    revalidate: 3600, // 1 day,
+    revalidate: 900, // 1 day,
   }
 );
 
@@ -141,7 +141,7 @@ export const getSinglePost = unstable_cache(
   },
   [],
   {
-    revalidate: 3600, // 1 hour,
+    revalidate: 900, // 1 hour,
   }
 );
 
@@ -201,6 +201,6 @@ export const getPosts = unstable_cache(
   },
   [],
   {
-    revalidate: 3600, // 1hour
+    revalidate: 900, // 1hour
   }
 );
