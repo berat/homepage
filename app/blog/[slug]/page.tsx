@@ -16,7 +16,7 @@ export async function generateMetadata({
     notFound();
   }
 
-  const { title, slug } = post.post;
+  const { title, slug, cover } = post.post;
 
   const description =
     post.content
@@ -30,7 +30,7 @@ export async function generateMetadata({
       .join(" ")
       .slice(0, 240) + "...";
 
-  const ogImage = `https://beratbozkurt.net/og?title=${title}`;
+  const ogImage = cover ?? `https://beratbozkurt.net/og?title=${title}`;
 
   return {
     title: title + " | Berat Bozkurt",
