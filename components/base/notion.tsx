@@ -157,7 +157,7 @@ export default function renderBlock(block) {
           key={block.id}
           className="w-[96%] lg:w-full  mx-auto text-[15px] mt-2 my-4"
         >
-          <code key={id} className="rounded">
+          <code key={id} className={`rounded language-${value.language}`}>
             {value.rich_text[0].plain_text}
           </code>
         </pre>
