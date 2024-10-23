@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 // components
 import { Providers, CommandMenu } from "@/components/base";
 // assets
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
           <CommandMenu />
         </Providers>
         <Analytics mode={"production"} />
+        <SpeedInsights />
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       </body>
     </html>

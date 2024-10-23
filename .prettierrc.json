@@ -1,0 +1,17 @@
+{
+  "importOrder": [
+    "^(react/(.*)$)|^(react$)",
+    "^(next/(.*)$)|^(next$)",
+    "<THIRD_PARTY_MODULES>",
+    "// utils",
+    "^@/config/(.*)$",
+    "^@/lib/(.*)$",
+    "^@/hooks/(.*)$",
+    "// components",
+    "^@/components/ui/(.*)$",
+    "^@/components/(.*)$",
+    "// assets",
+    "^@/styles/(.*)$",
+    "^[./]"
+  ]
+}
