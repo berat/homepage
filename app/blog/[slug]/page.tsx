@@ -78,7 +78,7 @@ export default async function Blog({ params }: { params: { slug: string } }) {
   };
 
   return (
-    <main className="xl:w-container lg:w-[95%] mx-auto lg:mb-10 my-4 flex flex-col gap-6">
+    <main className="xl:w-container w-[95%] mx-auto lg:mb-10 my-4 flex flex-col gap-6">
       <PostDetail post={post} updateView={updateView} />
       <div className="xl:w-container w-[95%] mx-auto flex flex-col gap-4">
         <hr className="w-full mx-auto border-gray bg-gray h-0.5 my-8" />
