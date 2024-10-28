@@ -67,6 +67,15 @@ const Providers: React.FC<Props> = ({ children }) => {
       perform: () => router.push("/photos"),
     },
     {
+      id: "bookmarksAction",
+      name: "Bookmarks",
+      shortcut: ["3"],
+      keywords: "bookmarks",
+      icon: <NavigationItemToIcon type="bookmarks" />,
+      section: "Menüler",
+      perform: () => router.push("/bookmarks"),
+    },
+    {
       id: "twitterAction",
       name: "X",
       keywords: "twitter",
