@@ -28,7 +28,7 @@ export async function generateMetadata({
         return "";
       })
       .join(" ")
-      .slice(0, 240) + "...";
+      .slice(0, 150) + "...";
 
   const ogImage = cover ?? `https://beratbozkurt.net/og?title=${title}`;
 
