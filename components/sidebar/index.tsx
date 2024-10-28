@@ -19,14 +19,21 @@ const Sidebar = () => {
   useEffect(() => {
     const handleKeyDown = (event) => {
       const key = event.key;
-      if (key === "0") {
-        router.push("/");
-      } else if (key >= "1" && key <= "8") {
-        const targetIndex = key - 1;
-        const targetItem = NAVIGATION_ITEMS[targetIndex];
+      if (
+        !event.ctrlKey &&
+        !event.altKey &&
+        !event.shiftKey &&
+        !event.metaKey
+      ) {
+        if (key === "0") {
+          router.push("/");
+        } else if (key >= "1" && key <= "8") {
+          const targetIndex = key - 1;
+          const targetItem = NAVIGATION_ITEMS[targetIndex];
 
-        if (targetItem && !targetItem.disabled) {
-          router.push("/" + targetItem.value);
+          if (targetItem && !targetItem.disabled) {
+            router.push("/" + targetItem.value);
+          }
         }
       }
     };
