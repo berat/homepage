@@ -58,7 +58,7 @@ export default function Photos() {
         <PhotoContent />
       </Suspense>
       <Link
-        href="#"
+        href="https://unsplash.com/@beratbozkurt0"
         target="_blank"
         className="inline-flex justify-center bg-primary hover:bg-blue-600 font-bold text-lg text-white w-full py-4 rounded-lg"
       >
