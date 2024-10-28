@@ -131,7 +131,7 @@ export const NAVIGATION_ITEMS: NavigationType<NavigationItem>[] = [
   {
     label: "Bookmarks",
     value: "bookmarks",
-    disabled: true,
+    disabled: false,
   },
   {
     label: "Setup",
