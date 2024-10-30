@@ -16,7 +16,7 @@ export default function renderBlock(block) {
       return (
         <p
           key={block.id}
-          className="w-[96%] lg:w-full  mx-auto py-1.5 lg:py-2 leading-6 "
+          className="w-[96%] lg:w-[95%]  mx-auto py-1.5 lg:py-2 leading-6 "
         >
           <Text title={value.rich_text} />
         </p>
@@ -25,7 +25,7 @@ export default function renderBlock(block) {
       return (
         <h1
           key={block.id}
-          className="w-[96%] lg:w-full  mx-auto text-3xl font-semibold leading-8 py-2 pt-8 lg:pt-6"
+          className="w-[96%] lg:w-[95%]  mx-auto text-3xl font-semibold leading-8 py-2 pt-8 lg:pt-6"
         >
           <Text title={value.rich_text} />
         </h1>
@@ -34,7 +34,7 @@ export default function renderBlock(block) {
       return (
         <h2
           key={block.id}
-          className="w-[96%] lg:w-full  mx-auto text-2xl font-semibold leading-8 py-1.5 pt-8 lg:pt-6"
+          className="w-[96%] lg:w-[95%]  mx-auto text-2xl font-semibold leading-8 py-1.5 pt-8 lg:pt-6"
         >
           <Text title={value.rich_text} />
         </h2>
@@ -43,7 +43,7 @@ export default function renderBlock(block) {
       return (
         <h3
           key={block.id}
-          className="w-[96%] lg:w-full  mx-auto text-xl leading-7 py-2 pt-8"
+          className="w-[96%] lg:w-[95%]  mx-auto text-xl leading-7 py-2 pt-8"
         >
           <Text title={value.rich_text} />
         </h3>
@@ -52,7 +52,7 @@ export default function renderBlock(block) {
       return (
         <ul
           key={block.id}
-          className="w-[96%] lg:w-full  mx-auto list-disc pl-8 lg:pl-16 py-1.5 lg:py-3 leading-6"
+          className="w-[96%] lg:w-[95%]  mx-auto list-disc pl-8 lg:pl-16 py-1.5 lg:py-3 leading-6"
         >
           {value.children.map((child) => renderBlock(child))}
         </ul>
@@ -73,7 +73,7 @@ export default function renderBlock(block) {
       return (
         <li
           key={block.id}
-          className="w-[96%] lg:w-full  mx-auto leading-6 my-1"
+          className="w-[96%] lg:w-[95%]  mx-auto leading-6 my-1"
         >
           <Text title={value.rich_text} />
           {/* eslint-disable-next-line no-use-before-define */}
@@ -82,7 +82,7 @@ export default function renderBlock(block) {
       );
     case "to_do":
       return (
-        <div key={block.id} className="to-do w-[96%] lg:w-full  mx-auto">
+        <div key={block.id} className="to-do w-[96%] lg:w-[95%]  mx-auto">
           <label htmlFor={id}>
             <input type="checkbox" id={id} defaultChecked={value.checked} />{" "}
             <Text title={value.rich_text} />
@@ -91,7 +91,7 @@ export default function renderBlock(block) {
       );
     case "toggle":
       return (
-        <details key={block.id} className="w-[96%] lg:w-full  mx-auto">
+        <details key={block.id} className="w-[96%] lg:w-[95%]  mx-auto">
           <summary>
             <Text title={value.rich_text} />
           </summary>
@@ -139,13 +139,13 @@ export default function renderBlock(block) {
       return (
         <hr
           key={id}
-          className="w-full lg:w-full  mx-auto border-gray bg-gray h-0.5 my-8"
+          className="w-full lg:w-[95%]  mx-auto border-gray bg-gray h-0.5 my-8"
         />
       );
     case "quote":
       return (
         <blockquote
-          className="w-[96%] lg:w-full  mx-auto my-6  bg-gray px-6 border-l-[3px] border-text rounded-r-md py-6 text-text text-base leading-6"
+          className="w-[96%] lg:w-[95%]  mx-auto my-6  bg-gray px-6 border-l-[3px] border-text rounded-r-md py-6 text-text text-base leading-6"
           key={id}
         >
           <Text title={value.rich_text} />
@@ -155,7 +155,7 @@ export default function renderBlock(block) {
       return (
         <pre
           key={block.id}
-          className="w-[96%] lg:w-full  mx-auto text-[15px] mt-2 my-4"
+          className="w-[96%] lg:w-[95%]  mx-auto text-[15px] mt-2 my-4"
         >
           <code key={id} className={`rounded language-${value.language}`}>
             {value.rich_text[0].plain_text}
@@ -187,7 +187,7 @@ export default function renderBlock(block) {
           href={href}
           target="_blank"
           rel="noreferrer noopener"
-          className="w-[96%] lg:w-full  mx-auto"
+          className="w-[96%] lg:w-[95%]  mx-auto"
         >
           {href}
         </a>
@@ -255,7 +255,7 @@ export default function renderBlock(block) {
             key={block.id}
             height="500px"
             allowFullScreen
-            className="rounded w-[96%] lg:w-full mx-auto my-3"
+            className="rounded w-[96%] lg:w-[95%] mx-auto my-3"
             loading="lazy"
           />
         );
