@@ -47,7 +47,7 @@ const Sidebar = () => {
   return (
     <aside
       className={
-        "hidden flex-col gap-8 lg:flex lg:w-[28%] xl:w-[250px] flex-none"
+        "hidden flex-col gap-8 lg:flex lg:w-[28%] xl:w-[250px] flex-none sticky top-0 h-full"
       }
     >
       <Logo />
