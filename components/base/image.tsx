@@ -6,10 +6,13 @@ import NextImage, { ImageProps as NextImageProps } from "next/image";
 
 type ImageProps = {
   rounded?: string;
+  divClassname?:string
 } & NextImageProps;
 
 const Image = (props: ImageProps) => {
-  const { alt, src, className, rounded, ...rest } = props;
+  const { alt, src, className, rounded, divClassname, ...rest } = props;
+
+  console.log('Image ~ divClassname:', divClassname)
 
   const [isLoading, setLoading] = useState(true);
 
@@ -20,6 +23,7 @@ const Image = (props: ImageProps) => {
         "overflow-hidden": true,
         "animate-pulse": isLoading,
         [roundedClass]: rounded,
+        [divClassname]: divClassname
       })}
     >
       <NextImage

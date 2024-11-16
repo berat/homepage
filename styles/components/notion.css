@@ -52,3 +52,28 @@
     @apply pl-2;
   }
 } */
+
+.column-list {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(200px, 1fr)
+  ); /* Dinamik kolon genişlikleri */
+  grid-auto-rows: 8px; /* Satır yüksekliğini kontrol eder */
+  gap: 16px; /* Elemanlar arası boşluk */
+}
+
+.column-list .column {
+  display: block;
+  min-height: 300px;
+  max-height: 550px;
+}
+
+.column-list img {
+  width: 100%;
+  display: block;
+  border-radius: 8px; /* Köşeleri yuvarlar */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+  /* Görsellerin satır yüksekliğine göre doğru ölçeklenmesini sağlar */
+  grid-row-end: span calc(550px / 8); /* Yüksekliği satır birimlerine bölerek ayarlar */
+}

@@ -7,7 +7,7 @@ import { getTweetIdFromUrl, getYoutubeId, validTweet } from "@/utils/helpers";
 import Text from "./text";
 import Image from "./image";
 
-export default function renderBlock(block) {
+export default function renderBlock(block, isColumn = undefined) {
   const { type, id } = block;
   const value = block[type];
 
@@ -112,10 +112,15 @@ export default function renderBlock(block) {
         value.type === "external" ? value.external.url : value.file.url;
       const caption =
         value.caption.length > 0 ? value.caption[0]?.plain_text : "";
+
+      console.log(src, "column: ", isColumn);
+
       return (
         <figure
           key={block.id}
-          className={`${caption ? "my-4" : "my-1"} w-fit  mx-auto`}
+          className={`${caption ? "my-4" : "my-1"} ${
+            isColumn ? "w-auto flex-1" : "w-fit  mx-auto"
+          }`}
         >
           <Image
             src={src}
@@ -123,15 +128,11 @@ export default function renderBlock(block) {
             width={800}
             rounded="[4px]"
             height={800}
-            className={`${
-              caption ? "max-h-[750px]" : "max-h-[550px]"
-            } w-auto rounded`}
+            className={`${caption ? "max-h-[750px]" : "max-h-[550px]"} ${
+              isColumn ? "w-full h-[250px] md:h-[350px] lg:h-[400px] object-cover rounded" : "w-auto rounded"
+            }`}
           />
-          {caption && (
-            <figcaption className="text-sm text-text tracking-wide leading-6 w-11/12 lg:w-9/12 text-center mx-auto mt-2">
-              {caption}
-            </figcaption>
-          )}
+          {caption && <figcaption>{caption}</figcaption>}
         </figure>
       );
     }
@@ -217,24 +218,21 @@ export default function renderBlock(block) {
     }
     case "column_list": {
       return (
-        <div
-          key={block.id}
-          className="flex flex-row gap-1 lg:gap-3 flex-wrap my-3 justify-center w-fit mx-auto"
-        >
+        <div key={block.id} className="flex w-full h-[250px] md:h-[350px] lg:h-[400px] gap-4 mb-4 justify-center">
           {block.children.map((childBlock) => renderBlock(childBlock))}
         </div>
       );
     }
     case "column": {
       return (
-        <div key={block.id} className="w-fit">
+        <div key={block.id} className="">
           {block.children
             .filter((item) =>
               item.type === "paragraph"
                 ? item[item.type].rich_text.length !== 0
                 : item
             )
-            .map((child) => renderBlock(child))}
+            .map((child) => renderBlock(child, true))}
         </div>
       );
     }
