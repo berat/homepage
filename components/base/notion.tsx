@@ -124,7 +124,7 @@ export default function renderBlock(block) {
             rounded="[4px]"
             height={800}
             className={`${
-              caption ? "max-h-[750px]" : "max-h-[450px]"
+              caption ? "max-h-[750px]" : "max-h-[550px]"
             } w-auto rounded`}
           />
           {caption && (
