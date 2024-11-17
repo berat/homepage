@@ -127,7 +127,9 @@ export default function renderBlock(block, isColumn = undefined) {
             rounded="[4px]"
             height={800}
             className={`${caption ? "max-h-[750px]" : "max-h-[550px]"} ${
-              isColumn ? "w-full h-[150px] md:h-[250px] lg:h-[350px] xl:h-[400px] object-cover rounded" : "w-auto rounded"
+              isColumn
+                ? "w-full h-[370px] md:h-[250px] lg:h-[350px] xl:h-[400px] object-cover rounded"
+                : "w-auto rounded"
             }`}
           />
           {caption && <figcaption>{caption}</figcaption>}
@@ -216,14 +218,17 @@ export default function renderBlock(block, isColumn = undefined) {
     }
     case "column_list": {
       return (
-        <div key={block.id} className="flex w-full h-[150px] md:h-[250px] lg:h-[350px] xl:h-[400px] gap-4 mb-4 justify-center">
+        <div
+          key={block.id}
+          className="flex w-full md:flex-nowrap flex-wrap gap-4 mb-4 justify-center"
+        >
           {block.children.map((childBlock) => renderBlock(childBlock))}
         </div>
       );
     }
     case "column": {
       return (
-        <div key={block.id} className="">
+        <div key={block.id} className="w-full">
           {block.children
             .filter((item) =>
               item.type === "paragraph"
