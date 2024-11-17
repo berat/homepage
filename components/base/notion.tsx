@@ -113,8 +113,6 @@ export default function renderBlock(block, isColumn = undefined) {
       const caption =
         value.caption.length > 0 ? value.caption[0]?.plain_text : "";
 
-      console.log(src, "column: ", isColumn);
-
       return (
         <figure
           key={block.id}
