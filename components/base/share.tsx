@@ -13,7 +13,7 @@ interface Props {
   title: string;
   handleLikeRequest?: (count: number) => void;
 }
-const ShareButtons: React.FC<Props> = ({
+const ShareView: React.FC<Props> = ({
   likeCount,
   title,
   handleLikeRequest,
@@ -94,4 +94,4 @@ const ShareButtons: React.FC<Props> = ({
   );
 };
 
-export default ShareButtons;
+export default ShareView;

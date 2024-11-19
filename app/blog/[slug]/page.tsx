@@ -1,11 +1,12 @@
 "use server";
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 // actions
-import { getSinglePost, likedPost, updateViewPost } from "@/actions/post";
+import { getSinglePost } from "@/actions/post";
 // components
-import { PostDetail } from "@/components/contents";
-import { ShareButtons } from "@/components/base";
+import { PostDetail, ShareButtons } from "@/components/contents";
+import { PostSkeleton, ShareSkeleton } from "@/components/skeletons";
 
 export async function generateMetadata({
   params,
@@ -21,12 +22,11 @@ export async function generateMetadata({
   const description =
     post.content
       .splice(0, 5)
-      .map((block) => {
-        if (block.type === "paragraph") {
-          return block.paragraph.rich_text[0]?.plain_text;
-        }
-        return "";
-      })
+      .map((block) =>
+        block.type === "paragraph"
+          ? block.paragraph.rich_text[0]?.plain_text
+          : ""
+      )
       .join(" ")
       .slice(0, 150) + "...";
 
@@ -56,37 +56,16 @@ export async function generateMetadata({
 }
 
 export default async function Blog({ params }: { params: { slug: string } }) {
-  const post = await getSinglePost(params.slug);
-
-  if (!post || !post.post) {
-    notFound();
-  }
-
-  const updateLike = async (count: number) => {
-    "use server";
-    const liked = await likedPost(post.post.id, count);
-    return liked;
-  };
-
-  const updateView = async () => {
-    "use server";
-    if (process.env.NODE_ENV === "production") {
-      const viewed = await updateViewPost(post.post.id, post.post.view + 1);
-      return viewed;
-    }
-    return false;
-  };
-
   return (
     <main className="xl:w-container w-[95%] mx-auto lg:mb-10 my-4 flex flex-col gap-6">
-      <PostDetail post={post} updateView={updateView} />
+      <Suspense fallback={<PostSkeleton />}>
+        <PostDetail slug={params.slug} />
+      </Suspense>
       <div className="xl:w-container w-[95%] mx-auto flex flex-col gap-4">
         <hr className="w-full mx-auto border-gray bg-gray h-0.5 my-8" />
-        <ShareButtons
-          likeCount={post.post.like}
-          title={post.post.title}
-          handleLikeRequest={updateLike}
-        />
+        <Suspense fallback={<ShareSkeleton />}>
+          <ShareButtons slug={params.slug} />
+        </Suspense>
       </div>
     </main>
   );
