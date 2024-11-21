@@ -8,10 +8,12 @@ import { getSinglePost } from "@/actions/post";
 import { PostDetail, ShareButtons } from "@/components/contents";
 import { PostSkeleton, ShareSkeleton } from "@/components/skeletons";
 
-export async function generateMetadata({
-  params,
-}): Promise<Metadata | undefined> {
-  const post = await getSinglePost(params.slug);
+type Params = Promise<{ slug: string }>;
+
+export async function generateMetadata({ params }: { params: Params }) {
+  const { slug: paramsSlug } = await params;
+
+  const post = await getSinglePost(paramsSlug);
 
   if (!post || !post.post) {
     notFound();
@@ -55,16 +57,19 @@ export async function generateMetadata({
   };
 }
 
-export default async function Blog({ params }: { params: { slug: string } }) {
+export default async function Blog({ params }: { params: Params }) {
+  const { slug
+
+   } = await params;
   return (
     <main className="xl:w-container w-[95%] mx-auto lg:mb-10 my-4 flex flex-col gap-6">
       <Suspense fallback={<PostSkeleton />}>
-        <PostDetail slug={params.slug} />
+        <PostDetail slug={slug} />
       </Suspense>
       <div className="xl:w-container w-[95%] mx-auto flex flex-col gap-4">
         <hr className="w-full mx-auto border-gray bg-gray h-0.5 my-8" />
         <Suspense fallback={<ShareSkeleton />}>
-          <ShareButtons slug={params.slug} />
+          <ShareButtons slug={slug} />
         </Suspense>
       </div>
     </main>
