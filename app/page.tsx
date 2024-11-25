@@ -1,12 +1,14 @@
 import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
+// constants
+import { BLUESKY, INSTAGRAM } from "@/constants/social";
 // components
 import { HomeContent } from "@/components/contents";
 import { CardSlekeletons } from "@/components/skeletons";
 import { SectionTitle } from "@/components/base";
 // assets
-import XIcon from "@/public/icons/x-blue.svg";
+import BlueSkyIcon from "@/public/icons/bluesky.svg";
 import InstagramIcon from "@/public/icons/instagram-blue.svg";
 import ArrowUpRight from "@/public/icons/arrow-up-right-blue.svg";
 
@@ -27,12 +29,18 @@ export default function Home() {
         kalan zamanlarımda indie projelerime ağırlık verip bunu açık bir şekilde
         paylaşıyorum. Hem blogumda hem de{" "}
         <Link
-          href={"#"}
+          href={BLUESKY}
           className={
             "fill-primary text-primary inline-flex items-baseline gap-1"
           }
         >
-          <Image src={XIcon} width={17} height={17} alt={"x icon"} className="w-4 h-4" />
+          <Image
+            src={BlueSkyIcon}
+            width={19}
+            height={19}
+            alt={"bluesky icon"}
+            className="relative top-0.5"
+          />
           <b>hesabımdan</b>
           <Image
             src={ArrowUpRight}
@@ -60,7 +68,7 @@ export default function Home() {
         yansıtabiliyorsam o fotoğraf benim için güzel bir fotoğraftır.
         Fotoğrafları aynı zamanda{" "}
         <Link
-          href={"#"}
+          href={INSTAGRAM}
           className={
             "fill-primary text-primary inline-flex items-baseline gap-1"
           }
@@ -69,7 +77,7 @@ export default function Home() {
             src={InstagramIcon}
             width={18}
             height={18}
-            alt={"x icon"}
+            alt={"bluesky icon"}
             className={"relative top-0.5"}
           />
           <b>hesabımdan</b>

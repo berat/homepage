@@ -1,6 +1,8 @@
 import Image from "next/image";
 import React, { Suspense } from "react";
 import Link from "next/link";
+// constants
+import { INSTAGRAM } from "@/constants/social";
 // components
 import {PhotoContent} from "@/components/contents";
 import { CardSlekeletons } from "@/components/skeletons";
@@ -31,7 +33,7 @@ export default function Photos() {
         yansıtabiliyorsam o fotoğraf benim için güzel bir fotoğraftır.
         Fotoğrafları aynı zamanda{" "}
         <Link
-          href={"#"}
+          href={INSTAGRAM}
           className={
             "fill-primary text-primary inline-flex items-baseline gap-1"
           }
@@ -40,7 +42,7 @@ export default function Photos() {
             src={InstagramIcon}
             width={18}
             height={18}
-            alt={"x icon"}
+            alt={"bluesky icon"}
             className={"relative top-0.5"}
           />
           <b>hesabımdan</b>

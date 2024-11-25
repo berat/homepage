@@ -121,7 +121,7 @@ export const NAVIGATION_ITEMS: NavigationType<NavigationItem>[] = [
   {
     label: "Projeler",
     value: "projects",
-    disabled: true,
+    disabled: false,
   },
   {
     label: "Araçlar",
