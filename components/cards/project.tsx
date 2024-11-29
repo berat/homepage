@@ -7,23 +7,28 @@ import Image from "@/components/base/image";
 
 interface Props {
   post: ProjectType;
+  isHome?: boolean;
 }
 
-const ProjectCard: React.FC<Props> = ({ post }) => {
+const ProjectCard: React.FC<Props> = ({ post, isHome }) => {
   return (
-    <article className={"w-full md:w-[48%] min-w-[40%]"}>
+    <article
+      className={`w-full md:w-[48%] ${isHome ? "min-w-[47%] md:min-w-[40%]" : "min-w-[40%]"}`}
+    >
       <Link
         href={`/projects/${post.slug}`}
         className="flex flex-col items-start"
       >
-        <div className={"w-full min-h-[255px] rounded-lg"}>
+        <div
+          className={`w-full ${isHome ? "h-auto md:min-h-[255px]" : "min-h-[255px]"} rounded-lg`}
+        >
           <Image
             src={post.cover}
             alt={post.title ?? ""}
             width={861}
             rounded="lg"
             height={600}
-            className={`rounded-lg object-cover min-h-[255px]`}
+            className={`rounded-lg object-cover ${isHome ? "h-auto md:min-h-[255px]" : "min-h-[255px]"}`}
           />
         </div>
         <h3 className="mt-3 mb-0.5 text-xl font-semibold text-black">

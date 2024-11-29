@@ -47,7 +47,7 @@ export const ProjectSection = async () => {
       className={"flex gap-8 pb-2 items-start snap-proximity overflow-x-auto"}
     >
       {data.map((post: ProjectType) => (
-        <ProjectCard key={post.id} post={post} />
+        <ProjectCard key={post.id} post={post} isHome />
       ))}
     </div>
   );
