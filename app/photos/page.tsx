@@ -1,14 +1,14 @@
-import Image from "next/image";
 import React, { Suspense } from "react";
+import Image from "next/image";
 import Link from "next/link";
-// constants
+
 import { INSTAGRAM } from "@/constants/social";
-// components
-import {PhotoContent} from "@/components/contents";
+
+import { PhotoContent } from "@/components/contents";
 import { CardSlekeletons } from "@/components/skeletons";
-// assets
-import InstagramIcon from "@/public/icons/instagram-blue.svg";
+
 import ArrowUpRight from "@/public/icons/arrow-up-right-blue.svg";
+import InstagramIcon from "@/public/icons/instagram-blue.svg";
 
 export const metadata = {
   title: "Fotoğraflar | Berat Bozkurt",
@@ -37,6 +37,7 @@ export default function Photos() {
           className={
             "fill-primary text-primary inline-flex items-baseline gap-1"
           }
+          target="_blank"
         >
           <Image
             src={InstagramIcon}
@@ -56,7 +57,9 @@ export default function Photos() {
         </Link>{" "}
         paylaşıyorum. Daha fazla içeriğe orada da ulaşabilirsiniz.
       </p>
-      <Suspense fallback={<CardSlekeletons.PhotoCardSkeleton length={12} isPage />}>
+      <Suspense
+        fallback={<CardSlekeletons.PhotoCardSkeleton length={12} isPage />}
+      >
         <PhotoContent />
       </Suspense>
       <Link

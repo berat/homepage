@@ -1,15 +1,16 @@
 "use client";
+
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import { Sidebar } from "@/components";
 import classNames from "classnames";
 import { KBarProvider } from "kbar";
-import { useRouter, usePathname } from "next/navigation";
-// utils
+
 import { NavigationItemToIcon } from "@/utils/navigation";
 import { SocialItemToIcon } from "@/utils/social";
-// components
-import { Sidebar } from "@/components";
+
 import { MenuPost } from "@/components/base";
-// assets
+
 import HomeIcon from "@/public/icons/home.svg";
 
 type Props = {
@@ -21,7 +22,9 @@ const Providers: React.FC<Props> = ({ children }) => {
   const pathname = usePathname();
 
   const isDetail =
-    pathname.startsWith("/blog/") || pathname.startsWith("/photos");
+    pathname.startsWith("/blog/") ||
+    pathname.startsWith("/photos") ||
+    pathname.startsWith("/projects/");
 
   const classname = classNames({
     "xl:w-container lg:w-[95%] mx-auto my-4 flex gap-6": true,
@@ -65,6 +68,15 @@ const Providers: React.FC<Props> = ({ children }) => {
       icon: <NavigationItemToIcon type="photos" />,
       section: "Menüler",
       perform: () => router.push("/photos"),
+    },
+    {
+      id: "projectsAction",
+      name: "Projeler",
+      shortcut: ["4"],
+      keywords: "projeler",
+      icon: <NavigationItemToIcon type="projects" />,
+      section: "Menüler",
+      perform: () => router.push("/projects"),
     },
     {
       id: "bookmarksAction",

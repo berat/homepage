@@ -1,16 +1,16 @@
 import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-// constants
+
 import { BLUESKY, INSTAGRAM } from "@/constants/social";
-// components
+
+import { SectionTitle } from "@/components/base";
 import { HomeContent } from "@/components/contents";
 import { CardSlekeletons } from "@/components/skeletons";
-import { SectionTitle } from "@/components/base";
-// assets
+
+import ArrowUpRight from "@/public/icons/arrow-up-right-blue.svg";
 import BlueSkyIcon from "@/public/icons/bluesky.svg";
 import InstagramIcon from "@/public/icons/instagram-blue.svg";
-import ArrowUpRight from "@/public/icons/arrow-up-right-blue.svg";
 
 export default function Home() {
   return (
@@ -33,6 +33,7 @@ export default function Home() {
           className={
             "fill-primary text-primary inline-flex items-baseline gap-1"
           }
+          target="_blank"
         >
           <Image
             src={BlueSkyIcon}
@@ -72,6 +73,7 @@ export default function Home() {
           className={
             "fill-primary text-primary inline-flex items-baseline gap-1"
           }
+          target="_blank"
         >
           <Image
             src={InstagramIcon}

@@ -1,15 +1,15 @@
 import React from "react";
 import Image from "next/image";
-// models
+
 import { NavigationType } from "@/models/navigation";
-// assets
-import AboutIcon from "@/public/icons/user.svg";
+
 import BlogIcon from "@/public/icons/blog.svg";
+import BookmarkIcon from "@/public/icons/bookmark.svg";
 import PhotoIcon from "@/public/icons/camera.svg";
 import ProjectIcon from "@/public/icons/project.svg";
-import ToolsIcon from "@/public/icons/tool.svg";
-import BookmarkIcon from "@/public/icons/bookmark.svg";
 import SetupIcon from "@/public/icons/setup.svg";
+import ToolsIcon from "@/public/icons/tool.svg";
+import AboutIcon from "@/public/icons/user.svg";
 
 export type NavigationItem =
   | "about"
@@ -121,7 +121,7 @@ export const NAVIGATION_ITEMS: NavigationType<NavigationItem>[] = [
   {
     label: "Projeler",
     value: "projects",
-    disabled: true,
+    disabled: false,
   },
   {
     label: "Araçlar",

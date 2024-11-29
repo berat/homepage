@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import classNames from "classnames";
 import NextImage, { ImageProps as NextImageProps } from "next/image";
+import classNames from "classnames";
 
 type ImageProps = {
   rounded?: string;
@@ -35,7 +35,7 @@ const Image = (props: ImageProps) => {
         alt={alt}
         loading="lazy"
         quality={100}
-        onLoad={(e) => setLoading(false)}
+        onLoad={() => setLoading(false)}
         {...rest}
       />
     </div>

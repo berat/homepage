@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-// components
+
 import { AboutContent } from "@/components/contents";
 import { ParagraphSkeleton } from "@/components/skeletons";
 

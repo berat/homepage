@@ -2,11 +2,11 @@
 
 import React from "react";
 import moment from "moment";
-// models
+
 import { PostType } from "@/models/post";
-// actions
+
 import { getPosts } from "@/actions/post";
-// components
+
 import PostCard from "../cards/post";
 
 type Props = {

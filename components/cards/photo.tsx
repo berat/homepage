@@ -1,7 +1,7 @@
 import Link from "next/link";
-// models
+
 import { PhotoType } from "@/models/photo";
-// components
+
 import Image from "../base/image";
 
 interface Props {

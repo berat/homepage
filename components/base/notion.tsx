@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { Tweet } from "react-tweet";
-// utils
+
 import { getTweetIdFromUrl, getYoutubeId, validTweet } from "@/utils/helpers";
-// components
-import Text from "./text";
-import Image from "./image";
+
+import Image from "@/components/base//image";
+import Text from "@/components/base//text";
 
 export default function renderBlock(block, isColumn = undefined) {
   const { type, id } = block;
@@ -52,7 +52,7 @@ export default function renderBlock(block, isColumn = undefined) {
       return (
         <ul
           key={block.id}
-          className="w-[96%] lg:w-[95%]  mx-auto list-disc pl-8 lg:pl-16 py-1.5 lg:py-3 leading-6"
+          className="w-[96%] lg:w-[95%]  mx-auto list-disc pl-6 lg:pl-8 py-1.5 lg:py-3 leading-6"
         >
           {value.children.map((child) => renderBlock(child))}
         </ul>
@@ -62,7 +62,7 @@ export default function renderBlock(block, isColumn = undefined) {
       return (
         <ol
           key={block.id}
-          className="w-full  mx-auto list-decimal pl-8 lg:pl-16 py-1.5 lg:py-3 leading-6"
+          className="w-full  mx-auto list-decimal pl-6 lg:pl-8 py-1.5 lg:py-3 leading-6"
         >
           {value.children.map((child) => renderBlock(child))}
         </ol>
@@ -132,7 +132,11 @@ export default function renderBlock(block, isColumn = undefined) {
                 : "w-auto rounded"
             }`}
           />
-          {caption && <figcaption>{caption}</figcaption>}
+          {caption && (
+            <figcaption className="text-sm tracking-wide text-gray-400 text-center py-2 mb-4">
+              {caption}
+            </figcaption>
+          )}
         </figure>
       );
     }
@@ -140,13 +144,13 @@ export default function renderBlock(block, isColumn = undefined) {
       return (
         <hr
           key={id}
-          className="w-full lg:w-[95%]  mx-auto border-gray bg-gray h-0.5 my-8"
+          className="w-full lg:w-[95%]  mx-auto border-lightGray bg-lightGray h-0.5 my-8"
         />
       );
     case "quote":
       return (
         <blockquote
-          className="w-[96%] lg:w-[95%]  mx-auto my-6  bg-gray px-6 border-l-[3px] border-text rounded-r-md py-6 text-text text-base leading-6"
+          className="w-[96%] lg:w-[95%]  mx-auto my-6  bg-lightGray px-6 border-l-[3px] border-text rounded-r-md py-6 text-text text-base leading-6"
           key={id}
         >
           <Text title={value.rich_text} />
@@ -233,14 +237,14 @@ export default function renderBlock(block, isColumn = undefined) {
             .filter((item) =>
               item.type === "paragraph"
                 ? item[item.type].rich_text.length !== 0
-                : item
+                : item,
             )
             .map((child) => renderBlock(child, true))}
         </div>
       );
     }
     case "video": {
-      let url = value.external.url;
+      const url = value.external.url;
 
       if (getYoutubeId(url)) {
         return (

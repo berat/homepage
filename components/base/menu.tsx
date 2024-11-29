@@ -3,9 +3,9 @@
 import NextImage from "next/image";
 import Link from "next/link";
 import { useKBar } from "kbar";
-// components
-import Image from "./image";
-// assets
+
+import Image from "@/components/base/image";
+
 import MenuIcon from "@/public/icons/menu.svg";
 
 interface Props {
@@ -23,7 +23,7 @@ const MenuPost: React.FC<Props> = ({ isDetail = false }) => {
     >
       <Link
         href="/"
-        className="flex items-center gap-2 hover:bg-gray px-2 py-2 rounded"
+        className="flex items-center gap-2 hover:bg-lightGray px-2 py-2 rounded"
       >
         <Image
           src={"/berat-bozkurt.png"}

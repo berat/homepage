@@ -1,6 +1,6 @@
-import moment from "moment";
 import Link from "next/link";
-// models
+import moment from "moment";
+
 import { BookmarkType } from "@/models/bookmark";
 
 interface Props {
@@ -23,7 +23,7 @@ const BookmarkCard: React.FC<Props> = ({ data }) => {
             className="w-52 h-32 min-w-52 rounded-lg object-cover"
           />
         ) : (
-          <div className="w-52 h-32 bg-gray rounded-lg" />
+          <div className="w-52 h-32 bg-lightGray rounded-lg" />
         )}
         <div className="flex flex-col gap-2">
           <span className="font-semibold text-lg text-text leading-8">

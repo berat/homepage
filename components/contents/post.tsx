@@ -1,12 +1,12 @@
-// models
 import { PostDetailType } from "@/models/post";
-// actions
-import { getSinglePost, updateViewPost } from "@/actions/post";
-// components
+
+import { updateViewPost } from "@/actions/common";
+import { getSinglePost } from "@/actions/post";
+
 import PostDetailView from "../view/post";
 
 export default async function PostDetail({ slug }: { slug: string }) {
-  const post: boolean | PostDetailType = await getSinglePost(slug);
+  const post = await getSinglePost(slug);
 
   if (typeof post === "boolean") {
     return null;
@@ -21,5 +21,7 @@ export default async function PostDetail({ slug }: { slug: string }) {
     return false;
   };
 
-  return <PostDetailView post={post} updateView={updateView} />;
+  return (
+    <PostDetailView post={post as PostDetailType} updateView={updateView} />
+  );
 }

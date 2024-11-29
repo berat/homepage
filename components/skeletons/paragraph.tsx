@@ -2,14 +2,14 @@ const ParagraphSkeleton = () => {
   return (
     <div role="status" className="w-full rounded-lg ">
       <div className="py-6">
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
       </div>
-      <div className="animate-pulse w-full bg-gray h-48 rounded-lg mb-5 flex justify-center items-center">
+      <div className="animate-pulse w-full bg-lightGray h-48 rounded-lg mb-5 flex justify-center items-center">
         <svg
           className="w-8 h-8 stroke-gray-400"
           viewBox="0 0 24 24"
@@ -25,61 +25,61 @@ const ParagraphSkeleton = () => {
         </svg>
       </div>
       <div className="py-6">
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="title block w-2/6 h-4 my-4 mt-8 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="title block w-2/6 h-4 my-4 mt-8 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
-        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray rounded-full text-inherit">
+        <div className="block w-full h-2 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-lightGray rounded-full text-inherit">
           &nbsp;
         </div>
       </div>

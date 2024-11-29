@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-// models
+
 import { PostType } from "@/models/post";
-// components
-import Image from "../base/image";
+
+import Image from "@/components/base/image";
 
 interface Props {
   post: PostType;
@@ -11,7 +11,6 @@ interface Props {
 }
 
 const PostCard: React.FC<Props> = ({ post, isPage }) => {
-
   return (
     <article
       className={`${
@@ -43,7 +42,9 @@ const PostCard: React.FC<Props> = ({ post, isPage }) => {
             "px-1 w-full absolute z-20 text-center translate-y-[112.5px]"
           }
         >
-          <small className={"text-sm leading-5 text-gray"}>{post.date}</small>
+          <small className={"text-sm leading-5 text-lightGray"}>
+            {post.date}
+          </small>
           <h4 className={"font-semibold text-xl leading-5 text-white"}>
             {post.title}
           </h4>

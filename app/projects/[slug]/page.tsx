@@ -3,9 +3,10 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
-import { getSinglePost } from "@/actions/post";
+import { getSingleProject } from "@/actions/project";
 
-import { PostDetail, ShareButtons } from "@/components/contents";
+import { ShareButtons } from "@/components/contents";
+import { ProjectDetail } from "@/components/contents/project";
 import { PostSkeleton, ShareSkeleton } from "@/components/skeletons";
 
 type Params = Promise<{ slug: string }>;
@@ -13,26 +14,17 @@ type Params = Promise<{ slug: string }>;
 export async function generateMetadata({ params }: { params: Params }) {
   const { slug: paramsSlug } = await params;
 
-  const post = await getSinglePost(paramsSlug);
+  const post = await getSingleProject(paramsSlug);
 
   if (!post || !post.post) {
     notFound();
   }
 
-  const { title, slug, cover } = post.post;
+  const { title, slug, summary, cover } = post.post;
 
-  const description =
-    post.content
-      .splice(0, 5)
-      .map((block) =>
-        block.type === "paragraph"
-          ? block.paragraph.rich_text[0]?.plain_text
-          : "",
-      )
-      .join(" ")
-      .slice(0, 150) + "...";
+  const description = summary;
 
-  const ogImage = cover ?? `https://beratbozkurt.net/og?title=${title}`;
+  const ogImage = cover;
 
   return {
     title: title + " | Berat Bozkurt",
@@ -41,7 +33,7 @@ export async function generateMetadata({ params }: { params: Params }) {
       title: title + " | Berat Bozkurt",
       description,
       type: "article",
-      url: `https://beratbozkurt.net/blog/${slug}`,
+      url: `https://beratbozkurt.net/projects/${slug}`,
       images: [
         {
           url: ogImage,
@@ -62,12 +54,12 @@ export default async function Blog({ params }: { params: Params }) {
   return (
     <main className="xl:w-container w-[95%] mx-auto lg:mb-10 my-4 flex flex-col gap-6">
       <Suspense fallback={<PostSkeleton />}>
-        <PostDetail slug={slug} />
+        <ProjectDetail slug={slug} />
       </Suspense>
       <div className="xl:w-container w-[95%] mx-auto flex flex-col gap-4">
         <hr className="w-full mx-auto border-lightGray bg-lightGray h-0.5 my-8" />
         <Suspense fallback={<ShareSkeleton />}>
-          <ShareButtons slug={slug} />
+          <ShareButtons category="project" slug={slug} />
         </Suspense>
       </div>
     </main>

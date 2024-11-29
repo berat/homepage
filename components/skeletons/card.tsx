@@ -55,9 +55,7 @@ export const PhotoCardSkeleton: React.FC<PageProps> = ({
   return (
     <div
       className={`flex gap-4 items-start ${
-        isPage
-          ? "w-full my-8 flex-wrap"
-          : "pb-2 snap-proximity overflow-x-auto"
+        isPage ? "w-full my-8 flex-wrap" : "pb-2 snap-proximity overflow-x-auto"
       } `}
     >
       {Array.from({ length: length }).map(() => (
@@ -67,5 +65,70 @@ export const PhotoCardSkeleton: React.FC<PageProps> = ({
         />
       ))}
     </div>
+  );
+};
+
+export const ProjectCardSkeleton = () => {
+  return (
+    <ul className="w-full flex flex-col gap-10 my-4 animate-pulse">
+      <div>
+        <h3 className="h-6 bg-gray-200 rounded w-1/4"></h3>
+        <span className="h-3 bg-gray-200 rounded w-1/2 inline-block mt-2 mb-4"></span>
+        <div className="flex gap-4 flex-wrap">
+          <article className="w-full md:w-[48%]">
+            <a className="flex flex-col items-start">
+              <div className="w-full h-[255px] rounded-lg bg-gray-200"></div>
+              <h3 className="mt-3 mb-0.5 h-4 bg-gray-200 rounded w-1/4"></h3>
+              <p className="h-3 bg-gray-200 rounded w-full my-2"></p>
+              <p className="h-3 bg-gray-200 rounded w-full"></p>
+            </a>
+          </article>
+          <article className="w-full md:w-[48%]">
+            <a className="flex flex-col items-start">
+              <div className="w-full h-[255px] rounded-lg bg-gray-200"></div>
+              <h3 className="mt-3 mb-0.5 h-4 bg-gray-200 rounded w-1/4"></h3>
+              <p className="h-3 bg-gray-200 rounded w-full my-2"></p>
+              <p className="h-3 bg-gray-200 rounded w-full"></p>
+            </a>
+          </article>
+        </div>
+      </div>
+      <div>
+        <h3 className="h-6 bg-gray-200 rounded w-1/4"></h3>
+        <span className="h-3 bg-gray-200 rounded w-1/2 inline-block mt-2 mb-4"></span>
+        <div className="flex gap-4 flex-wrap">
+          <article className="w-full md:w-[48%]">
+            <a className="flex flex-col items-start">
+              <div className="w-full h-[255px] rounded-lg bg-gray-200"></div>
+              <h3 className="mt-3 mb-0.5 h-4 bg-gray-200 rounded w-1/4"></h3>
+              <p className="h-3 bg-gray-200 rounded w-full my-2"></p>
+              <p className="h-3 bg-gray-200 rounded w-full"></p>
+            </a>
+          </article>
+        </div>
+      </div>
+      <div>
+        <h3 className="h-6 bg-gray-200 rounded w-1/4"></h3>
+        <span className="h-3 bg-gray-200 rounded w-1/2 inline-block mt-2 mb-4"></span>
+        <div className="flex gap-4 flex-wrap">
+          <article className="w-full md:w-[48%]">
+            <a className="flex flex-col items-start">
+              <div className="w-full h-[255px] rounded-lg bg-gray-200"></div>
+              <h3 className="mt-3 mb-0.5 h-4 bg-gray-200 rounded w-1/4"></h3>
+              <p className="h-3 bg-gray-200 rounded w-full my-2"></p>
+              <p className="h-3 bg-gray-200 rounded w-full"></p>
+            </a>
+          </article>
+          <article className="w-full md:w-[48%]">
+            <a className="flex flex-col items-start">
+              <div className="w-full h-[255px] rounded-lg bg-gray-200"></div>
+              <h3 className="mt-3 mb-0.5 h-4 bg-gray-200 rounded w-1/4"></h3>
+              <p className="h-3 bg-gray-200 rounded w-full my-2"></p>
+              <p className="h-3 bg-gray-200 rounded w-full"></p>
+            </a>
+          </article>
+        </div>
+      </div>
+    </ul>
   );
 };

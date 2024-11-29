@@ -1,11 +1,11 @@
-"use server"
-// models
+"use server";
+
 import { PhotoType } from "@/models/photo";
 import { PostType } from "@/models/post";
-// actions
+
 import { getPhotos } from "@/actions/photos";
 import { getPosts } from "@/actions/post";
-// components
+
 import PhotoCard from "../cards/photo";
 import PostCard from "../cards/post";
 

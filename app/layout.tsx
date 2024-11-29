@@ -1,10 +1,10 @@
 import { Inter } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-// components
-import { Providers, CommandMenu } from "@/components/base";
-// assets
+
+import { CommandMenu, Providers } from "@/components/base";
+
 import "moment/locale/tr";
 import "@/styles/globals.css";
 

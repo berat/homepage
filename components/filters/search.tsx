@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import React from "react";
-// assets
+import Image from "next/image";
+
 import SearchIcon from "@/public/icons/search.svg";
 
 interface Props {
@@ -14,7 +14,7 @@ const Search: React.FC<Props> = ({ hideSearch, toggleSearch }) => {
   return (
     <>
       <button
-        className={`bg-gray rounded-lg px-2 py-2 ${
+        className={`bg-lightGray rounded-lg px-2 py-2 ${
           !hideSearch ? "mb-12" : "mb-0"
         }`}
         onClick={toggleSearch}
@@ -25,7 +25,7 @@ const Search: React.FC<Props> = ({ hideSearch, toggleSearch }) => {
         <div className={"absolute top-[50px] flex gap-2"}>
           <input
             type="text"
-            className={"relative bg-gray rounded-lg w-[300px] px-2 py-2"}
+            className={"relative bg-lightGray rounded-lg w-[300px] px-2 py-2"}
             placeholder={"Ara"}
           />
         </div>

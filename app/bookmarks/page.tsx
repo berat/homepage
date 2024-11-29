@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-// components
+
 import { BookmarkContent } from "@/components/contents";
 import { BookmarkSkeleton } from "@/components/skeletons";
 
