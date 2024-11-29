@@ -13,8 +13,8 @@ import BlueSkyIcon from "@/public/icons/bluesky.svg";
 import "moment/locale/tr";
 
 export const metadata = {
-  title: "Blog | Berat Bozkurt",
-  description: "Berat Bozkurt, blog, frontend developer, photography, blogging",
+  title: "Projeler | Berat Bozkurt",
+  description: "Berat Bozkurt, project, frontend developer, photography, blogging",
 };
 
 export default function Blog() {
