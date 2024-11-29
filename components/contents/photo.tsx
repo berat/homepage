@@ -1,8 +1,7 @@
-// models
 import { PhotoType } from "@/models/photo";
-// actions
+
 import { getPhotos } from "@/actions/photos";
-// components
+
 import PhotoCard from "../cards/photo";
 
 const PhotoContent = async () => {

@@ -1,9 +1,10 @@
-"use client"
+"use client";
+
 import { useEffect } from "react";
 import hljs from "highlight.js";
-// models
+
 import { PostDetailType } from "@/models/post";
-// components
+
 import { Image, NotionRender } from "../base";
 
 interface PostDetailProps {
@@ -15,6 +16,7 @@ const PostDetailView: React.FC<PostDetailProps> = ({ post, updateView }) => {
   useEffect(() => {
     hljs.highlightAll();
     updateView();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

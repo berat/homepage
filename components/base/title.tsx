@@ -1,8 +1,9 @@
 "use client";
+
 import Link from "next/link";
-// components
-import Image from "../base/image";
-// assets
+
+import Image from "@/components/base//image";
+
 import RightArrowIcon from "@/public/icons/arrow-right.svg";
 
 interface Props {
@@ -11,11 +12,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const SectionTitle: React.FC<Props> = ({
-  title,
-  path,
-  children,
-}) => {
+const SectionTitle: React.FC<Props> = ({ title, path, children }) => {
   return (
     <section className={"my-9"}>
       <header className={"w-full mb-3 flex justify-between items-center"}>

@@ -1,17 +1,28 @@
 {
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+  "importOrderTypeScriptVersion": "5.0.0",
+  "importOrderCaseSensitive": false,
   "importOrder": [
     "^(react/(.*)$)|^(react$)",
     "^(next/(.*)$)|^(next$)",
     "<THIRD_PARTY_MODULES>",
-    "// utils",
+    "",
+    "^@/models/(.*)$",
+    "",
     "^@/config/(.*)$",
+    "^@/utils/(.*)$",
     "^@/lib/(.*)$",
+    "^@/constants/(.*)$",
     "^@/hooks/(.*)$",
-    "// components",
-    "^@/components/ui/(.*)$",
+    "",
+    "^@/actions/(.*)$",
+    "",
     "^@/components/(.*)$",
-    "// assets",
+    "^../(.*)$",
+    "",
     "^@/styles/(.*)$",
+    "^@/public/(.*)$",
     "^[./]"
   ]
 }

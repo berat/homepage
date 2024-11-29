@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-// assets
+
 import DownIcon from "@/public/icons/down.svg";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const defaultCategoryStyle =
-  "bg-gray px-3 py-1 rounded-2xl text-sm font-medium";
+  "bg-lightGray px-3 py-1 rounded-2xl text-sm font-medium";
 
 const Category: React.FC<Props> = ({
   data,
@@ -29,7 +29,7 @@ const Category: React.FC<Props> = ({
         className={`flex items-center gap-1 ${
           selectedCategory.length > 0
             ? "bg-primary text-white"
-            : "bg-gray text-black"
+            : "bg-lightGray text-black"
         } rounded-lg px-5 py-2 ${!hideOptions ? "mb-12" : "mb-0"}`}
         onClick={toggleCategory}
       >
@@ -50,7 +50,7 @@ const Category: React.FC<Props> = ({
               className={`${defaultCategoryStyle} ${
                 selectedCategory.includes(category)
                   ? "bg-primary text-white"
-                  : "bg-gray"
+                  : "bg-lightGray"
               }`}
               onClick={() => handleClickCategory(category)}
             >

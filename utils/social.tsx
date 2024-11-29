@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
-// models
+
 import { NavigationType } from "@/models/navigation";
-// constants
+
 import {
   BLUESKY,
   GITHUB,
@@ -10,12 +10,12 @@ import {
   LINKEDIN,
   TWITTER,
 } from "@/constants/social";
-// assets
-import XIcon from "@/public/icons/x.svg";
+
 import BlueSkyIcon from "@/public/icons/bluesky-black.svg";
 import GithubIcon from "@/public/icons/github.svg";
 import InstagramIcon from "@/public/icons/instagram.svg";
 import LinkedinIcon from "@/public/icons/linkedin.svg";
+import XIcon from "@/public/icons/x.svg";
 
 export enum SocialItem {
   twitter = "#1DA1F2",

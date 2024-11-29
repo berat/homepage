@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import ConfettiExplosion from "react-confetti-explosion";
-// assets
+
+import CopyIcon from "@/public/icons/copy.svg";
 import LikeIcon from "@/public/icons/heart.svg";
 import XIcon from "@/public/icons/x-white.svg";
-import CopyIcon from "@/public/icons/copy.svg";
 
 interface Props {
   likeCount: number;

@@ -1,15 +1,16 @@
 "use client";
+
 import React, { useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import classNames from "classnames";
-// utils
+
 import { NAVIGATION_ITEMS, NavigationItemToIcon } from "@/utils/navigation";
 import { SOCIAL_ITEMS, SocialItemToIcon } from "@/utils/social";
-// components
+
 import { Logo } from "../base";
-// assets
+
 import ArrowUpRightIcon from "@/public/icons/arrow-up-right.svg";
 
 const Sidebar = () => {
@@ -42,6 +43,7 @@ const Sidebar = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -67,7 +69,7 @@ const Sidebar = () => {
             >
               <Link
                 href={item.disabled ? "/" : item.value}
-                className={`flex py-1 px-3 gap-2.5 items-center hover:bg-gray rounded ${
+                className={`flex py-1 px-3 gap-2.5 items-center hover:bg-lightGray rounded ${
                   pathname.includes(item.value) &&
                   "bg-primary" + " text-white hover:bg-primary "
                 } ${
@@ -89,7 +91,7 @@ const Sidebar = () => {
                   className={`${
                     pathname.includes(item.value)
                       ? "bg-[#4172DE] text-white font-medium"
-                      : "bg-gray text-text"
+                      : "bg-lightGray text-text"
                   } px-1.5 py-1 rounded text-xs flex w-5 justify-center`}
                 >
                   {index + 1}
@@ -112,6 +114,7 @@ const Sidebar = () => {
               "hover:bg-[#000000] rounded": item.value === "instagram",
               "hover:bg-[#1D2227] rounded": item.value === "github",
               "hover:bg-[#2567C2] rounded": item.value === "linkedin",
+              "hover:bg-[#0285ff] rounded": item.value === "bluesky",
             });
             return (
               <li key={index} className={className}>

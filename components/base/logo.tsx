@@ -1,12 +1,14 @@
 import Link from "next/link";
-// components
+
 import Image from "./image";
 
 const Logo = () => {
   return (
     <Link
       href={"/"}
-      className={"flex gap-2.5 px-3 py-2 items-center rounded hover:bg-gray"}
+      className={
+        "flex gap-2.5 px-3 py-2 items-center rounded hover:bg-lightGray"
+      }
     >
       <Image
         src={"/berat-bozkurt.png"}

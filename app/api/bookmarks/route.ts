@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import moment from "moment";
+
 import "moment/locale/tr";
-// models
+
 import { BookmarkType } from "@/models/bookmark";
 
 const collectionId: number = 25106674;
@@ -28,11 +29,11 @@ export async function GET() {
         data: BookmarkType[],
         dateKey: keyof BookmarkType,
         currentlyForm: string | undefined,
-        format: string
+        format: string,
       ) => {
         return data.reduce((acc, item: BookmarkType) => {
           const getMonth = moment(item[dateKey], currentlyForm).format(
-            format ?? "MMMM YYYY"
+            format ?? "MMMM YYYY",
           );
           acc[getMonth] = acc[getMonth] || [];
           acc[getMonth].push(item);

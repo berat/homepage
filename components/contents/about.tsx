@@ -1,6 +1,7 @@
 "use server";
-import { getBlocks } from "@/actions/post";
-// components
+
+import { getBlocks } from "@/utils/parser";
+
 import { NotionRender } from "@/components/base";
 
 export default async function AboutContent() {

@@ -1,18 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
+import Image from "next/image";
+import classNames from "classnames";
 import {
   KBarAnimator,
   KBarPortal,
   KBarPositioner,
   KBarResults,
-  useMatches,
   useKBar,
+  useMatches,
 } from "kbar";
-import { useEffect } from "react";
-import classNames from "classnames";
-import Image from "next/image";
-// assets
+
 import ArrowRight from "@/public/icons/arrow-right.svg";
 
 function RenderResults() {

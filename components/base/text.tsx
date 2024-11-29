@@ -1,7 +1,8 @@
 "use client";
-import classNames from "classnames";
+
 import Link from "next/link";
-// utils
+import classNames from "classnames";
+
 import { getRandomInt } from "@/utils/helpers";
 
 export default function Text({ title }) {
@@ -28,7 +29,7 @@ export default function Text({ title }) {
       <span
         className={classname}
         style={color !== "default" ? { color } : {}}
-        key={getRandomInt(666666,214144141)}
+        key={getRandomInt(666666, 214144141)}
       >
         {text.link ? (
           <Link
@@ -36,7 +37,7 @@ export default function Text({ title }) {
             className="text-primary underline underline-offset-2 font-medium"
             target={
               !text.link.url.includes(
-                typeof window !== "undefined" && window.location.origin
+                typeof window !== "undefined" && window.location.origin,
               )
                 ? "_blank"
                 : "_self"
