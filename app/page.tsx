@@ -60,9 +60,15 @@ export default function Home() {
       </SectionTitle>
 
       <p className="py-2">
-        Boş zamanlarımda proje geliştirmekten keyif alıyorum. Bu projelerin bir
-        kısmını open-source ile geliştiriyorum. Bir kısmını ise indie-project
-        ile geliştirip pasif gelir elde etmeyi planlıyorum. Bu proje süreçlerini
+        Boş zamanlarımda proje geliştirmekten keyif alıyorum. Projelerimi {" "}
+        <b>açık kaynak</b> veya <b>indie-project</b> olarak geliştiriyorum, bu
+        da toplulukla iş birliği yapmamı sağlıyor. Genellikle{" "}
+        <i>hayatı kolaylaştıracak</i> veya <i>eğlenceli fikirlerden</i> ilham
+        alıyorum.
+        <br />
+        <br />
+        Yeni teknolojiler denemek beni motive ediyor ve karşılaştığım zorluklar
+        problem çözme yeteneğimi geliştiriyor. Proje süreçlerimi{" "}
         <Link
           href={BLUESKY}
           className={
@@ -77,7 +83,7 @@ export default function Home() {
             alt={"bluesky icon"}
             className="relative top-[3px] -right-0.5"
           />
-          <b>hesabım</b>
+          <b>hesabımda</b>
           <Image
             src={ArrowUpRight}
             width={17}
@@ -86,8 +92,8 @@ export default function Home() {
             className={"relative top-[3px] -left-1 -mr-1"}
           />
         </Link>{" "}
-        üzerinden açık bir şekilde paylaşarak takipçilerle geliştirmeyi
-        seviyorum.
+        paylaşarak takipçilerle etkileşimde bulunuyorum. Geri bildirim
+        alışverişi, projelerimi daha da geliştirmeme yardımcı oluyor.
       </p>
       <SectionTitle title="PROJELER" path="/projects">
         <Suspense fallback={<CardSlekeletons.ProjectCardSkeleton />}>
