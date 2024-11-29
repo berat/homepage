@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { Client } from "@notionhq/client";
 import {
   PageObjectResponse,
@@ -12,33 +13,39 @@ const notion = new Client({
   auth: process.env.NOTION_SECRET,
 });
 
-export const gelAllProjects = async (length?: number) => {
-  const projects: QueryDatabaseResponse = await notion.databases.query({
-    database_id: process.env.NOTION_PROJECT_ID,
-    page_size: length || undefined,
-    sorts: [
-      {
-        property: "Status",
-        direction: "ascending",
+export const gelAllProjects = unstable_cache(
+  async (length?: number) => {
+    const projects: QueryDatabaseResponse = await notion.databases.query({
+      database_id: process.env.NOTION_PROJECT_ID,
+      page_size: length || undefined,
+      sorts: [
+        {
+          property: "Status",
+          direction: "ascending",
+        },
+      ],
+    });
+    const allProjects = projects.results as PageObjectResponse[];
+    const allCategories: string[] = [];
+
+    const resultPost: ProjectType[] = allProjects.map(
+      (post: PageObjectResponse) => {
+        const formattedPost = getPageMetaData(post) as unknown as ProjectType;
+        formattedPost.category.map((category: string) => {
+          allCategories.push(category);
+        });
+
+        return formattedPost;
       },
-    ],
-  });
-  const allProjects = projects.results as PageObjectResponse[];
-  const allCategories: string[] = [];
+    );
 
-  const resultPost: ProjectType[] = allProjects.map(
-    (post: PageObjectResponse) => {
-      const formattedPost = getPageMetaData(post) as unknown as ProjectType;
-      formattedPost.category.map((category: string) => {
-        allCategories.push(category);
-      });
-
-      return formattedPost;
-    },
-  );
-
-  return { data: resultPost, categories: new Set(allCategories) };
-};
+    return { data: resultPost, categories: new Set(allCategories) };
+  },
+  [],
+  {
+    revalidate: 10800, // 3 hour
+  },
+);
 
 export const getSingleProject = async (slug: string) => {
   const response = await notion.databases.query({

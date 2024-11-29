@@ -87,7 +87,6 @@ export const getPosts = async (length?: number) => {
   } else {
     return {
       data: response.data as PostType[],
-      // @ts-ignore
       categories: ["Hepsi", ...response.categories] as string[],
     };
   }
