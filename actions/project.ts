@@ -16,6 +16,12 @@ export const gelAllProjects = async (length?: number) => {
   const projects: QueryDatabaseResponse = await notion.databases.query({
     database_id: process.env.NOTION_PROJECT_ID,
     page_size: length || undefined,
+    sorts: [
+      {
+        property: "Status",
+        direction: "ascending",
+      },
+    ],
   });
   const allProjects = projects.results as PageObjectResponse[];
   const allCategories: string[] = [];
@@ -71,7 +77,6 @@ export const getProject = async (length?: number) => {
   } else {
     return {
       data: response.data as ProjectType[],
-      // @ts-ignore
       type: ["Hepsi", ...response.categories] as string[],
     };
   }

@@ -58,6 +58,42 @@ export default function Home() {
           <HomeContent.PostSection />
         </Suspense>
       </SectionTitle>
+
+      <p className="py-2">
+        Boş zamanlarımda proje geliştirmekten keyif alıyorum. Bu projelerin bir
+        kısmını open-source ile geliştiriyorum. Bir kısmını ise indie-project
+        ile geliştirip pasif gelir elde etmeyi planlıyorum. Bu proje süreçlerini
+        <Link
+          href={BLUESKY}
+          className={
+            "fill-primary text-primary inline-flex items-baseline gap-1"
+          }
+          target="_blank"
+        >
+          <Image
+            src={BlueSkyIcon}
+            width={19}
+            height={19}
+            alt={"bluesky icon"}
+            className="relative top-[3px] -right-0.5"
+          />
+          <b>hesabım</b>
+          <Image
+            src={ArrowUpRight}
+            width={17}
+            height={17}
+            alt={"open new icon"}
+            className={"relative top-[3px] -left-1 -mr-1"}
+          />
+        </Link>{" "}
+        üzerinden açık bir şekilde paylaşarak takipçilerle geliştirmeyi
+        seviyorum.
+      </p>
+      <SectionTitle title="PROJELER" path="/projects">
+        <Suspense fallback={<CardSlekeletons.ProjectCardSkeleton />}>
+          <HomeContent.ProjectSection />
+        </Suspense>
+      </SectionTitle>
       <p>
         Gözüme güzel gelen her görüntüyü deklanşöre basıp ekranda görmeyi
         seviyorum. Anları ölümsüzleştirip arşive alarak zamanı

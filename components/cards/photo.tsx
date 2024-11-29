@@ -19,7 +19,7 @@ const PhotoCard: React.FC<Props> = ({ data, isPage }) => {
       >
         <Image
           src={data.urls.regular}
-          alt={data.alt_description}
+          alt={data.alt_description ?? ""}
           rounded="lg"
           width={900}
           height={800}
@@ -40,7 +40,7 @@ const PhotoCard: React.FC<Props> = ({ data, isPage }) => {
       />
       <Image
         src={data.urls.regular}
-        alt={data.alt_description}
+        alt={data.alt_description ?? ""}
         rounded="lg"
         width={900}
         height={800}

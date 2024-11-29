@@ -45,7 +45,7 @@ export default function Blog() {
             alt={"bluesky icon"}
             className="relative top-[3px] -right-0.5"
           />
-          <b>hesabımdan</b>
+          <b>hesabım</b>
           <Image
             src={ArrowUpRight}
             width={17}

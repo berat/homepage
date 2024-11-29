@@ -22,7 +22,7 @@ const PostCard: React.FC<Props> = ({ post, isPage }) => {
           {post.cover && (
             <Image
               src={post.cover}
-              alt={post.title}
+              alt={post.title ?? ""}
               width={800}
               rounded="lg"
               height={500}

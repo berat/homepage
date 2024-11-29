@@ -11,7 +11,7 @@ interface Props {
 
 const ProjectCard: React.FC<Props> = ({ post }) => {
   return (
-    <article className={"w-full md:w-[48%]"}>
+    <article className={"w-full md:w-[48%] min-w-[40%]"}>
       <Link
         href={`/projects/${post.slug}`}
         className="flex flex-col items-start"
@@ -19,7 +19,7 @@ const ProjectCard: React.FC<Props> = ({ post }) => {
         <div className={"w-full min-h-[255px] rounded-lg"}>
           <Image
             src={post.cover}
-            alt={post.title}
+            alt={post.title ?? ""}
             width={861}
             rounded="lg"
             height={600}

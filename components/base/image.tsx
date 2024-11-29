@@ -32,7 +32,7 @@ const Image = (props: ImageProps) => {
           [roundedClass]: rounded,
         })}
         src={src}
-        alt={alt}
+        alt={alt ?? ""}
         loading="lazy"
         quality={100}
         onLoad={() => setLoading(false)}

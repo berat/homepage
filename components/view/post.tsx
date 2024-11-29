@@ -36,7 +36,7 @@ const PostDetailView: React.FC<PostDetailProps> = ({ post, updateView }) => {
       {post.post.cover && (
         <Image
           src={post.post.cover}
-          alt={post.post.title}
+          alt={post.post.title ?? ""}
           width={1000}
           quality={100}
           rounded="lg"
