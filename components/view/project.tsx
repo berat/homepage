@@ -77,7 +77,7 @@ const ProjectDetailView: React.FC<ProjectDetailProps> = ({
           quality={100}
           rounded="lg"
           height={400}
-          className="mt-5 mb-4 w-full md:w-fit md:mb-0 md:max-h-[450px] rounded-lg object-cover"
+          className="mt-5 mb-4 w-full md:w-[inherit] md:mb-0 md:max-h-[450px] rounded-lg object-cover"
         />
         <div className="w-full inline-flex md:hidden gap-4">
           {post.post.demo && (
