@@ -22,14 +22,16 @@ const ProjectCard: React.FC<Props> = ({ post, isHome }) => {
         <div
           className={`w-full ${isHome ? "h-auto md:min-h-[255px]" : "min-h-[255px]"} rounded-lg`}
         >
-          <Image
-            src={post.cover}
-            alt={post.title ?? ""}
-            width={861}
-            rounded="lg"
-            height={600}
-            className={`rounded-lg object-cover ${isHome ? "h-auto md:min-h-[255px]" : "min-h-[255px]"}`}
-          />
+          {post.cover && (
+            <Image
+              src={post.cover}
+              alt={post.title ?? ""}
+              width={861}
+              rounded="lg"
+              height={600}
+              className={`rounded-lg object-cover ${isHome ? "h-auto md:min-h-[255px]" : "min-h-[255px]"}`}
+            />
+          )}
         </div>
         <h3 className="mt-3 mb-0.5 text-xl font-semibold text-black">
           {post.title}
