@@ -4,7 +4,7 @@ import { BookmarkContent } from "@/components/contents";
 import { BookmarkSkeleton } from "@/components/skeletons";
 
 export const metadata = {
-  title: "Bookmarks | Berat Bozkurt",
+  title: "Yer İmleri | Berat Bozkurt",
   description:
     "Berat Bozkurt, bookmarks, frontend developer, photography, blogging",
 };
@@ -16,7 +16,7 @@ export default async function Bookmarks() {
     >
       <header className="w-full xl:w-blog mx-auto pb-4">
         <h2 className="text-3xl lg:text-2xl font-semibold tracking-tight text-black leading-10 mb-4">
-          Bookmark
+          Yer İmleri
         </h2>
       </header>
       <p className="py-2">

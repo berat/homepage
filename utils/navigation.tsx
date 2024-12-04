@@ -8,7 +8,6 @@ import BookmarkIcon from "@/public/icons/bookmark.svg";
 import PhotoIcon from "@/public/icons/camera.svg";
 import ProjectIcon from "@/public/icons/project.svg";
 import SetupIcon from "@/public/icons/setup.svg";
-import ToolsIcon from "@/public/icons/tool.svg";
 import AboutIcon from "@/public/icons/user.svg";
 
 export type NavigationItem =
@@ -17,8 +16,7 @@ export type NavigationItem =
   | "photos"
   | "projects"
   | "tools"
-  | "bookmarks"
-  | "setup";
+  | "bookmarks";
 
 type Props = {
   type: NavigationItem;
@@ -70,7 +68,7 @@ export const NavigationItemToIcon: React.FC<Props> = ({ type, isActive }) => {
     case "tools":
       return (
         <Image
-          src={ToolsIcon}
+          src={SetupIcon}
           width={20}
           height={20}
           alt={"icon"}
@@ -81,16 +79,6 @@ export const NavigationItemToIcon: React.FC<Props> = ({ type, isActive }) => {
       return (
         <Image
           src={BookmarkIcon}
-          width={20}
-          height={20}
-          alt={"icon"}
-          className={isActive ? "invert" : ""}
-        />
-      );
-    case "setup":
-      return (
-        <Image
-          src={SetupIcon}
           width={20}
           height={20}
           alt={"icon"}
@@ -129,13 +117,8 @@ export const NAVIGATION_ITEMS: NavigationType<NavigationItem>[] = [
     disabled: true,
   },
   {
-    label: "Bookmarks",
+    label: "Yer İmleri",
     value: "bookmarks",
     disabled: false,
-  },
-  {
-    label: "Setup",
-    value: "setup",
-    disabled: true,
   },
 ];

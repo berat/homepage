@@ -80,7 +80,7 @@ const Providers: React.FC<Props> = ({ children }) => {
     },
     {
       id: "bookmarksAction",
-      name: "Bookmarks",
+      name: "Yer İmleri",
       shortcut: ["3"],
       keywords: "bookmarks",
       icon: <NavigationItemToIcon type="bookmarks" />,
