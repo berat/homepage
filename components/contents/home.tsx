@@ -33,7 +33,7 @@ export const PostSection = async () => {
       className={"flex gap-4 pb-2 items-center snap-proximity overflow-x-auto"}
     >
       {allPosts.map((post: PostType) => (
-        <PostCard key={post.id} post={post} />
+        <PostCard key={post.slug} post={post} />
       ))}
     </div>
   );
@@ -47,8 +47,8 @@ export const ProjectSection = async () => {
     <div
       className={"flex gap-8 pb-2 items-start snap-proximity overflow-x-auto"}
     >
-      {data.map((post: any) => (
-        <ProjectCard key={post.id} post={post} isHome />
+      {data.map((post: ProjectType) => (
+        <ProjectCard key={post.slug} post={post} isHome />
       ))}
     </div>
   );

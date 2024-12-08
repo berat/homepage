@@ -23,7 +23,7 @@ const statusDescription = {
 const ProjectList: React.FC<Props> = async ({ data }) => {
   const statusOrder = ["Şu an", "Gelecek", "Geçmiş"];
 
-  const sortedGroups = data.reduce((acc: any, item: any) => {
+  const sortedGroups = data.reduce((acc: GroupedData, item: ProjectType) => {
     const { status } = item;
     if (!acc[status]) {
       acc[status] = [];
@@ -52,7 +52,7 @@ const ProjectList: React.FC<Props> = async ({ data }) => {
         </span>
         <div className={"flex gap-4 flex-wrap"}>
           {orderedGroups[key].map((post: ProjectType) => (
-            <ProjectCard key={post.id} post={post} />
+            <ProjectCard key={post.slug} post={post} />
           ))}
         </div>
       </ul>

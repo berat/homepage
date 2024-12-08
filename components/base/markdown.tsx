@@ -1,6 +1,7 @@
+import { ReactNode } from "react";
 import Link from "next/link";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
+import { BLOCKS, Document, INLINES, MARKS } from "@contentful/rich-text-types";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { Tweet } from "react-tweet";
 
@@ -18,9 +19,15 @@ interface AssetLink {
   block: Asset[];
 }
 
-interface Content {
-  json: any;
+export interface Content {
+  json: Document;
   links: {
+    entries: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      inline: any[];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      block: any[];
+    };
     assets: AssetLink;
   };
 }
@@ -58,18 +65,20 @@ function RichTextAsset({
   return null;
 }
 
-export default function Markdown({ content }: { content }) {
-  const findInlineEntry = (id) =>
+export default function Markdown({ content }: { content: Content }) {
+  const findInlineEntry = (id: number) =>
     content.links.entries.inline.find((item) => item.sys.id === id);
-  const findBlock = (id) =>
+  const findBlock = (id: number) =>
     content.links?.entries.block.find((item) => item.sys.id === id);
 
   return documentToReactComponents(content.json, {
     renderText: (text) => {
       if (text === "") return;
-      return text.split("\n").reduce((children: any, textSegment, index) => {
-        return [...children, index > 0 && <br key={index} />, textSegment];
-      }, []);
+      return text
+        .split("\n")
+        .reduce((children: ReactNode[], textSegment, index: number) => {
+          return [...children, index > 0 && <br key={index} />, textSegment];
+        }, []);
     },
     renderMark: {
       [MARKS.BOLD]: (text) => {
@@ -106,54 +115,54 @@ export default function Markdown({ content }: { content }) {
           assets={content.links.assets.block}
         />
       ),
-      [BLOCKS.PARAGRAPH]: (node, children: any) => {
+      [BLOCKS.PARAGRAPH]: (_, children: ReactNode[]) => {
         return (
           <div className="paragraph w-[96%] lg:w-full  mx-auto py-1.5 lg:py-2 leading-6 text-text">
             {children}
           </div>
         );
       },
-      [BLOCKS.HEADING_1]: (_, children: any) => {
+      [BLOCKS.HEADING_1]: (_, children: ReactNode[]) => {
         return (
           <h1 className="w-[96%] lg:w-full  mx-auto text-3xl font-semibold leading-8 py-2 pt-8 lg:pt-6">
             {children}
           </h1>
         );
       },
-      [BLOCKS.HEADING_2]: (_, children: any) => {
+      [BLOCKS.HEADING_2]: (_, children: ReactNode[]) => {
         return (
           <h2 className="w-[96%] lg:w-full  mx-auto text-2xl font-semibold leading-8 py-1.5 pt-8 lg:pt-6">
             {children}
           </h2>
         );
       },
-      [BLOCKS.HEADING_3]: (_, children: any) => {
+      [BLOCKS.HEADING_3]: (_, children: ReactNode[]) => {
         return (
           <h3 className="w-[96%] lg:w-full  mx-auto text-xl leading-7 py-2 pt-8">
             {children}
           </h3>
         );
       },
-      [BLOCKS.UL_LIST]: (_, children: any) => {
+      [BLOCKS.UL_LIST]: (_, children: ReactNode[]) => {
         return (
           <ul className="w-[96%] lg:w-full  mx-auto list-disc pl-5 lg:pl-7 py-1.5 lg:py-3 leading-6">
             {children}
           </ul>
         );
       },
-      [BLOCKS.OL_LIST]: (_, children: any) => {
+      [BLOCKS.OL_LIST]: (_, children: ReactNode[]) => {
         return (
           <ol className="w-full  mx-auto list-decimal pl-5 lg:pl-7 py-1.5 lg:py-3 leading-6">
             {children}
           </ol>
         );
       },
-      [BLOCKS.LIST_ITEM]: (_, children: any) => {
+      [BLOCKS.LIST_ITEM]: (_, children: ReactNode[]) => {
         return (
           <li className="w-[96%] lg:w-full  mx-auto leading-6 ">{children}</li>
         );
       },
-      [BLOCKS.QUOTE]: (_, children: any) => {
+      [BLOCKS.QUOTE]: (_, children: ReactNode[]) => {
         return (
           <blockquote className="w-[96%] lg:w-full  mx-auto my-6  bg-lightGray px-6 border-l-[3px] border-text rounded-r-md py-6 text-text text-base leading-6">
             {children}
@@ -165,7 +174,7 @@ export default function Markdown({ content }: { content }) {
           <hr className="w-full lg:w-full  mx-auto border-lightGray bg-lightGray h-0.5 my-8" />
         );
       },
-      [BLOCKS.EMBEDDED_ENTRY]: (node, children: any) => {
+      [BLOCKS.EMBEDDED_ENTRY]: (node) => {
         const assets = findBlock(node.data.target.sys.id);
 
         if (!assets) return null;
@@ -191,11 +200,11 @@ export default function Markdown({ content }: { content }) {
           </figure>
         );
       },
-      [BLOCKS.EMBEDDED_RESOURCE]: (_, children: any) => {
+      [BLOCKS.EMBEDDED_RESOURCE]: () => {
         alert("ddddd");
         return "ddddd\n";
       },
-      [INLINES.EMBEDDED_ENTRY]: (node, children: any) => {
+      [INLINES.EMBEDDED_ENTRY]: (node) => {
         const entry = findInlineEntry(node.data.target.sys.id);
 
         switch (entry.__typename) {
@@ -224,11 +233,11 @@ export default function Markdown({ content }: { content }) {
           }
         }
       },
-      [INLINES.EMBEDDED_RESOURCE]: (_, children: any) => {
+      [INLINES.EMBEDDED_RESOURCE]: () => {
         alert("eeeee");
         return "eeeee\n";
       },
-      [INLINES.HYPERLINK]: (node, children: any) => {
+      [INLINES.HYPERLINK]: (node, children: ReactNode[]) => {
         return (
           <Link
             href={node.data.uri}
@@ -245,15 +254,15 @@ export default function Markdown({ content }: { content }) {
           </Link>
         );
       },
-      [INLINES.ENTRY_HYPERLINK]: (_, children: any) => {
+      [INLINES.ENTRY_HYPERLINK]: () => {
         alert("wwww");
         return "wwwww\n";
       },
-      [INLINES.ASSET_HYPERLINK]: (node, children: any) => {
+      [INLINES.ASSET_HYPERLINK]: () => {
         alert("aaaa");
         return "aaaa\n";
       },
-      [INLINES.RESOURCE_HYPERLINK]: (_, children: any) => {
+      [INLINES.RESOURCE_HYPERLINK]: () => {
         alert("vvvv");
         return "vvvvvv\n";
       },

@@ -1,10 +1,12 @@
 import React from "react";
 import Link from "next/link";
 
+import { ProjectType } from "@/models/project";
+
 import Image from "@/components/base/image";
 
 interface Props {
-  post: any;
+  post: ProjectType;
   isHome?: boolean;
 }
 

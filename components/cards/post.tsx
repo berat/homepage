@@ -7,8 +7,10 @@ import "moment/locale/tr";
 
 import moment from "moment";
 
+import { PostType } from "@/models/post";
+
 interface Props {
-  post: any;
+  post: PostType;
   isPage?: boolean;
 }
 

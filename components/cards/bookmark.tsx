@@ -17,6 +17,7 @@ const BookmarkCard: React.FC<Props> = ({ data }) => {
     >
       <div key={data.id} className="flex items-start gap-4">
         {data.cover ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={data.cover}
             alt={data.title}

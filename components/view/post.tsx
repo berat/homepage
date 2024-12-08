@@ -8,12 +8,18 @@ import { Image, Markdown } from "../base";
 
 import "moment/locale/tr";
 
+import { PostDetailType } from "@/models/post";
+
 interface PostDetailProps {
-  post: any;
+  post: PostDetailType;
   view: number;
   updateView: () => void;
 }
-const PostDetailView: React.FC<PostDetailProps> = ({ post, view, updateView }) => {
+const PostDetailView: React.FC<PostDetailProps> = ({
+  post,
+  view,
+  updateView,
+}) => {
   useEffect(() => {
     hljs.highlightAll();
     updateView();

@@ -4,12 +4,14 @@ import { useEffect } from "react";
 import Link from "next/link";
 import hljs from "highlight.js";
 
+import { ProjectDetailType } from "@/models/project";
+
 import { Image, Markdown } from "../base";
 
 import ArrowUpRight from "@/public/icons/arrow-up-right.svg";
 
 interface ProjectDetailProps {
-  post: any;
+  post: ProjectDetailType;
   updateView: () => void;
 }
 

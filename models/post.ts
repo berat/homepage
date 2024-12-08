@@ -1,8 +1,8 @@
+import { Content } from "@/components/base/markdown";
+
 export interface PostType {
-  id: string;
-  cover?: string | null;
+  cover: { url: string } | null;
   title: string;
-  category: string[] | null;
   date: string;
   slug: string;
   like: number;
@@ -10,6 +10,11 @@ export interface PostType {
 }
 
 export interface PostDetailType {
-  post: PostType;
-  content: any; 
+  cover: { url: string } | null;
+  title: string;
+  date: string;
+  slug: string;
+  like: number;
+  view: number;
+  content: Content;
 }

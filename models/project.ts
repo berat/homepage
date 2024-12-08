@@ -1,18 +1,27 @@
+import { Content } from "@/components/base/markdown";
+
 export interface ProjectType {
-  id: string;
-  cover?: string | null;
+  cover: { url: string } | null;
   title: string;
-  category: string[] | null;
-  source?: string,
-  demo?: string,
-  summary: string;
-  status: string;
+  date: string;
   slug: string;
   like: number;
   view: number;
+  status: string;
+  source?: string;
+  demo?: string;
+  summary: string;
 }
-
 export interface ProjectDetailType {
-  post: ProjectType;
-  content: any;
+  cover: { url: string } | null;
+  title: string;
+  date: string;
+  slug: string;
+  like: number;
+  view: number;
+  status: string;
+  source?: string;
+  demo?: string;
+  summary: string;
+  content: Content;
 }
