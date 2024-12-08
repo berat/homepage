@@ -5,10 +5,9 @@ import { updateViewAndLike } from "@/actions/viewLike";
 
 import { Markdown } from "../base";
 
-export default async function AboutContent() {
-  const { post } = await getPage("about", false);
-
-  await updateViewAndLike("page", "about", "views");
+export default async function ToolsContent() {
+  const { post } = await getPage("tools", false);
+  await updateViewAndLike("page", "tools", "views");
 
   return (
     <div className="mb-3  detail-content">

@@ -28,3 +28,10 @@ body ::-webkit-scrollbar-thumb:hover {
 body ::-webkit-scrollbar-thumb:active {
   background: rgba(0, 0, 0, 0.9);
 }
+
+.detail-content {
+  li div.paragraph,
+  blockquote div.paragraph {
+    @apply py-0.5 w-full;
+  }
+}

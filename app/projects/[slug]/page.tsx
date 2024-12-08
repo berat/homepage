@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
-import { getSingleProject } from "@/actions/project";
+import { getProjectAndMoreProjects } from "@/actions/project";
 
 import { ShareButtons } from "@/components/contents";
 import { ProjectDetail } from "@/components/contents/project";
@@ -14,17 +14,17 @@ type Params = Promise<{ slug: string }>;
 export async function generateMetadata({ params }: { params: Params }) {
   const { slug: paramsSlug } = await params;
 
-  const post = await getSingleProject(paramsSlug);
+  const { project } = await getProjectAndMoreProjects(paramsSlug, false);
 
-  if (!post || !post.post) {
+  if (!project) {
     notFound();
   }
 
-  const { title, slug, summary, cover } = post.post;
+  const { title, slug, summary, cover } = project;
 
   const description = summary;
 
-  const ogImage = cover;
+  const ogImage = cover.url;
 
   return {
     title: title + " | Berat Bozkurt",

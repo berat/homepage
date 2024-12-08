@@ -1,12 +1,14 @@
 import React from "react";
 import Link from "next/link";
 
-import { PostType } from "@/models/post";
-
 import Image from "@/components/base/image";
 
+import "moment/locale/tr";
+
+import moment from "moment";
+
 interface Props {
-  post: PostType;
+  post: any;
   isPage?: boolean;
 }
 
@@ -21,7 +23,7 @@ const PostCard: React.FC<Props> = ({ post, isPage }) => {
         <div className={"w-full h-[240px] lg:h-full absolute z-10  rounded-lg"}>
           {post.cover && (
             <Image
-              src={post.cover}
+              src={post.cover.url}
               alt={post.title ?? ""}
               width={800}
               rounded="lg"
@@ -43,7 +45,7 @@ const PostCard: React.FC<Props> = ({ post, isPage }) => {
           }
         >
           <small className={"text-sm leading-5 text-lightGray"}>
-            {post.date}
+            {moment(post.date).format("DD MMMM YYYY")}
           </small>
           <h4 className={"font-semibold text-xl leading-5 text-white"}>
             {post.title}

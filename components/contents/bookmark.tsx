@@ -3,9 +3,13 @@ import { BookmarkType } from "@/models/bookmark";
 import { getBookmarks } from "@/actions/bookmark";
 
 import BookmarkCard from "../cards/bookmark";
+import { updateViewAndLike } from "@/actions/viewLike";
 
 const BookmarkContent = async () => {
   const { data } = await getBookmarks();
+  await updateViewAndLike("page", "bookmarks", "views");
+
+  if (!data) return null;
 
   return (
     <div className={"w-full flex gap-4 my-8 flex-wrap items-start "}>

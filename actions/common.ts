@@ -1,33 +1,19 @@
-import { Client } from "@notionhq/client";
-
-const notion = new Client({
-  auth: process.env.NOTION_SECRET,
-});
-
-export const likedPost = async (id: string, count: number) => {
-  const response = await notion.pages.update({
-    page_id: id,
-    properties: {
-      Like: {
-        number: count,
+export async function fetchGraphQL(query: string, preview = false) {
+  return fetch(
+    `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          preview
+            ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
+            : process.env.CONTENTFUL_ACCESS_TOKEN
+        }`,
       },
+      body: JSON.stringify({ query }),
     },
-  });
-
-  return response;
-};
-
-export const updateViewPost = async (id: string, count: number) => {
-  if (process.env.NODE_ENV !== "production") return null;
-
-  const response = await notion.pages.update({
-    page_id: id,
-    properties: {
-      View: {
-        number: count,
-      },
-    },
-  });
-
-  return response;
-};
+  )
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+}

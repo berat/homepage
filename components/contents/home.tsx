@@ -5,8 +5,8 @@ import { PostType } from "@/models/post";
 import { ProjectType } from "@/models/project";
 
 import { getPhotos } from "@/actions/photos";
-import { getPosts } from "@/actions/post";
-import { getProject } from "@/actions/project";
+import { getAllPosts } from "@/actions/post";
+import { getAllProjects } from "@/actions/project";
 
 import PhotoCard from "../cards/photo";
 import PostCard from "../cards/post";
@@ -26,13 +26,13 @@ export const PhotoSection = async () => {
 };
 
 export const PostSection = async () => {
-  const postData = await getPosts(6);
+  const allPosts = await getAllPosts(6, false);
 
   return (
     <div
       className={"flex gap-4 pb-2 items-center snap-proximity overflow-x-auto"}
     >
-      {postData.data.map((post: PostType) => (
+      {allPosts.map((post: PostType) => (
         <PostCard key={post.id} post={post} />
       ))}
     </div>
@@ -40,13 +40,14 @@ export const PostSection = async () => {
 };
 
 export const ProjectSection = async () => {
-  const { data } = await getProject(6);
+  const data = await getAllProjects(6);
+
 
   return (
     <div
       className={"flex gap-8 pb-2 items-start snap-proximity overflow-x-auto"}
     >
-      {data.map((post: ProjectType) => (
+      {data.map((post: any) => (
         <ProjectCard key={post.id} post={post} isHome />
       ))}
     </div>

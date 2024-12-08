@@ -10,6 +10,7 @@ import { CardSlekeletons } from "@/components/skeletons";
 import ArrowUpRight from "@/public/icons/arrow-up-right-blue.svg";
 import InstagramIcon from "@/public/icons/instagram-blue.svg";
 
+export const revalidate = 10800;
 export const metadata = {
   title: "Fotoğraflar | Berat Bozkurt",
   description:

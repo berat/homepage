@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { BookmarkContent } from "@/components/contents";
 import { BookmarkSkeleton } from "@/components/skeletons";
 
+export const revalidate = 10800;
 export const metadata = {
   title: "Yer İmleri | Berat Bozkurt",
   description:
@@ -30,4 +31,3 @@ export default async function Bookmarks() {
     </main>
   );
 }
-export const dynamic = "force-dynamic";

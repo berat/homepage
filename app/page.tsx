@@ -12,7 +12,9 @@ import ArrowUpRight from "@/public/icons/arrow-up-right-blue.svg";
 import BlueSkyIcon from "@/public/icons/bluesky.svg";
 import InstagramIcon from "@/public/icons/instagram-blue.svg";
 
-export default function Home() {
+export const revalidate = 10800;
+
+export default async function Home() {
   return (
     <main
       className={"text-text w-[96%] lg:max-w-[62%] xl:max-w-[800px] mx-auto"}
@@ -60,7 +62,7 @@ export default function Home() {
       </SectionTitle>
 
       <p className="py-2">
-        Boş zamanlarımda proje geliştirmekten keyif alıyorum. Projelerimi {" "}
+        Boş zamanlarımda proje geliştirmekten keyif alıyorum. Projelerimi{" "}
         <b>açık kaynak</b> veya <b>indie-project</b> olarak geliştiriyorum, bu
         da toplulukla iş birliği yapmamı sağlıyor. Genellikle{" "}
         <i>hayatı kolaylaştıracak</i> veya <i>eğlenceli fikirlerden</i> ilham

@@ -1,12 +1,16 @@
+import { draftMode } from "next/headers";
+
 import { PostDetailType } from "@/models/post";
 
-import { updateViewPost } from "@/actions/common";
-import { getSinglePost } from "@/actions/post";
+import { getPostAndMorePosts } from "@/actions/post";
+import { getViewAndLike, updateViewAndLike } from "@/actions/viewLike";
 
 import PostDetailView from "../view/post";
 
 export default async function PostDetail({ slug }: { slug: string }) {
-  const post = await getSinglePost(slug);
+  const { isEnabled } = await draftMode();
+  const { post } = await getPostAndMorePosts(slug, isEnabled);
+  const { data } = await getViewAndLike("post", slug as string);
 
   if (typeof post === "boolean") {
     return null;
@@ -14,14 +18,14 @@ export default async function PostDetail({ slug }: { slug: string }) {
 
   const updateView = async () => {
     "use server";
-    if (process.env.NODE_ENV === "production") {
-      const viewed = await updateViewPost(post.post.id, post.post.view + 1);
-      return viewed;
-    }
-    return false;
+    await updateViewAndLike("post", slug, "views");
   };
 
   return (
-    <PostDetailView post={post as PostDetailType} updateView={updateView} />
+    <PostDetailView
+      post={post as PostDetailType}
+      view={data.views}
+      updateView={updateView}
+    />
   );
 }

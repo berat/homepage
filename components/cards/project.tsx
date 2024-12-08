@@ -1,12 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
-import { ProjectType } from "@/models/project";
-
 import Image from "@/components/base/image";
 
 interface Props {
-  post: ProjectType;
+  post: any;
   isHome?: boolean;
 }
 
@@ -22,9 +20,9 @@ const ProjectCard: React.FC<Props> = ({ post, isHome }) => {
         <div
           className={`w-full ${isHome ? "h-auto md:min-h-[255px]" : "min-h-[255px]"} rounded-lg`}
         >
-          {post.cover && (
+          {post.cover.url && (
             <Image
-              src={post.cover}
+              src={post.cover.url}
               alt={post.title ?? ""}
               width={861}
               rounded="lg"

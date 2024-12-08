@@ -1,83 +1,170 @@
-import { Client } from "@notionhq/client";
-import {
-  PageObjectResponse,
-  QueryDatabaseResponse,
-} from "@notionhq/client/build/src/api-endpoints";
+import { fetchGraphQL } from "./common";
 
-import { ProjectType } from "@/models/project";
+const PROJECT_GRAPHQL_FIELDS = `
+  slug
+  title
+  cover {
+    url(transform: {
+      format: AVIF,
+      quality: 90
+    })
+  }
+  date
+  view
+  like
+  demo
+  source
+  summary
+  status
+`;
 
-import { getBlocks, getPageMetaData } from "@/utils/parser";
+const PROJECT_GRAPHQL_FIELDS_CONTENT = `
+  slug
+  title
+  cover {
+    url(transform: {
+      format: AVIF,
+      quality: 90
+    })
+  }
+  date
+  view
+  like
+  demo
+  source
+  summary
+  status
+  
+  content {
+    json 
+    links {
+      assets {
+        block {
+          sys {
+            id
+          }
+          title
+          url(transform: {
+            quality: 50
+          })
+          description
+        }
+      }
+      entries {
+        inline {
+          sys {
+            id
+          }
+          __typename
+          ... on Youtube {
+            url
+          }
+          ... on Code {
+            language
+            code
+          }
+          ... on Gallery {
+                description
+            imagesCollection {
+              items {
+                title
+                url(transform: {
+                  quality: 50
+                })
+              }
+            }
+          }
+          ... on Tweet {
+            url
+          }
+        }
+        block {
+          sys {
+            id
+          }
+          __typename
+          ... on Gallery {
+                description
+            imagesCollection {
+              items {
+                title
+                description
+                url(transform: {
+                  quality: 50
+                })
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  sys {
+    firstPublishedAt
+    publishedAt
+  }
+`;
 
-const notion = new Client({
-  auth: process.env.NOTION_SECRET,
-});
+function extractProject(fetchResponse) {
+  return fetchResponse?.data?.projectsCollection?.items?.[0];
+}
 
-export const gelAllProjects = async (length?: number) => {
-  const projects: QueryDatabaseResponse = await notion.databases.query({
-    database_id: process.env.NOTION_PROJECT_ID,
-    ...(length ? { page_size: length } : {}),
-    sorts: [
-      {
-        property: "Status",
-        direction: "ascending",
-      },
-    ],
-  });
-  const allProjects = projects.results as PageObjectResponse[];
-  const allCategories: string[] = [];
+function extractProjectEntries(fetchResponse) {
+  return fetchResponse?.data?.projectsCollection?.items;
+}
 
-  const resultPost: ProjectType[] = allProjects.map(
-    (post: PageObjectResponse) => {
-      const formattedPost = getPageMetaData(post) as unknown as ProjectType;
-      formattedPost.category.map((category: string) => {
-        allCategories.push(category);
-      });
-
-      return formattedPost;
-    },
+export async function getAllProjects(limit?: number, isDraftMode?: boolean) {
+  const entries = await fetchGraphQL(
+    `query {
+        projectsCollection(where: { slug_exists: true }, order: date_DESC, limit: ${limit ?? 100}, preview: ${
+          isDraftMode ? "true" : "false"
+        }) {
+          items {
+            ${PROJECT_GRAPHQL_FIELDS}
+          }
+        }
+      }`,
+    isDraftMode,
   );
 
-  return { data: resultPost, categories: new Set(allCategories) };
-};
 
-export const getSingleProject = async (slug: string) => {
-  const response = await notion.databases.query({
-    database_id: process.env.NOTION_PROJECT_ID,
-    filter: {
-      property: "Slug",
-      formula: {
-        string: {
-          equals: slug,
-        },
-      },
-    },
-  });
+  return extractProjectEntries(entries);
+}
 
-  const page = response.results[0] as PageObjectResponse;
-  const metadata = getPageMetaData(page);
+export async function getProjectAndMoreProjects(
+  slug: string,
+  preview: boolean,
+) {
+  const entry = await fetchGraphQL(
+    `query {
+        projectsCollection(where: { slug: "${slug}" }, preview: ${
+          preview ? "true" : "false"
+        }, limit: 1) {
+          items {
+            ${PROJECT_GRAPHQL_FIELDS_CONTENT}
+          }
+        }
+      }`,
+    preview,
+  );
 
-  if (!metadata) {
-    return false;
-  }
-  const content = await getBlocks(page.id);
+
+  const entries = await fetchGraphQL(
+    `query {
+        projectsCollection(where: { slug_not_in: "${slug}" }, order: date_DESC, preview: ${
+          preview ? "true" : "false"
+        }, limit: 2) {
+          items {
+            ${PROJECT_GRAPHQL_FIELDS_CONTENT}
+          }
+        }
+      }`,
+    preview,
+  );
+
 
   return {
-    post: metadata,
-    content: content,
+    project: extractProject(entry),
+    moreProjects: extractProjectEntries(entries),
   };
-};
-
-export const getProject = async (length?: number) => {
-  const response = await gelAllProjects(length);
-
-  if (length) {
-    return {
-      data: response.data as ProjectType[],
-    };
-  } else {
-    return {
-      data: response.data as ProjectType[],
-      type: ["Hepsi", ...response.categories] as string[],
-    };
-  }
-};
+}

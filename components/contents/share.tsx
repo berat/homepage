@@ -1,6 +1,6 @@
-import { likedPost } from "@/actions/common";
-import { getSinglePost } from "@/actions/post";
-import { getSingleProject } from "@/actions/project";
+import { getPostAndMorePosts } from "@/actions/post";
+import { getProjectAndMoreProjects } from "@/actions/project";
+import { getViewAndLike, updateViewAndLike } from "@/actions/viewLike";
 
 import ShareView from "../base/share";
 
@@ -11,27 +11,37 @@ export default async function ShareButtons({
   category?: "blog" | "project";
   slug: string;
 }) {
+  const { data } = await getViewAndLike(
+    category === "blog" ? "post" : "project",
+    slug as string,
+  );
+
   let post;
   if (category === "blog") {
-    post = await getSinglePost(slug);
+    const { post: getPosts } = await getPostAndMorePosts(slug, false);
+    post = getPosts;
   } else {
-    post = await getSingleProject(slug);
+    const { project } = await getProjectAndMoreProjects(slug, false);
+    post = project;
   }
 
   if (typeof post === "boolean") {
     return null;
   }
-
   const updateLike = async (count: number) => {
     "use server";
-    const liked = await likedPost(post.post.id, count);
-    return liked;
+    await updateViewAndLike(
+      category === "blog" ? "post" : "project",
+      slug,
+      "likes",
+      count - data.likes,
+    );
   };
 
   return (
     <ShareView
-      likeCount={post.post.like}
-      title={post.post.title}
+      likeCount={data.likes}
+      title={post.title}
       handleLikeRequest={updateLike}
     />
   );

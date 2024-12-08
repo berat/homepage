@@ -2,23 +2,31 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    unoptimized: process.env.NODE_ENV === "production" ? true : true,
+    imageSizes: [600, 800, 1000, 1200, 1400, 1600],
+    formats: ["image/avif", "image/webp"],
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
         hostname: "**.amazonaws.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "images.ctfassets.net",
+        port: "",
+        pathname: "/**",
+      },
     ],
     domains: [
       "images.unsplash.com",
+      "images.ctfassets.net",
       "beratbozkurt.net",
       "www.notion.so",
       "notion.so",
       "beratbozkurt.net",
       "localhost",
     ],
-    formats: ["image/avif", "image/webp"],
   },
 };
 

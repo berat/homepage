@@ -1,45 +1,31 @@
-"use server";
-
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
-import { getSinglePost } from "@/actions/post";
+import { getPostAndMorePosts } from "@/actions/post";
 
 import { PostDetail, ShareButtons } from "@/components/contents";
 import { PostSkeleton, ShareSkeleton } from "@/components/skeletons";
 
 type Params = Promise<{ slug: string }>;
 
+export const revalidate = 10800;
 export async function generateMetadata({ params }: { params: Params }) {
   const { slug: paramsSlug } = await params;
 
-  const post = await getSinglePost(paramsSlug);
+  const { post } = await getPostAndMorePosts(paramsSlug, false);
 
-  if (!post || !post.post) {
+  if (!post) {
     notFound();
   }
 
-  const { title, slug, cover } = post.post;
+  const { title, slug, cover } = post;
 
-  const description =
-    post.content
-      .splice(0, 5)
-      .map((block) =>
-        block.type === "paragraph"
-          ? block.paragraph.rich_text[0]?.plain_text
-          : "",
-      )
-      .join(" ")
-      .slice(0, 150) + "...";
-
-  const ogImage = cover ?? `https://beratbozkurt.net/og?title=${title}`;
+  const ogImage = cover?.url ?? `https://beratbozkurt.net/og?title=${title}`;
 
   return {
     title: title + " | Berat Bozkurt",
-    description,
     openGraph: {
       title: title + " | Berat Bozkurt",
-      description,
       type: "article",
       url: `https://beratbozkurt.net/blog/${slug}`,
       images: [
@@ -51,7 +37,6 @@ export async function generateMetadata({ params }: { params: Params }) {
     twitter: {
       card: "summary_large_image",
       title: title + " | Berat Bozkurt",
-      description,
       images: [ogImage],
     },
   };

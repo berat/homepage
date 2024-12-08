@@ -5,7 +5,8 @@ import moment from "moment";
 
 import { PostType } from "@/models/post";
 
-import { getPosts } from "@/actions/post";
+import { getAllPosts } from "@/actions/post";
+import { updateViewAndLike } from "@/actions/viewLike";
 
 import PostCard from "../cards/post";
 
@@ -17,7 +18,7 @@ type GroupedData = Record<string, PostType[]>;
 
 const BlogList: React.FC<Props> = async ({ data }) => {
   const groupedData = await data.reduce((acc: GroupedData, item: PostType) => {
-    const date = moment(item.date, "DD MMM, YYYY").year();
+    const date = moment(item.date).year();
     acc[date] = acc[date] || [];
     acc[date].push(item);
     return acc;
@@ -38,11 +39,12 @@ const BlogList: React.FC<Props> = async ({ data }) => {
 };
 
 const BlogContent = async () => {
-  const { data } = await getPosts();
+  const allPosts = await getAllPosts(100, false);
+  await updateViewAndLike("page", "blog", "views");
 
   return (
     <div className={"flex gap-4 flex-col pb-2 items-start "}>
-      <BlogList data={data} />
+      <BlogList data={allPosts} />
     </div>
   );
 };

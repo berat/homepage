@@ -47,8 +47,10 @@
   @apply max-w-full;
 }
 
-/* div span.italic {
-  > .font-semibold {
-    @apply pl-2;
-  }
-} */
+.post-content ul ul {
+  list-style-type: circle;
+}
+.post-content ul ul ul{
+  list-style-type: square;
+}
+

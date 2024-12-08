@@ -1,9 +1,10 @@
 import React from "react";
+import { draftMode } from "next/headers";
 
 import { ProjectDetailType, ProjectType } from "@/models/project";
 
-import { updateViewPost } from "@/actions/common";
-import { getProject, getSingleProject } from "@/actions/project";
+import { getAllProjects, getProjectAndMoreProjects } from "@/actions/project";
+import { updateViewAndLike } from "@/actions/viewLike";
 
 import ProjectCard from "../cards/project";
 import ProjectDetailView from "../view/project";
@@ -22,7 +23,7 @@ const statusDescription = {
 const ProjectList: React.FC<Props> = async ({ data }) => {
   const statusOrder = ["Şu an", "Gelecek", "Geçmiş"];
 
-  const sortedGroups = data.reduce((acc: GroupedData, item: ProjectType) => {
+  const sortedGroups = data.reduce((acc: any, item: any) => {
     const { status } = item;
     if (!acc[status]) {
       acc[status] = [];
@@ -59,34 +60,34 @@ const ProjectList: React.FC<Props> = async ({ data }) => {
 };
 
 const ProjectContent = async () => {
-  const { data } = await getProject();
+  const allProjects = await getAllProjects(100, false);
+  await updateViewAndLike("page", "projects", "views");
 
   return (
     <div className={"flex gap-4 flex-col pb-2 items-start "}>
-      <ProjectList data={data} />
+      <ProjectList data={allProjects} />
     </div>
   );
 };
 
 export const ProjectDetail = async ({ slug }: { slug: string }) => {
-  const post = await getSingleProject(slug);
+  const { isEnabled } = await draftMode();
+  const { project } = await getProjectAndMoreProjects(slug, isEnabled);
+  await updateViewAndLike("page", "projects", "views");
 
-  if (typeof post === "boolean") {
+  if (typeof project === "boolean") {
     return null;
   }
 
   const updateView = async () => {
     "use server";
-    if (process.env.NODE_ENV === "production") {
-      const viewed = await updateViewPost(post.post.id, post.post.view + 1);
-      return viewed;
-    }
+    await updateViewAndLike("project", slug, "views");
     return false;
   };
 
   return (
     <ProjectDetailView
-      post={post as ProjectDetailType}
+      post={project as ProjectDetailType}
       updateView={updateView}
     />
   );
