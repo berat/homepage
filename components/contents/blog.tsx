@@ -31,7 +31,7 @@ const BlogList: React.FC<Props> = async ({ data }) => {
         <h3 className="text-xl mb-2 text-slate-400 tracking-wide">{key}</h3>
         <div className={"flex gap-4 flex-wrap"}>
           {groupedData[key].map((post: PostType) => (
-            <PostCard key={post.id} post={post} isPage />
+            <PostCard key={post.slug} post={post} isPage />
           ))}
         </div>
       </ul>
