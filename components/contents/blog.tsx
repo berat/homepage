@@ -1,6 +1,7 @@
 "use server";
 
 import React from "react";
+import { draftMode } from "next/headers";
 import moment from "moment";
 
 import { PostType } from "@/models/post";
@@ -39,7 +40,8 @@ const BlogList: React.FC<Props> = async ({ data }) => {
 };
 
 const BlogContent = async () => {
-  const allPosts = await getAllPosts(100, false);
+  const { isEnabled } = await draftMode();
+  const allPosts = await getAllPosts(100, isEnabled);
   await updateViewAndLike("page", "blog", "views");
 
   return (

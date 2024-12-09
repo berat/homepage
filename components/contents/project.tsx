@@ -60,7 +60,8 @@ const ProjectList: React.FC<Props> = async ({ data }) => {
 };
 
 const ProjectContent = async () => {
-  const allProjects = await getAllProjects(100, false);
+  const { isEnabled } = await draftMode();
+  const allProjects = await getAllProjects(100, isEnabled);
   await updateViewAndLike("page", "projects", "views");
 
   return (

@@ -1,12 +1,15 @@
 "use server";
 
+import { draftMode } from "next/headers";
+
 import { getPage } from "@/actions/pages";
 import { updateViewAndLike } from "@/actions/viewLike";
 
 import { Markdown } from "../base";
 
 export default async function AboutContent() {
-  const { post } = await getPage("about", false);
+  const { isEnabled } = await draftMode();
+  const { post } = await getPage("about", isEnabled);
 
   await updateViewAndLike("page", "about", "views");
 
