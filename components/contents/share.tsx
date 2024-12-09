@@ -1,3 +1,5 @@
+import { draftMode } from "next/headers";
+
 import { getPostAndMorePosts } from "@/actions/post";
 import { getProjectAndMoreProjects } from "@/actions/project";
 import { getViewAndLike, updateViewAndLike } from "@/actions/viewLike";
@@ -11,6 +13,7 @@ export default async function ShareButtons({
   category?: "blog" | "project";
   slug: string;
 }) {
+  const { isEnabled } = await draftMode();
   const { data } = await getViewAndLike(
     category === "blog" ? "post" : "project",
     slug as string,
@@ -18,10 +21,10 @@ export default async function ShareButtons({
 
   let post;
   if (category === "blog") {
-    const { post: getPosts } = await getPostAndMorePosts(slug, false);
+    const { post: getPosts } = await getPostAndMorePosts(slug, isEnabled);
     post = getPosts;
   } else {
-    const { project } = await getProjectAndMoreProjects(slug, false);
+    const { project } = await getProjectAndMoreProjects(slug, isEnabled);
     post = project;
   }
 

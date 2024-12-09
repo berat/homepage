@@ -1,10 +1,12 @@
+import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { getAllPosts } from "@/actions/post";
+import { getPostAndMorePosts } from "@/actions/post";
 
-export async function GET(request, res) {
+export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const secret = searchParams.get("secret");
+
   const slug = searchParams.get("slug");
 
   if (!secret || !slug) {
@@ -15,12 +17,12 @@ export async function GET(request, res) {
     return new Response("Invalid token", { status: 401 });
   }
 
-  const article = await getAllPosts(100, false);
+  const { post: article } = await getPostAndMorePosts(slug, true);
 
   if (!article) {
     return new Response("Article not found", { status: 404 });
   }
 
-  res.draftMode({ enable: true });
-  redirect(`/articles/${article.slug}`);
+  (await draftMode()).enable();
+  redirect(`/blog/${article.slug}`);
 }

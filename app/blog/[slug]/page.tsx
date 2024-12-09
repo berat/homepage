@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { getPostAndMorePosts } from "@/actions/post";
@@ -11,8 +12,9 @@ type Params = Promise<{ slug: string }>;
 export const revalidate = 10800;
 export async function generateMetadata({ params }: { params: Params }) {
   const { slug: paramsSlug } = await params;
+  const { isEnabled } = await draftMode();
 
-  const { post } = await getPostAndMorePosts(paramsSlug, false);
+  const { post } = await getPostAndMorePosts(paramsSlug, isEnabled);
 
   if (!post) {
     notFound();

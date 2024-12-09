@@ -99,10 +99,6 @@ function extractPost(fetchResponse) {
   return fetchResponse?.data?.pagesCollection?.items?.[0];
 }
 
-function extractPostEntries(fetchResponse) {
-  return fetchResponse?.data?.pagesCollection?.items;
-}
-
 export async function getPage(slug: string, preview: boolean) {
   const entry = await fetchGraphQL(
     `query {
@@ -116,9 +112,6 @@ export async function getPage(slug: string, preview: boolean) {
       }`,
     preview,
   );
-
-  console.log('getPage ~ entry:', entry)
-
 
   return {
     post: extractPost(entry),
