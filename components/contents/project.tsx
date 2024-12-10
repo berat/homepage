@@ -74,7 +74,6 @@ const ProjectContent = async () => {
 export const ProjectDetail = async ({ slug }: { slug: string }) => {
   const { isEnabled } = await draftMode();
   const { project } = await getProjectAndMoreProjects(slug, isEnabled);
-  await updateViewAndLike("page", "projects", "views");
 
   if (typeof project === "boolean") {
     return null;
@@ -83,7 +82,6 @@ export const ProjectDetail = async ({ slug }: { slug: string }) => {
   const updateView = async () => {
     "use server";
     await updateViewAndLike("project", slug, "views");
-    return false;
   };
 
   return (
