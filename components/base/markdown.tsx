@@ -164,7 +164,7 @@ export default function Markdown({ content }: { content: Content }) {
       },
       [BLOCKS.QUOTE]: (_, children: ReactNode[]) => {
         return (
-          <blockquote className="w-[96%] lg:w-full  mx-auto my-6  bg-lightGray px-6 border-l-[3px] border-text rounded-r-md py-6 text-text text-base leading-6">
+          <blockquote className="w-[96%] lg:w-full  mx-auto my-6 pl-6 border-l-[3px] border-disabled rounded-r-md py-4 text-[#525252] text-base leading-7">
             {children}
           </blockquote>
         );
