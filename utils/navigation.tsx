@@ -114,7 +114,7 @@ export const NAVIGATION_ITEMS: NavigationType<NavigationItem>[] = [
   {
     label: "Araçlar",
     value: "tools",
-    disabled: true,
+    disabled: false,
   },
   {
     label: "Yer İmleri",
