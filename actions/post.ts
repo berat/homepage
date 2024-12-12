@@ -3,6 +3,7 @@ import { fetchGraphQL } from "./common";
 const POST_GRAPHQL_FIELDS = `
   slug
   title
+  category
   cover {
     url(transform: {
       format: AVIF,
@@ -17,6 +18,7 @@ const POST_GRAPHQL_FIELDS = `
 const POST_GRAPHQL_FIELDS_CONTENT = `
   slug
   title
+  category
   cover {
     url(transform: {
       format: AVIF,
@@ -136,13 +138,13 @@ export async function getPostAndMorePosts(slug: string, preview: boolean) {
     preview,
   );
 
+  const extractPostDetail = await extractPost(entry);
+
   const entries = await fetchGraphQL(
     `query {
-        blogCollection(where: { slug_not_in: "${slug}" }, order: date_DESC, preview: ${
-          preview ? "true" : "false"
-        }, limit: 2) {
+        blogCollection(where: { slug_not_in: "${slug}", category_contains_some: "${extractPostDetail.category}" }, order: date_DESC, limit: 3) {
           items {
-            ${POST_GRAPHQL_FIELDS_CONTENT}
+            ${POST_GRAPHQL_FIELDS}
           }
         }
       }`,
@@ -150,7 +152,7 @@ export async function getPostAndMorePosts(slug: string, preview: boolean) {
   );
 
   return {
-    post: extractPost(entry),
+    post: extractPostDetail,
     morePosts: extractPostEntries(entries),
   };
 }

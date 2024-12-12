@@ -22,10 +22,17 @@ export default async function PostDetail({ slug }: { slug: string }) {
     await updateViewAndLike("post", slug, "views");
   };
 
+  const updateLike = async (count: number) => {
+    "use server";
+    await updateViewAndLike("post", slug, "likes", count - data.likes);
+  };
+
   return (
     <PostDetailView
+      likeCount={data.likes}
       post={post as PostDetailType}
       view={data.views}
+      handleLikeRequest={updateLike}
       updateView={updateView}
     />
   );

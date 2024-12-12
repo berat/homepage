@@ -4,8 +4,13 @@ import { notFound } from "next/navigation";
 
 import { getPostAndMorePosts } from "@/actions/post";
 
-import { PostDetail, ShareButtons } from "@/components/contents";
+import {
+  PostDetail,
+  PreviousNextPosts,
+  ShareButtons,
+} from "@/components/contents";
 import { PostSkeleton, ShareSkeleton } from "@/components/skeletons";
+import { BlogCardSkeleton } from "@/components/skeletons/card";
 
 type Params = Promise<{ slug: string }>;
 
@@ -51,10 +56,15 @@ export default async function Blog({ params }: { params: Params }) {
       <Suspense fallback={<PostSkeleton />}>
         <PostDetail slug={slug} />
       </Suspense>
-      <div className="xl:w-container w-[95%] mx-auto flex flex-col gap-4">
-        <hr className="w-full mx-auto border-lightGray bg-lightGray h-0.5 my-8" />
+      <div className="xl:w-[1000px] w-[95%] mx-auto flex flex-col gap-4">
         <Suspense fallback={<ShareSkeleton />}>
           <ShareButtons slug={slug} />
+        </Suspense>
+      </div>
+      <div className="xl:w-[1000px] w-[95%] mx-auto flex flex-col gap-4">
+        <hr className="w-full mx-auto border-lightGray bg-lightGray h-0.5 my-8" />
+        <Suspense fallback={<BlogCardSkeleton length={3} isPage />}>
+          <PreviousNextPosts slug={slug} />
         </Suspense>
       </div>
     </main>

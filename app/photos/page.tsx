@@ -19,11 +19,11 @@ export const metadata = {
 
 export default function Photos() {
   return (
-    <main className={"text-text w-[96%] lg:max-w-[1080px] mx-auto"}>
-      <h2 className="w-full lg:w-blog mx-auto text-3xl font-semibold tracking-tight text-black leading-10 mb-4">
+    <main className={"text-text xl:w-[1000px] w-[95%] mx-auto"}>
+      <h2 className="w-full mx-auto text-3xl font-semibold tracking-tight text-black leading-10 mb-4">
         Fotoğraflar
       </h2>
-      <p className="w-full lg:w-blog mx-auto">
+      <p className="w-full mx-auto">
         Gözüme güzel gelen her görüntüyü deklanşöre basıp ekranda görmeyi
         seviyorum. Anları ölümsüzleştirip arşive alarak zamanı
         durdurabiliyorsun. Ayrıca çekmiş olduğum bu fotoğrafları düzenleyerek

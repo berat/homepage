@@ -1,12 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import Link from "next/link";
 import ConfettiExplosion from "react-confetti-explosion";
-
-import CopyIcon from "@/public/icons/copy.svg";
-import LikeIcon from "@/public/icons/heart.svg";
-import XIcon from "@/public/icons/x-white.svg";
 
 interface Props {
   likeCount: number;
@@ -18,21 +14,11 @@ const ShareView: React.FC<Props> = ({
   title,
   handleLikeRequest,
 }) => {
-  const url: string = typeof window !== "undefined" ? window.location.href : "";
-
   const [localLikeCount, setLocalLikeCount] = useState<number>(0);
+  const [url, setUrl] = useState<string>("");
   const [isLiked, setIsLiked] = useState<boolean>();
   const [canLike, setCanLike] = useState<boolean>(true);
   const clickTimer = useRef(null);
-
-  const handleShare = () => {
-    const twitterURL = `https://x.com/intent/tweet?url=${url}&via=beratbozkurt0&text=${title}`;
-    window.open(twitterURL, "_blank");
-  };
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(url);
-  };
 
   const handleLike = () => {
     if (localLikeCount + 1 > 10) {
@@ -52,6 +38,8 @@ const ShareView: React.FC<Props> = ({
   };
 
   useEffect(() => {
+    setUrl(typeof window !== "undefined" ? window.location.href : "");
+
     return () => {
       clearTimeout(clickTimer.current);
       setIsLiked(false);
@@ -64,31 +52,29 @@ const ShareView: React.FC<Props> = ({
   const totalLike: number = isLiked ? localLikeCount + likeCount : likeCount;
 
   return (
-    <div className="xl:w-[1000px] mx-auto flex items-center gap-2.5">
+    <div className="w-full mx-auto flex items-center gap-2.5">
       <button
         onClick={handleLike}
-        className={`flex items-center gap-2 px-4 py-2 text-white rounded-lg ${
-          !canLike ? "bg-[#f23434]" : "bg-[#d02c2c]"
+        className={`flex items-center gap-2 px-3 py-1 text-text rounded-full bg-white border-2 border-lightGray ${
+          !canLike ? "opacity-40" : "opacity-100"
         }`}
         disabled={!canLike}
       >
-        <Image src={LikeIcon} alt="menu" width={18} height={18} />
+        👍🏼
         <span className="font-semibold text-sm">{`${totalLike} ${clickedLikeButton}`}</span>
       </button>
-      <button
-        onClick={handleShare}
-        className="flex items-center gap-2 px-4 py-2 bg-[#1DA1F2] text-white rounded-lg"
-      >
-        <Image src={XIcon} alt="menu" width={18} height={18} />
-        <span className="font-semibold text-sm">Paylaş</span>
-      </button>
-      <button
-        onClick={handleCopy}
-        className="flex items-center gap-2 px-4 py-2 bg-[#DCDCDC] text-base rounded-lg"
-      >
-        <Image src={CopyIcon} alt="menu" width={18} height={18} />
-        <span className="font-semibold text-sm">Kopyala</span>
-      </button>
+      <span className="text-disable font-thin text-2xl"> • </span>
+      <div className="text-text">
+        <Link
+          href={`https://x.com/intent/tweet?url=${url}&via=beratbozkurt0&text=${title}`}
+          target="_blank"
+          className="text-[#1DA1F2] font-semibold"
+        >
+          X (Twitter)
+        </Link>
+        {"'"}
+        da paylaş
+      </div>
       {!canLike && <ConfettiExplosion />}
     </div>
   );
