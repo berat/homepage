@@ -8,6 +8,8 @@ import { CommandMenu, Providers } from "@/components/base";
 import "moment/locale/tr";
 import "@/styles/globals.css";
 
+import Script from "next/script";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -25,6 +27,11 @@ export default function RootLayout({ children }) {
         </Providers>
         <Analytics mode={"production"} />
         <SpeedInsights />
+        <Script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="9304602d-e4a5-43cb-840d-79560182a0ed"
+        />
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       </body>
     </html>
