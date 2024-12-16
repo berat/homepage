@@ -21,7 +21,6 @@ const POST_GRAPHQL_FIELDS_CONTENT = `
   category
   cover {
     url(transform: {
-      format: AVIF,
       quality: 90
     })
   }
