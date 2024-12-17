@@ -180,7 +180,8 @@ export default function Markdown({ content }: { content: Content }) {
         if (!assets) return null;
 
         return (
-          <figure className="flex w-full gap-4 mb-4 justify-center">
+          <figure className="flex flex-col w-full gap-2 justify-center">
+            <div className="flex w-full gap-4 justify-center">
             {assets.imagesCollection.items.map((asset) => (
               <div key={asset.url} className="flex-grow my-1">
                 <OptmzImage
@@ -188,15 +189,16 @@ export default function Markdown({ content }: { content: Content }) {
                   width={asset.width || 800}
                   height={asset.height || 800}
                   alt={asset.description || asset.title}
-                  className="max-h-[750px] w-full object-contain rounded duration-700 ease-in-out scale-100 blur-0 grayscale-0 hover:scale-[1.02]"
+                  className="max-h-[750px] w-auto object-contain rounded duration-700 ease-in-out scale-100 blur-0 grayscale-0 hover:scale-[1.02]"
                 />
-                {assets.description && (
-                  <figcaption className="text-sm tracking-wide text-gray-400 text-center pt-2">
-                    {assets.description}
-                  </figcaption>
-                )}
               </div>
             ))}
+            </div>
+            {assets.description && (
+              <figcaption className="text-sm tracking-wide text-gray-400 text-center pt-1">
+                {assets.description}
+              </figcaption>
+            )}
           </figure>
         );
       },
