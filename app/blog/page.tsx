@@ -2,13 +2,13 @@ import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { BLUESKY } from "@/constants/social";
+import { TWITTER } from "@/constants/social";
 
 import { BlogContent } from "@/components/contents";
 import { BlogCardSkeleton } from "@/components/skeletons/card";
 
 import ArrowUpRight from "@/public/icons/arrow-up-right-blue.svg";
-import BlueSkyIcon from "@/public/icons/bluesky.svg";
+import XIcon from "@/public/icons/x-blue.svg";
 
 import "moment/locale/tr";
 
@@ -34,19 +34,13 @@ export default function Blog() {
         kalan zamanlarımda indie projelerime ağırlık verip bunu açık bir şekilde
         paylaşıyorum. Hem blogumda hem de{" "}
         <Link
-          href={BLUESKY}
+          href={TWITTER}
           className={
             "fill-primary text-primary inline-flex items-baseline gap-1"
           }
           target="_blank"
         >
-          <Image
-            src={BlueSkyIcon}
-            width={19}
-            height={19}
-            alt={"bluesky icon"}
-            className="relative top-[3px] -right-0.5"
-          />
+          <Image src={XIcon} width={17} height={17} alt={"x icon"} />
           <b>hesabımdan</b>
           <Image
             src={ArrowUpRight}

@@ -2,15 +2,15 @@ import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { BLUESKY, INSTAGRAM } from "@/constants/social";
+import { INSTAGRAM, TWITTER } from "@/constants/social";
 
 import { SectionTitle } from "@/components/base";
 import { HomeContent } from "@/components/contents";
 import { CardSlekeletons } from "@/components/skeletons";
 
 import ArrowUpRight from "@/public/icons/arrow-up-right-blue.svg";
-import BlueSkyIcon from "@/public/icons/bluesky.svg";
 import InstagramIcon from "@/public/icons/instagram-blue.svg";
+import XIcon from "@/public/icons/x-blue.svg";
 
 export const revalidate = 10800;
 
@@ -31,19 +31,14 @@ export default async function Home() {
         kalan zamanlarımda indie projelerime ağırlık verip bunu açık bir şekilde
         paylaşıyorum. Hem blogumda hem de{" "}
         <Link
-          href={BLUESKY}
+          href={TWITTER}
           className={
             "fill-primary text-primary inline-flex items-baseline gap-1"
           }
           target="_blank"
         >
-          <Image
-            src={BlueSkyIcon}
-            width={19}
-            height={19}
-            alt={"bluesky icon"}
-            className="relative top-0.5"
-          />
+          <Image src={XIcon} width={17} height={17} alt={"x icon"} />
+
           <b>hesabımdan</b>
           <Image
             src={ArrowUpRight}
@@ -72,19 +67,14 @@ export default async function Home() {
         Yeni teknolojiler denemek beni motive ediyor ve karşılaştığım zorluklar
         problem çözme yeteneğimi geliştiriyor. Proje süreçlerimi{" "}
         <Link
-          href={BLUESKY}
+          href={TWITTER}
           className={
             "fill-primary text-primary inline-flex items-baseline gap-1"
           }
           target="_blank"
         >
-          <Image
-            src={BlueSkyIcon}
-            width={19}
-            height={19}
-            alt={"bluesky icon"}
-            className="relative top-[3px] -right-0.5"
-          />
+          <Image src={XIcon} width={17} height={17} alt={"x icon"} />
+
           <b>hesabımda</b>
           <Image
             src={ArrowUpRight}
