@@ -7,6 +7,7 @@ import { CommandMenu, Providers } from "@/components/base";
 
 import "moment/locale/tr";
 import "@/styles/globals.css";
+import "react-medium-image-zoom/dist/styles.css";
 
 import Script from "next/script";
 

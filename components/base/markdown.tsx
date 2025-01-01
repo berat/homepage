@@ -3,6 +3,7 @@ import Link from "next/link";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, Document, INLINES, MARKS } from "@contentful/rich-text-types";
 import { YouTubeEmbed } from "@next/third-parties/google";
+import Zoom from "react-medium-image-zoom";
 import { Tweet } from "react-tweet";
 
 import OptmzImage from "@/components/base/image";
@@ -46,18 +47,20 @@ function RichTextAsset({
   if (asset?.url) {
     return (
       <figure className="w-full mb-4">
-        <OptmzImage
-          src={asset.url}
-          width={1280}
-          height={720}
-          alt={asset.description}
-          className="max-h-[750px] w-full object-contain rounded duration-700 ease-in-out scale-100 blur-0 grayscale-0  hover:scale-[1.02]"
-        />
-        {asset.description && (
-          <figcaption className="text-sm tracking-wide text-gray-400 text-center py-2 mb-4">
-            {asset.description}
-          </figcaption>
-        )}
+        <Zoom zoomMargin={45}>
+          <OptmzImage
+            src={asset.url}
+            width={1280}
+            height={720}
+            alt={asset.description}
+            className="max-h-[750px] w-full object-contain rounded duration-700 ease-in-out scale-100 blur-0 grayscale-0  hover:scale-[1.02]"
+          />
+          {asset.description && (
+            <figcaption className="text-sm tracking-wide text-gray-400 text-center py-2 mb-4">
+              {asset.description}
+            </figcaption>
+          )}
+        </Zoom>
       </figure>
     );
   }
@@ -182,17 +185,19 @@ export default function Markdown({ content }: { content: Content }) {
         return (
           <figure className="flex flex-col w-full gap-2 justify-center">
             <div className="flex w-full gap-4 justify-center">
-            {assets.imagesCollection.items.map((asset) => (
-              <div key={asset.url} className="flex-grow my-1">
-                <OptmzImage
-                  src={asset.url}
-                  width={asset.width || 800}
-                  height={asset.height || 800}
-                  alt={asset.description || asset.title}
-                  className="max-h-[750px] w-auto object-contain rounded duration-700 ease-in-out scale-100 blur-0 grayscale-0 hover:scale-[1.02]"
-                />
-              </div>
-            ))}
+              {assets.imagesCollection.items.map((asset) => (
+                <div key={asset.url} className="flex-grow my-1">
+                  <Zoom zoomMargin={45}>
+                    <OptmzImage
+                      src={asset.url}
+                      width={asset.width || 800}
+                      height={asset.height || 800}
+                      alt={asset.description || asset.title}
+                      className="max-h-[750px] w-auto object-contain rounded duration-700 ease-in-out scale-100 blur-0 grayscale-0 hover:scale-[1.02]"
+                    />
+                  </Zoom>
+                </div>
+              ))}
             </div>
             {assets.description && (
               <figcaption className="text-sm tracking-wide text-gray-400 text-center pt-1">

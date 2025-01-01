@@ -25,6 +25,7 @@
     "react": "^18",
     "react-confetti-explosion": "^2.1.2",
     "react-dom": "^18",
+    "react-medium-image-zoom": "^5.2.13",
     "react-spinners": "^0.14.1",
     "react-tweet": "^3.2.1"
   },
