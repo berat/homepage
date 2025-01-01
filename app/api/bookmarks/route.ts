@@ -11,7 +11,7 @@ export const revalidate = 3600;
 
 export async function GET() {
   try {
-    const url = `https://api.raindrop.io/rest/v1/raindrops/0?collectionId=${collectionId}`;
+    const url = `https://api.raindrop.io/rest/v1/raindrops/${collectionId}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
