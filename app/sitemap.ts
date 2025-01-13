@@ -7,7 +7,7 @@ const DOMAIN = "https://beratbozkurt.net";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [allPosts] = await Promise.all([getAllPosts(100, false)]);
 
-  const posts = allPosts.map((post) => {
+  const posts = allPosts.posts.map((post) => {
     return {
       url: `${DOMAIN}/blog/${post.slug}`,
       lastModified: post.date,
