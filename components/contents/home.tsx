@@ -26,7 +26,7 @@ export const PhotoSection = async () => {
 };
 
 export const PostSection = async () => {
-  const allPosts = await getAllPosts(6, false);
+  const { posts: allPosts } = await getAllPosts(6, false);
 
   return (
     <div
@@ -41,7 +41,6 @@ export const PostSection = async () => {
 
 export const ProjectSection = async () => {
   const data = await getAllProjects(6);
-
 
   return (
     <div

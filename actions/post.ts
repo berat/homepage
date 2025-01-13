@@ -120,7 +120,12 @@ export async function getAllPosts(limit?: number, isDraftMode?: boolean) {
     isDraftMode,
   );
 
-  return extractPostEntries(entries);
+  const getExtractPost = extractPostEntries(entries);
+
+  let categories = getExtractPost.map((item) => item.category);
+  categories = ["Hepsi", ...new Set(categories.flat())];
+
+  return { posts: getExtractPost, categories: categories };
 }
 
 export async function getPostAndMorePosts(slug: string, preview: boolean) {
