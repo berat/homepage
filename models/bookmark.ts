@@ -6,4 +6,5 @@ export type BookmarkType = {
   excerpt: string;
   domain: string;
   created: string;
+  tags: string[];
 };

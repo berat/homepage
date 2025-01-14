@@ -20,7 +20,9 @@ const BlogWrapper: React.FC<ClientBlogContentProps> = ({
   initialPosts,
   categories,
 }) => {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([
+    "Hepsi",
+  ]);
   const [filteredPosts, setFilteredPosts] = useState<PostType[]>(initialPosts);
   const [visible, setVisible] = useState<boolean>(false);
 

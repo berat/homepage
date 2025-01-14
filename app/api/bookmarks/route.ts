@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import moment from "moment";
 
 import "moment/locale/tr";
 
@@ -24,26 +23,16 @@ export async function GET() {
 
     if (data.result === true) {
       const { items } = data;
+      const categories = ["Hepsi"];
 
-      const groupedByDate = (
-        data: BookmarkType[],
-        dateKey: keyof BookmarkType,
-        currentlyForm: string | undefined,
-        format: string,
-      ) => {
-        return data.reduce((acc, item: BookmarkType) => {
-          const getMonth = moment(item[dateKey], currentlyForm).format(
-            format ?? "MMMM YYYY",
-          );
-          acc[getMonth] = acc[getMonth] || [];
-          acc[getMonth].push(item);
-          return acc;
-        }, {});
-      };
+      items.map((item: BookmarkType) => {
+        item.tags.map((t) => t && categories.push(t));
+      });
 
       return NextResponse.json({
         status: 200,
-        data: groupedByDate(items, "created", undefined, "MMMM YYYY"),
+        data: items,
+        categories: [...new Set(categories)],
       });
     } else {
       return NextResponse.json({ status: 400, err: data.errorMessage });

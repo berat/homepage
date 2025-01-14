@@ -16,9 +16,9 @@ const Category: React.FC<Props> = ({
 }) => {
   return (
     <div className={"my-4 flex gap-2"}>
-      {data.map((category, index) => (
+      {data.map((category) => (
         <button
-          key={index}
+          key={category}
           className={`${defaultCategoryStyle} ${
             selectedCategory?.includes(category)
               ? "bg-primary text-white"
