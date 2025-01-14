@@ -32,7 +32,12 @@ const Search: React.FC<Props> = ({ visible, toggleSearch, onSearch }) => {
     <div className="relative flex flex-col items-start">
       <button
         className={`bg-lightGray px-3 py-1.5 rounded-2xl `}
-        onClick={() => toggleSearch(!visible)}
+        onClick={() => {
+          handleSearch({
+            target: { value: "" },
+          } as React.ChangeEvent<HTMLInputElement>);
+          toggleSearch(!visible);
+        }}
       >
         <Image src={SearchIcon} alt={"search"} width={18} height={18} />
       </button>

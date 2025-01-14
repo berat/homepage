@@ -27,6 +27,7 @@ const BlogWrapper: React.FC<ClientBlogContentProps> = ({
   const [visible, setVisible] = useState<boolean>(false);
 
   const handleCategoryChange = (category: string) => {
+    setVisible(false);
     if (category === "Hepsi") {
       const updatedCategories = selectedCategories.includes(category)
         ? []
