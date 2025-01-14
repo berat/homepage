@@ -16,8 +16,8 @@ interface ClientBlogContentProps {
 }
 
 const BookmarkWrapper: React.FC<ClientBlogContentProps> = ({
-  initialPosts,
-  categories,
+  initialPosts = [], // Default değer
+  categories = [], // Default değer
 }) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([
     "Hepsi",
@@ -26,23 +26,31 @@ const BookmarkWrapper: React.FC<ClientBlogContentProps> = ({
     useState<BookmarkType[]>(initialPosts);
 
   useEffect(() => {
+    if (!Array.isArray(initialPosts)) return;
+
     const newFilteredPosts =
-      selectedCategories.length === 0 || selectedCategories.includes("Hepsi")
+      !selectedCategories?.length || selectedCategories.includes("Hepsi")
         ? initialPosts
         : initialPosts.filter((post) =>
-            post.tags?.some((cat) => selectedCategories.includes(cat)),
+            post?.tags && Array.isArray(post.tags)
+              ? post.tags.some((cat) => selectedCategories.includes(cat))
+              : false,
           );
 
     setFilteredPosts(newFilteredPosts);
   }, [selectedCategories, initialPosts]);
 
   const handleCategoryChange = (category: string) => {
+    if (!category) return;
+
     if (category === "Hepsi") {
       setSelectedCategories((prev) =>
         prev.includes(category) ? [] : [category],
       );
     } else {
       setSelectedCategories((prev) => {
+        if (!Array.isArray(prev)) return [category];
+
         let updatedCategories = prev.includes(category)
           ? prev.filter((c) => c !== category)
           : [...prev, category];
@@ -57,25 +65,38 @@ const BookmarkWrapper: React.FC<ClientBlogContentProps> = ({
   };
 
   const groupedByDate = useMemo(() => {
-    return filteredPosts.reduce((acc, item: BookmarkType) => {
-      const getMonth = moment(item["created"]).format("MMMM YYYY");
-      acc[getMonth] = acc[getMonth] || [];
-      acc[getMonth].push(item);
-      return acc;
-    }, {});
+    if (!Array.isArray(filteredPosts) || !filteredPosts?.length) {
+      return {};
+    }
+
+    return filteredPosts.reduce(
+      (acc: Record<string, BookmarkType[]>, item: BookmarkType) => {
+        if (!item?.created) return acc;
+
+        const getMonth = moment(item.created).format("MMMM YYYY");
+        if (!acc[getMonth]) {
+          acc[getMonth] = [];
+        }
+        acc[getMonth].push(item);
+        return acc;
+      },
+      {},
+    );
   }, [filteredPosts]);
 
   return (
     <div className="flex gap-4 flex-col pb-2 items-start">
       <div className="flex flex-wrap gap-2 items-center mb-0">
-        <Category
-          data={categories}
-          selectedCategory={selectedCategories}
-          onCategoryChange={handleCategoryChange}
-        />
+        {Array.isArray(categories) && categories.length > 0 && (
+          <Category
+            data={categories}
+            selectedCategory={selectedCategories || []}
+            onCategoryChange={handleCategoryChange}
+          />
+        )}
       </div>
       <div className="w-full flex gap-4 my-8 flex-wrap items-start">
-        {Object.keys(groupedByDate).length !== 0 ? (
+        {Object.keys(groupedByDate || {}).length > 0 ? (
           Object.keys(groupedByDate).map((key: string) => (
             <ul key={key} className="w-full my-4 block">
               <li key={`header-${key}`}>
@@ -85,9 +106,13 @@ const BookmarkWrapper: React.FC<ClientBlogContentProps> = ({
               </li>
               <li key={`content-${key}`}>
                 <div className="flex gap-8 flex-wrap">
-                  {groupedByDate[key].map((item: BookmarkType) => (
-                    <BookmarkCard key={item.id} data={item} />
-                  ))}
+                  {Array.isArray(groupedByDate[key]) &&
+                    groupedByDate[key].map((item: BookmarkType) => (
+                      <BookmarkCard
+                        key={item?.id || Math.random()}
+                        data={item}
+                      />
+                    ))}
                 </div>
               </li>
             </ul>
