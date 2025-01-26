@@ -34,7 +34,13 @@ function RenderResults() {
               <div className="cmdk-item-name">
                 <span>{item.name}</span>
                 {active && (
-                  <Image src={ArrowRight} alt="back" width={21} height={21} />
+                  <Image
+                    src={ArrowRight}
+                    alt="back"
+                    width={21}
+                    height={21}
+                    className="dark:invert dark:opacity-80"
+                  />
                 )}
               </div>
             </div>

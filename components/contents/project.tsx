@@ -46,8 +46,10 @@ const ProjectList: React.FC<Props> = async ({ data }) => {
     .sort((a: string, b: string) => Number(b) - Number(a))
     .map((key: string) => (
       <ul key={key} className="w-full my-4 block">
-        <h3 className="text-2xl text-black font-semibold">{key}</h3>
-        <span className="text-sm mb-3 inline-block text-slate-500 opacity-70">
+        <h3 className="text-2xl text-black font-semibold dark:text-darkText">
+          {key}
+        </h3>
+        <span className="text-sm mb-3 inline-block text-slate-500 opacity-70 dark:text-darkText">
           {statusDescription[key]}
         </span>
         <div className={"flex gap-4 flex-wrap"}>

@@ -31,10 +31,10 @@ const ProjectDetailView: React.FC<ProjectDetailProps> = ({
         className={`w-[96%] lg:w-[95%] flex flex-col md:flex-row items-start justify-center gap-2.5 mx-auto`}
       >
         <div className="flex-1 flex flex-col gap-2 md:gap-6 md:pt-10 md:pb-4">
-          <h1 className="text-3xl tracking-tight lg:tracking-normal lg:text-3xl font-semibold leading-10 ">
+          <h1 className="text-3xl tracking-tight lg:tracking-normal lg:text-3xl font-semibold leading-10 dark:text-white">
             {post.title}
           </h1>
-          <span className="text-2xl font-light leading-10 block hyphens-auto flex-1">
+          <span className="text-2xl font-light leading-10 block hyphens-auto flex-1 dark:text-darkText">
             {post.summary}
           </span>
           <div className="hidden md:inline-flex gap-4">

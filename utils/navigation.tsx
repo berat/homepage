@@ -32,7 +32,7 @@ export const NavigationItemToIcon: React.FC<Props> = ({ type, isActive }) => {
           width={20}
           height={20}
           alt={"icon"}
-          className={isActive ? "invert" : ""}
+          className={isActive ? "invert" : "dark:invert dark:opacity-75"}
         />
       );
     case "blog":
@@ -42,7 +42,7 @@ export const NavigationItemToIcon: React.FC<Props> = ({ type, isActive }) => {
           width={20}
           height={20}
           alt={"icon"}
-          className={isActive ? "invert" : ""}
+          className={isActive ? "invert" : "dark:invert dark:opacity-75"}
         />
       );
     case "photos":
@@ -52,7 +52,7 @@ export const NavigationItemToIcon: React.FC<Props> = ({ type, isActive }) => {
           width={20}
           height={20}
           alt={"icon"}
-          className={isActive ? "invert" : ""}
+          className={isActive ? "invert" : "dark:invert dark:opacity-75"}
         />
       );
     case "projects":
@@ -62,7 +62,7 @@ export const NavigationItemToIcon: React.FC<Props> = ({ type, isActive }) => {
           width={20}
           height={20}
           alt={"icon"}
-          className={isActive ? "invert" : ""}
+          className={isActive ? "invert" : "dark:invert dark:opacity-75"}
         />
       );
     case "tools":
@@ -72,7 +72,7 @@ export const NavigationItemToIcon: React.FC<Props> = ({ type, isActive }) => {
           width={20}
           height={20}
           alt={"icon"}
-          className={isActive ? "invert" : ""}
+          className={isActive ? "invert" : "dark:invert dark:opacity-75"}
         />
       );
     case "bookmarks":
@@ -82,7 +82,7 @@ export const NavigationItemToIcon: React.FC<Props> = ({ type, isActive }) => {
           width={20}
           height={20}
           alt={"icon"}
-          className={isActive ? "invert" : ""}
+          className={isActive ? "invert" : "dark:invert dark:opacity-75"}
         />
       );
     default:

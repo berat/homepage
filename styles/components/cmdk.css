@@ -3,7 +3,7 @@
 }
 
 .cmdk-animator {
-  @apply w-[600px] border-[1px] border-lightGray bg-white text-text rounded-lg py-2 overflow-hidden shadow-md;
+  @apply w-[600px] border-[1px] border-lightGray bg-white text-text dark:border-[#2f313a] dark:bg-[#121212] dark:text-darkText rounded-lg py-2 overflow-hidden shadow-md;
 }
 
 .cmdk-group-name {
@@ -11,7 +11,7 @@
 }
 
 .cmdk-item-wrapper {
-  @apply mx-auto text-text rounded cursor-pointer;
+  @apply mx-auto text-text dark:text-darkText rounded cursor-pointer;
 }
 
 .cmdk-item {
@@ -31,5 +31,5 @@
 }
 
 .cmdk-item-active {
-  @apply bg-lightGray;
+  @apply bg-lightGray  dark:bg-[#282828];
 }

@@ -57,7 +57,7 @@ export default async function Blog({ params }: { params: Params }) {
         <ProjectDetail slug={slug} />
       </Suspense>
       <div className="xl:w-container w-[95%] mx-auto flex flex-col gap-4">
-        <hr className="w-full mx-auto border-lightGray bg-lightGray h-0.5 my-8" />
+        <hr className="w-full mx-auto border-lightGray bg-lightGray dark:border-[#2f313a] dark:bg-[#2f313a] h-0.5 my-8" />
         <Suspense fallback={<ShareSkeleton />}>
           <ShareButtons category="project" slug={slug} />
         </Suspense>

@@ -17,7 +17,9 @@ export const revalidate = 10800;
 export default async function Home() {
   return (
     <main
-      className={"text-text w-[96%] lg:max-w-[62%] xl:max-w-[800px] mx-auto"}
+      className={
+        "text-text dark:text-darkText w-[96%] lg:max-w-[62%] xl:max-w-[800px] mx-auto"
+      }
     >
       <p>
         Merhaba! Ben <b>Berat</b>. 5 yıldan fazla frontend developer olarak

@@ -24,11 +24,11 @@ export default function Blog() {
       className={"text-text w-[96%] lg:min-w-[70%] xl:max-w-[800px] mx-auto"}
     >
       <header className="w-full xl:w-blog mx-auto pb-4">
-        <h2 className="text-3xl lg:text-2xl font-semibold tracking-tight text-black leading-10 mb-4">
+        <h2 className="text-3xl lg:text-2xl font-semibold tracking-tight dark:text-white text-black leading-10 mb-4">
           Yazılar
         </h2>
       </header>
-      <p className="py-2">
+      <p className="py-2 dark:text-darkText">
         Blogumda teknik yazılarla birlikte kişisel yazılarımı paylaşıp anı
         bırakıyorum. Aslında burada hayatımın bir parçasını bulabilirsin. Boş
         kalan zamanlarımda indie projelerime ağırlık verip bunu açık bir şekilde

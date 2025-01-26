@@ -55,7 +55,7 @@ const ShareView: React.FC<Props> = ({
     <div className="w-full mx-auto flex items-center gap-2.5">
       <button
         onClick={handleLike}
-        className={`flex items-center gap-2 px-3 py-1 text-text rounded-full bg-white border-2 border-lightGray ${
+        className={`flex items-center gap-2 px-3 py-1 text-text rounded-full bg-white dark:bg-[#2f313a] border-2 border-lightGray dark:border-[#121212] dark:text-darkText ${
           !canLike ? "opacity-40" : "opacity-100"
         }`}
         disabled={!canLike}
@@ -64,7 +64,7 @@ const ShareView: React.FC<Props> = ({
         <span className="font-semibold text-sm">{`${totalLike} ${clickedLikeButton}`}</span>
       </button>
       <span className="text-disable font-thin text-2xl"> • </span>
-      <div className="text-text">
+      <div className="text-text dark:text-darkText">
         <Link
           href={`https://x.com/intent/tweet?url=${url}&via=beratbozkurt0&text=${title}`}
           target="_blank"

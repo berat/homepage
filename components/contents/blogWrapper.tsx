@@ -119,7 +119,7 @@ const BlogWrapper: React.FC<ClientBlogContentProps> = ({
             </ul>
           ))
       ) : (
-        <h3>Herhangi bir yazı bulunamadı!</h3>
+        <h3 className="dark:text-darkText">Herhangi bir yazı bulunamadı!</h3>
       )}
     </div>
   );

@@ -6,6 +6,7 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./utils/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "selector",
   theme: {
     extend: {
       width: {
@@ -25,6 +26,9 @@ module.exports = {
         instagram: "#000000",
         linkedin: "#2567C2",
         contact: "#222",
+        darkBlack: "#12131B",
+        darkText: "#cecece",
+        darkDisable: "#AEAEAE",
       },
       backgroundImage: {
         "bg-gradient":

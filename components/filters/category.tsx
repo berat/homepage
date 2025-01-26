@@ -22,7 +22,7 @@ const Category: React.FC<Props> = ({
           className={`${defaultCategoryStyle} ${
             selectedCategory?.includes(category)
               ? "bg-primary text-white"
-              : "bg-lightGray"
+              : "bg-lightGray dark:bg-[#464750] dark:text-darkText"
           }`}
           onClick={() => onCategoryChange(category)}
         >

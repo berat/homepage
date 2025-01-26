@@ -62,7 +62,7 @@ export default async function Blog({ params }: { params: Params }) {
         </Suspense>
       </div>
       <div className="xl:w-[1000px] w-[95%] mx-auto flex flex-col gap-4">
-        <hr className="w-full mx-auto border-lightGray bg-lightGray h-0.5 my-8" />
+        <hr className="w-full mx-auto border-lightGray dark:border-[#2f313a] dark:bg-[#2f313a] bg-lightGray h-0.5 my-8" />
         <Suspense fallback={<BlogCardSkeleton length={3} isPage />}>
           <PreviousNextPosts slug={slug} />
         </Suspense>

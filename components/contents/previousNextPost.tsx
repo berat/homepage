@@ -16,7 +16,7 @@ const PreviousNextPosts = async ({ slug }: { slug: string }) => {
 
   return (
     <section>
-      <h3 className="text-xl lg:text-xl font-semibold tracking-tight text-black leading-10 mb-4">
+      <h3 className="text-xl lg:text-xl font-semibold tracking-tight text-black dark:text-darkText leading-10 mb-4">
         Benzer Yazılar
       </h3>
       <div className={"flex lg:flex-row flex-col gap-4 flex-wrap"}>

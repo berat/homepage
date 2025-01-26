@@ -31,7 +31,7 @@ const Search: React.FC<Props> = ({ visible, toggleSearch, onSearch }) => {
   return (
     <div className="relative flex flex-col items-start">
       <button
-        className={`bg-lightGray px-3 py-1.5 rounded-2xl `}
+        className={`bg-lightGray dark:bg-[#464750] px-3 py-1.5 rounded-2xl `}
         onClick={() => {
           handleSearch({
             target: { value: "" },
@@ -39,7 +39,13 @@ const Search: React.FC<Props> = ({ visible, toggleSearch, onSearch }) => {
           toggleSearch(!visible);
         }}
       >
-        <Image src={SearchIcon} alt={"search"} width={18} height={18} />
+        <Image
+          src={SearchIcon}
+          alt={"search"}
+          className="dark:invert dark:opacity-80"
+          width={18}
+          height={18}
+        />
       </button>
       {!visible ? null : (
         <div className={"absolute top-12"}>

@@ -33,10 +33,12 @@ const ProjectCard: React.FC<Props> = ({ post, isHome }) => {
             />
           )}
         </div>
-        <h3 className="mt-3 mb-0.5 text-xl font-semibold text-black">
+        <h3 className="mt-3 mb-0.5 text-xl font-semibold dark:text-white text-black">
           {post.title}
         </h3>
-        <p className="text-[14px] text-slate-500">{post.summary}</p>
+        <p className="text-[14px] dark:text-slate-500 text-slate-500">
+          {post.summary}
+        </p>
       </Link>
     </article>
   );

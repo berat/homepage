@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Sidebar } from "@/components";
@@ -20,6 +21,7 @@ type Props = {
 const Providers: React.FC<Props> = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const [activeTheme, setActiveTheme] = useState<string>("system");
 
   const isDetail =
     pathname.startsWith("/blog/") ||
@@ -32,13 +34,74 @@ const Providers: React.FC<Props> = ({ children }) => {
     "lg:flex-row flex-col lg:my-6": !isDetail,
   });
 
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "system" || !savedTheme) {
+      applySystemTheme();
+      setActiveTheme("system");
+    } else {
+      applyTheme(savedTheme);
+      setActiveTheme(savedTheme);
+    }
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleSystemThemeChange = () => {
+      if (!savedTheme || savedTheme === "system") {
+        applySystemTheme();
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleSystemThemeChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleSystemThemeChange);
+    };
+  }, []);
+
+  const applyTheme = (theme: string) => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else if (theme === "light") {
+      document.documentElement.classList.remove("dark");
+    }
+  };
+
+  const handleThemeChange = (newTheme: string) => {
+    setActiveTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    if (newTheme === "system") {
+      applySystemTheme();
+    } else {
+      applyTheme(newTheme);
+    }
+  };
+
+  const applySystemTheme = () => {
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    if (systemPrefersDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
+
   const actions = [
     {
       id: "homeAction",
       name: "Anasayfa",
       shortcut: ["0"],
       keywords: "anasayfa",
-      icon: <Image src={HomeIcon} width={20} height={20} alt="icon" />,
+      icon: (
+        <Image
+          src={HomeIcon}
+          width={20}
+          height={20}
+          alt="icon"
+          className="dark:invert dark:opacity-80"
+        />
+      ),
       section: "Menüler",
       perform: () => router.push("/"),
     },
@@ -101,7 +164,12 @@ const Providers: React.FC<Props> = ({ children }) => {
       name: "X",
       keywords: "twitter",
       section: "Sosyal Medya",
-      icon: <SocialItemToIcon type="twitter" />,
+      icon: (
+        <SocialItemToIcon
+          type="twitter"
+          className="dark:invert dark:opacity-80"
+        />
+      ),
       perform: () => window.open("https://twitter.com/beratbozkurt0", "_blank"),
     },
     {
@@ -109,7 +177,12 @@ const Providers: React.FC<Props> = ({ children }) => {
       name: "Github",
       keywords: "github",
       section: "Sosyal Medya",
-      icon: <SocialItemToIcon type="github" />,
+      icon: (
+        <SocialItemToIcon
+          type="github"
+          className="dark:invert dark:opacity-80"
+        />
+      ),
       perform: () => window.open("https://github.com/berat", "_blank"),
     },
     {
@@ -117,7 +190,12 @@ const Providers: React.FC<Props> = ({ children }) => {
       name: "İnstagram",
       keywords: "instagram",
       section: "Sosyal Medya",
-      icon: <SocialItemToIcon type="instagram" />,
+      icon: (
+        <SocialItemToIcon
+          type="instagram"
+          className="dark:invert dark:opacity-80"
+        />
+      ),
       perform: () =>
         window.open("https://instagram.com/beratbozkurt0", "_blank"),
     },
@@ -126,7 +204,12 @@ const Providers: React.FC<Props> = ({ children }) => {
       name: "Linkedin",
       keywords: "linkedin",
       section: "Sosyal Medya",
-      icon: <SocialItemToIcon type="linkedin" />,
+      icon: (
+        <SocialItemToIcon
+          type="linkedin"
+          className="dark:invert dark:opacity-80"
+        />
+      ),
       perform: () =>
         window.open("https://www.linkedin.com/in/beratbozkurt/", "_blank"),
     },
@@ -140,8 +223,17 @@ const Providers: React.FC<Props> = ({ children }) => {
       actions={actions}
     >
       <div className={classname}>
-        <MenuPost isDetail={isDetail} />
-        {!isDetail && <Sidebar />}
+        <MenuPost
+          isDetail={isDetail}
+          handleThemeChange={handleThemeChange}
+          activeTheme={activeTheme}
+        />
+        {!isDetail && (
+          <Sidebar
+            handleThemeChange={handleThemeChange}
+            activeTheme={activeTheme}
+          />
+        )}
         {children}
       </div>
     </KBarProvider>

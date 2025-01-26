@@ -24,13 +24,13 @@ const BookmarkCard: React.FC<Props> = ({ data }) => {
             className="w-52 h-32 min-w-52 rounded-lg object-cover"
           />
         ) : (
-          <div className="w-52 h-32 bg-lightGray rounded-lg" />
+          <div className="w-52 h-32 bg-lightGray dark:bg-[#2f313a] rounded-lg" />
         )}
         <div className="flex flex-col gap-2">
-          <span className="font-semibold text-lg text-text leading-8">
+          <span className="font-semibold text-lg text-text dark:text-darkText leading-8">
             {data.title}
           </span>
-          <p className="text-text font-normal">
+          <p className="text-text dark:text-darkText font-normal">
             {data.excerpt &&
               data.excerpt.split(" ").slice(0, 17).join(" ") +
                 (data.excerpt.split(" ").length > 17 ? "..." : "")}

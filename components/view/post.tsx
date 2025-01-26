@@ -62,7 +62,7 @@ const PostDetailView: React.FC<PostDetailProps> = ({
   return (
     <article className="xl:w-[1000px] w-[95%] mx-auto post-content">
       <header className={`w-full mx-auto`}>
-        <h1 className="text-3xl tracking-tight lg:tracking-normal lg:text-3xl font-semibold leading-10 ">
+        <h1 className="text-3xl tracking-tight dark:text-white lg:tracking-normal lg:text-3xl font-semibold leading-10 ">
           {post.title}
         </h1>
         <div className="flex gap-1 items-center mt-1.5">
@@ -76,7 +76,7 @@ const PostDetailView: React.FC<PostDetailProps> = ({
             disabled={!canLike}
           >
             👍🏼
-            <span className="font-semibold text-sm">{`${totalLike} ${clickedLikeButton}`}</span>
+            <span className="font-semibold text-sm dark:text-[#737373]">{`${totalLike} ${clickedLikeButton}`}</span>
           </button>
           {!canLike && <ConfettiExplosion />}
         </div>

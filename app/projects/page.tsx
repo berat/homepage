@@ -25,11 +25,11 @@ export default function Blog() {
       className={"text-text w-[96%] lg:min-w-[70%] xl:max-w-[800px] mx-auto"}
     >
       <header className="w-full xl:w-blog mx-auto pb-4">
-        <h2 className="text-3xl lg:text-2xl font-semibold tracking-tight text-black leading-10 mb-4">
+        <h2 className="text-3xl lg:text-2xl font-semibold tracking-tight text-black dark:text-white leading-10 mb-4">
           Projeler
         </h2>
       </header>
-      <p className="py-2">
+      <p className="py-2 dark:text-darkText">
         Boş zamanlarımda proje geliştirmekten keyif alıyorum. Bu projelerin bir
         kısmını open-source ile geliştiriyorum. Bir kısmını ise indie-project
         ile geliştirip pasif gelir elde etmeyi planlıyorum. Bu proje süreçlerini

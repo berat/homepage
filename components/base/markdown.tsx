@@ -90,7 +90,7 @@ export default function Markdown({ content }: { content: Content }) {
       [MARKS.CODE]: (text) => {
         if (!text) return null;
         return (
-          <code className="bg-[#e8e8e8] px-1 py-0.5 rounded text-[14.75px]">
+          <code className="bg-[#e8e8e8] dark:bg-[#464750] px-1 py-0.5 rounded text-[14.75px]">
             {text}
           </code>
         );
@@ -120,61 +120,63 @@ export default function Markdown({ content }: { content: Content }) {
       ),
       [BLOCKS.PARAGRAPH]: (_, children: ReactNode[]) => {
         return (
-          <div className="paragraph w-[96%] lg:w-full  mx-auto py-1.5 lg:py-2 leading-6 text-text">
+          <div className="paragraph w-[96%] lg:w-full  mx-auto py-1.5 lg:py-2 leading-6  dark:text-darkText text-text">
             {children}
           </div>
         );
       },
       [BLOCKS.HEADING_1]: (_, children: ReactNode[]) => {
         return (
-          <h1 className="w-[96%] lg:w-full  mx-auto text-3xl font-semibold leading-8 py-2 pt-8 lg:pt-6">
+          <h1 className="w-[96%] lg:w-full  mx-auto text-3xl font-semibold dark:text-darkText leading-8 py-2 pt-8 lg:pt-6">
             {children}
           </h1>
         );
       },
       [BLOCKS.HEADING_2]: (_, children: ReactNode[]) => {
         return (
-          <h2 className="w-[96%] lg:w-full  mx-auto text-2xl font-semibold leading-8 py-1.5 pt-8 lg:pt-6">
+          <h2 className="w-[96%] lg:w-full  mx-auto text-2xl font-semibold dark:text-darkText leading-8 py-1.5 pt-8 lg:pt-6">
             {children}
           </h2>
         );
       },
       [BLOCKS.HEADING_3]: (_, children: ReactNode[]) => {
         return (
-          <h3 className="w-[96%] lg:w-full  mx-auto text-xl leading-7 py-2 pt-8">
+          <h3 className="w-[96%] lg:w-full  mx-auto text-xl leading-7 dark:text-darkText  py-2 pt-8">
             {children}
           </h3>
         );
       },
       [BLOCKS.UL_LIST]: (_, children: ReactNode[]) => {
         return (
-          <ul className="w-[96%] lg:w-full  mx-auto list-disc pl-5 lg:pl-7 py-1.5 lg:py-3 leading-6">
+          <ul className="w-[96%] lg:w-full  mx-auto list-disc pl-5 lg:pl-7 dark:text-darkText py-1.5 lg:py-3 leading-6">
             {children}
           </ul>
         );
       },
       [BLOCKS.OL_LIST]: (_, children: ReactNode[]) => {
         return (
-          <ol className="w-full  mx-auto list-decimal pl-5 lg:pl-7 py-1.5 lg:py-3 leading-6">
+          <ol className="w-full  mx-auto list-decimal pl-5 lg:pl-7 py-1.5 dark:text-darkText lg:py-3 leading-6">
             {children}
           </ol>
         );
       },
       [BLOCKS.LIST_ITEM]: (_, children: ReactNode[]) => {
         return (
-          <li className="w-[96%] lg:w-full  mx-auto leading-6 ">{children}</li>
+          <li className="w-[96%] lg:w-full  mx-auto leading-6 dark:text-darkText">
+            {children}
+          </li>
         );
       },
       [BLOCKS.QUOTE]: (_, children: ReactNode[]) => {
         return (
-          <blockquote className="w-[96%] lg:w-full  mx-auto my-6 pl-6 border-l-[3px] border-disabled rounded-r-md py-4 text-[#525252] text-base leading-7">
+          <blockquote className="w-[96%] lg:w-full  mx-auto my-6 pl-6 border-l-[3px] border-disabled rounded-r-md py-4 text-[#525252] dark:border-[#5d5f67] dark:bg-[#2f313a] dark:text-disable text-base leading-7">
             {children}
           </blockquote>
         );
       },
       [BLOCKS.HR]: () => {
         return (
-          <hr className="w-full lg:w-full  mx-auto border-lightGray bg-lightGray h-0.5 my-8" />
+          <hr className="w-full lg:w-full  mx-auto border-lightGray bg-lightGray dark:border-[#2f313a] dark:bg-[#2f313a] h-0.5 my-8" />
         );
       },
       [BLOCKS.EMBEDDED_ENTRY]: (node) => {

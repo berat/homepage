@@ -28,6 +28,20 @@ body ::-webkit-scrollbar-thumb:hover {
 body ::-webkit-scrollbar-thumb:active {
   background: rgba(0, 0, 0, 0.9);
 }
+.dark ::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.dark ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+.dark ::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.9);
+}
 
 .detail-content {
   li div.paragraph,
@@ -35,7 +49,11 @@ body ::-webkit-scrollbar-thumb:active {
     @apply py-0.5 w-full;
   }
 
-  blockquote div{
+  blockquote div {
     color: inherit;
   }
+}
+
+.dark .hljs {
+  @apply dark:invert;
 }
