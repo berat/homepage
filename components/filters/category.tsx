@@ -15,7 +15,7 @@ const Category: React.FC<Props> = ({
   onCategoryChange,
 }) => {
   return (
-    <div className={"my-4 flex gap-2"}>
+    <div className={"my-4 flex flex-wrap gap-2"}>
       {data.map((category) => (
         <button
           key={category}
