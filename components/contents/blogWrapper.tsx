@@ -29,30 +29,16 @@ const BlogWrapper: React.FC<ClientBlogContentProps> = ({
   const handleCategoryChange = (category: string) => {
     setVisible(false);
     if (category === "Hepsi") {
-      const updatedCategories = selectedCategories.includes(category)
-        ? []
-        : [category];
-
-      setSelectedCategories(updatedCategories);
+      setSelectedCategories([category]);
 
       setFilteredPosts(initialPosts);
     } else {
-      let updatedCategories = selectedCategories.includes(category)
-        ? selectedCategories.filter((c) => c !== category)
-        : [...selectedCategories, category];
-
-      if (selectedCategories.includes("Hepsi")) {
-        updatedCategories = updatedCategories.filter((c) => c !== "Hepsi");
-      }
-      setSelectedCategories(updatedCategories);
+      setSelectedCategories([category]);
 
       // Filter posts based on selected categories
-      const newFilteredPosts =
-        updatedCategories.length === 0
-          ? initialPosts
-          : initialPosts.filter((post) =>
-              post.category?.some((cat) => updatedCategories.includes(cat)),
-            );
+      const newFilteredPosts = initialPosts.filter((post) =>
+        post.category?.some((cat) => [category].includes(cat)),
+      );
 
       setFilteredPosts(newFilteredPosts);
     }

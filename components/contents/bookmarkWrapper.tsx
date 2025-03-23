@@ -43,25 +43,7 @@ const BookmarkWrapper: React.FC<ClientBlogContentProps> = ({
   const handleCategoryChange = (category: string) => {
     if (!category) return;
 
-    if (category === "Hepsi") {
-      setSelectedCategories((prev) =>
-        prev.includes(category) ? [] : [category],
-      );
-    } else {
-      setSelectedCategories((prev) => {
-        if (!Array.isArray(prev)) return [category];
-
-        let updatedCategories = prev.includes(category)
-          ? prev.filter((c) => c !== category)
-          : [...prev, category];
-
-        if (prev.includes("Hepsi")) {
-          updatedCategories = updatedCategories.filter((c) => c !== "Hepsi");
-        }
-
-        return updatedCategories;
-      });
-    }
+    setSelectedCategories([category]);
   };
 
   const groupedByDate = useMemo(() => {
