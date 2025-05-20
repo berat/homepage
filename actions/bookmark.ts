@@ -1,5 +1,5 @@
-export async function getBookmarks(isTurkish: boolean = true) {
-  const pathName = isTurkish ? "/api/bookmarks" : "/en/api/bookmarks";
+export async function getBookmarks() {
+  const pathName = "api/bookmarks";
 
   const res = await fetch(
     (process.env.NODE_ENV === "production"
@@ -8,6 +8,5 @@ export async function getBookmarks(isTurkish: boolean = true) {
   );
 
   const result = await res.json();
-
   return result;
 }

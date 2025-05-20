@@ -5,7 +5,7 @@ import { BookmarkSkeleton } from "@/components/skeletons";
 
 export const revalidate = 10800;
 export const metadata = {
-  title: "Yer İmleri | Berat Bozkurt",
+  title: "Bookmarks | Berat Bozkurt",
   description:
     "Berat Bozkurt, bookmarks, frontend developer, photography, blogging",
 };
@@ -17,7 +17,7 @@ export default async function Bookmarks() {
     >
       <header className="w-full xl:w-blog mx-auto pb-4">
         <h2 className="text-3xl lg:text-2xl font-semibold tracking-tight text-black dark:text-white leading-10 mb-4">
-          Yer İmleri
+          Bookmarks
         </h2>
       </header>
       <p className="py-2 dark:text-darkText">

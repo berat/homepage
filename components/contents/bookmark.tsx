@@ -8,7 +8,7 @@ const BookmarkContent = async ({
 }: {
   isTurkish?: boolean;
 }) => {
-  const { data, categories } = await getBookmarks(false);
+  const { data, categories } = await getBookmarks();
   await updateViewAndLike(
     "page",
     isTurkish ? "" : "en/" + "bookmarks",

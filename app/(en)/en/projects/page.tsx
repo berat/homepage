@@ -14,7 +14,7 @@ import "moment/locale/tr";
 
 export const revalidate = 86400;
 export const metadata = {
-  title: "Projeler | Berat Bozkurt",
+  title: "Projects | Berat Bozkurt",
   description:
     "Berat Bozkurt, project, frontend developer, photography, blogging",
 };

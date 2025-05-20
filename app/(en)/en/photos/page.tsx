@@ -12,7 +12,7 @@ import InstagramIcon from "@/public/icons/instagram-blue.svg";
 
 export const revalidate = 10800;
 export const metadata = {
-  title: "Fotoğraflar | Berat Bozkurt",
+  title: "Photos | Berat Bozkurt",
   description:
     "Berat Bozkurt, photos, frontend developer, photography, blogging",
 };

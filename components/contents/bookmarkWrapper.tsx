@@ -41,6 +41,7 @@ const BookmarkWrapper: React.FC<ClientBlogContentProps> = ({
           );
 
     setFilteredPosts(newFilteredPosts);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategories, initialPosts]);
 
   const handleCategoryChange = (category: string) => {
@@ -74,7 +75,11 @@ const BookmarkWrapper: React.FC<ClientBlogContentProps> = ({
       <div className="flex flex-wrap gap-2 items-center mb-0">
         {Array.isArray(categories) && categories.length > 0 && (
           <Category
-            data={categories}
+            data={
+              isTurkish
+                ? categories
+                : categories.map((item) => (item === "Hepsi" ? "All" : item))
+            }
             selectedCategory={selectedCategories || []}
             onCategoryChange={handleCategoryChange}
           />

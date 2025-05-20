@@ -5,7 +5,7 @@ import { ParagraphSkeleton } from "@/components/skeletons";
 
 export const revalidate = 86400;
 export const metadata = {
-  title: "Araçlar | Berat Bozkurt",
+  title: "Tools | Berat Bozkurt",
   description:
     "Berat Bozkurt, araçlar, tools, frontend developer, photography, blogging",
 };
