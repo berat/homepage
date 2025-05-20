@@ -7,11 +7,20 @@ import { getViewAndLike, updateViewAndLike } from "@/actions/viewLike";
 
 import PostDetailView from "../view/post";
 
-export default async function PostDetail({ slug }: { slug: string }) {
+export default async function PostDetail({
+  slug,
+  isTurkish = true,
+}: {
+  isTurkish?: boolean;
+  slug: string;
+}) {
   const { isEnabled } = await draftMode();
 
-  const { post } = await getPostAndMorePosts(slug, isEnabled);
-  const { data } = await getViewAndLike("post", slug as string);
+  const { post } = await getPostAndMorePosts(slug, isEnabled, isTurkish);
+  const { data } = await getViewAndLike(
+    "post",
+    isTurkish ? "" : "en/" + (slug as string),
+  );
 
   if (typeof post === "boolean") {
     return null;
@@ -19,12 +28,17 @@ export default async function PostDetail({ slug }: { slug: string }) {
 
   const updateView = async () => {
     "use server";
-    await updateViewAndLike("post", slug, "views");
+    await updateViewAndLike("post", isTurkish ? "" : "en/" + slug, "views");
   };
 
   const updateLike = async (count: number) => {
     "use server";
-    await updateViewAndLike("post", slug, "likes", count - data.likes);
+    await updateViewAndLike(
+      "post",
+      isTurkish ? "" : "en/" + slug,
+      "likes",
+      count - data.likes,
+    );
   };
 
   return (

@@ -14,6 +14,7 @@ import LightIcon from "@/public/icons/sun.svg";
 interface Props {
   isDetail?: boolean;
   activeTheme: string;
+  isTurkish?: boolean;
   handleThemeChange: (theme: string) => void;
 }
 
@@ -21,6 +22,7 @@ const MenuPost: React.FC<Props> = ({
   isDetail = false,
   activeTheme,
   handleThemeChange,
+  isTurkish = true,
 }) => {
   const { query } = useKBar();
 
@@ -32,7 +34,7 @@ const MenuPost: React.FC<Props> = ({
     >
       <div className="flex items-center gap-6">
         <Link
-          href="/"
+          href={isTurkish ? "/" : "/en"}
           className="flex items-center gap-2 hover:bg-lightGray px-2 py-2 dark:hover:bg-[#2f313a] rounded"
         >
           <Image

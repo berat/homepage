@@ -3,13 +3,27 @@ import { updateViewAndLike } from "@/actions/viewLike";
 
 import BookmarkWrapper from "./bookmarkWrapper";
 
-const BookmarkContent = async () => {
-  const { data, categories } = await getBookmarks();
-  await updateViewAndLike("page", "bookmarks", "views");
+const BookmarkContent = async ({
+  isTurkish = true,
+}: {
+  isTurkish?: boolean;
+}) => {
+  const { data, categories } = await getBookmarks(false);
+  await updateViewAndLike(
+    "page",
+    isTurkish ? "" : "en/" + "bookmarks",
+    "views",
+  );
 
   if (!data) return null;
 
-  return <BookmarkWrapper categories={categories} initialPosts={data} />;
+  return (
+    <BookmarkWrapper
+      categories={categories}
+      initialPosts={data}
+      isTurkish={isTurkish}
+    />
+  );
 };
 
 export default BookmarkContent;

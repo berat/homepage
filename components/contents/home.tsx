@@ -25,28 +25,36 @@ export const PhotoSection = async () => {
   );
 };
 
-export const PostSection = async () => {
-  const { posts: allPosts } = await getAllPosts(6, false);
+export const PostSection = async ({
+  isTurkish = true,
+}: {
+  isTurkish?: boolean;
+}) => {
+  const { posts: allPosts } = await getAllPosts(6, false, isTurkish);
 
   return (
     <div
       className={"flex gap-4 pb-2 items-center snap-proximity overflow-x-auto"}
     >
       {allPosts.map((post: PostType) => (
-        <PostCard key={post.slug} post={post} />
+        <PostCard key={post.slug} post={post} isTurkish={isTurkish} />
       ))}
     </div>
   );
 };
 
-export const ProjectSection = async () => {
-  const data = await getAllProjects(6);
+export const ProjectSection = async ({
+  isTurkish = true,
+}: {
+  isTurkish?: boolean;
+}) => {
+  const data = await getAllProjects(6, false, isTurkish);
 
   return (
     <div
       className={"flex gap-8 pb-2 items-start snap-proximity overflow-x-auto"}
     >
-      {data.map((post: ProjectType) => (
+      {data?.map((post: ProjectType) => (
         <ProjectCard key={post.slug} post={post} isHome />
       ))}
     </div>

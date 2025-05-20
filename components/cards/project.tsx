@@ -8,15 +8,16 @@ import Image from "@/components/base/image";
 interface Props {
   post: ProjectType;
   isHome?: boolean;
+  isTurkish?: boolean;
 }
 
-const ProjectCard: React.FC<Props> = ({ post, isHome }) => {
+const ProjectCard: React.FC<Props> = ({ post, isHome, isTurkish }) => {
   return (
     <article
       className={`w-full md:w-[48%] ${isHome ? "min-w-[47%] md:min-w-[40%]" : "min-w-[40%]"}`}
     >
       <Link
-        href={`/projects/${post.slug}`}
+        href={`${isTurkish ? "" : "en/"}/projects/${post.slug}`}
         className="flex flex-col items-start"
       >
         <div

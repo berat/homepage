@@ -1,13 +1,13 @@
 import { PhotoType } from "@/models/photo";
 
 import { getPhotos } from "@/actions/photos";
-
-import PhotoCard from "../cards/photo";
 import { updateViewAndLike } from "@/actions/viewLike";
 
-const PhotoContent = async () => {
+import PhotoCard from "../cards/photo";
+
+const PhotoContent = async ({ isTurkish = true }: { isTurkish?: boolean }) => {
   const photoData = await getPhotos();
-  await updateViewAndLike("page", "photos", "views");
+  await updateViewAndLike("page", isTurkish ? "" : "en/" + "photos", "views");
 
   return (
     <div className={"w-full flex gap-4 my-8 flex-wrap items-start "}>

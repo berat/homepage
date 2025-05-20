@@ -12,20 +12,21 @@ import { PostType } from "@/models/post";
 interface Props {
   post: PostType;
   isPage?: boolean;
+  isTurkish?: boolean;
 }
 
-const PostCard: React.FC<Props> = ({ post, isPage }) => {
+const PostCard: React.FC<Props> = ({ post, isPage, isTurkish = true }) => {
   return (
     <article
       className={`${
         isPage ? "lg:h-[300px]" : "lg:h-[275px]"
       } min-w-[48%] lg:min-w-[31.5%] h-[240px] relative rounded-lg z-40`}
     >
-      <Link href={`/blog/${post.slug}`}>
+      <Link href={`${!isTurkish ? "/en" : ""}/blog/${post.slug}`}>
         <div className={"w-full h-[240px] lg:h-full absolute z-10  rounded-lg"}>
           {post.cover && (
             <Image
-              src={post.cover.url}
+              src={post.cover?.url}
               alt={post.title ?? ""}
               width={800}
               rounded="lg"

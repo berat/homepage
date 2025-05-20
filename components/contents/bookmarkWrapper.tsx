@@ -13,14 +13,16 @@ import Category from "../filters/category";
 interface ClientBlogContentProps {
   initialPosts: BookmarkType[];
   categories: string[];
+  isTurkish?: boolean;
 }
 
 const BookmarkWrapper: React.FC<ClientBlogContentProps> = ({
   initialPosts = [], // Default değer
   categories = [], // Default değer
+  isTurkish = true,
 }) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([
-    "Hepsi",
+    isTurkish ? "Hepsi" : "All",
   ]);
   const [filteredPosts, setFilteredPosts] =
     useState<BookmarkType[]>(initialPosts);
@@ -29,7 +31,8 @@ const BookmarkWrapper: React.FC<ClientBlogContentProps> = ({
     if (!Array.isArray(initialPosts)) return;
 
     const newFilteredPosts =
-      !selectedCategories?.length || selectedCategories.includes("Hepsi")
+      !selectedCategories?.length ||
+      selectedCategories.includes(isTurkish ? "Hepsi" : "All")
         ? initialPosts
         : initialPosts.filter((post) =>
             post?.tags && Array.isArray(post.tags)
@@ -100,7 +103,11 @@ const BookmarkWrapper: React.FC<ClientBlogContentProps> = ({
             </ul>
           ))
         ) : (
-          <h3>Herhangi bir yazı bulunamadı!</h3>
+          <h3>
+            {isTurkish
+              ? "Herhangi bir yer imi bulunamadı!"
+              : "No bookmarks found!"}
+          </h3>
         )}
       </div>
     </div>

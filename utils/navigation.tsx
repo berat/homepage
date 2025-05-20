@@ -93,31 +93,37 @@ export const NavigationItemToIcon: React.FC<Props> = ({ type, isActive }) => {
 export const NAVIGATION_ITEMS: NavigationType<NavigationItem>[] = [
   {
     label: "Hakkımda",
+    english: "About",
     value: "about",
     disabled: false,
   },
   {
     label: "Yazılar",
+    english: "Posts",
     value: "blog",
     disabled: false,
   },
   {
     label: "Fotoğraflar",
+    english: "Photos",
     value: "photos",
     disabled: false,
   },
   {
     label: "Projeler",
+    english: "Projects",
     value: "projects",
     disabled: false,
   },
   {
     label: "Araçlar",
+    english: "Tools",
     value: "tools",
     disabled: false,
   },
   {
     label: "Yer İmleri",
+    english: "Bookmarks",
     value: "bookmarks",
     disabled: false,
   },

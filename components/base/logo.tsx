@@ -2,10 +2,10 @@ import Link from "next/link";
 
 import Image from "./image";
 
-const Logo = () => {
+const Logo = ({ isTurkish = true }: { isTurkish?: boolean }) => {
   return (
     <Link
-      href={"/"}
+      href={isTurkish ? "/" : "/en"}
       className={
         "flex gap-2.5 px-3 py-2 items-center rounded hover:bg-lightGray hover:dark:bg-[#2f313a]"
       }

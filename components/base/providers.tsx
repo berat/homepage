@@ -15,17 +15,21 @@ import { MenuPost } from "@/components/base";
 import HomeIcon from "@/public/icons/home.svg";
 
 type Props = {
+  isTurkish?: boolean;
   children: React.ReactNode;
 };
 
-const Providers: React.FC<Props> = ({ children }) => {
+const Providers: React.FC<Props> = ({ isTurkish = true, children }) => {
   const router = useRouter();
   const pathname = usePathname();
   const [activeTheme, setActiveTheme] = useState<string>("system");
 
   const isDetail =
     pathname.startsWith("/blog/") ||
+    pathname.startsWith("/en/blog/") ||
     pathname.startsWith("/photos") ||
+    pathname.startsWith("/en/photos") ||
+    pathname.startsWith("/en/projects/") ||
     pathname.startsWith("/projects/");
 
   const classname = classNames({
@@ -90,9 +94,9 @@ const Providers: React.FC<Props> = ({ children }) => {
   const actions = [
     {
       id: "homeAction",
-      name: "Anasayfa",
+      name: isTurkish ? "Anasayfa" : "Homepage",
       shortcut: ["0"],
-      keywords: "anasayfa",
+      keywords: isTurkish ? "anasayfa" : "homepage",
       icon: (
         <Image
           src={HomeIcon}
@@ -102,68 +106,68 @@ const Providers: React.FC<Props> = ({ children }) => {
           className="dark:invert dark:opacity-80"
         />
       ),
-      section: "Menüler",
+      section: isTurkish ? "Menüler" : "Menus",
       perform: () => router.push("/"),
     },
     {
       id: "aboutAction",
-      name: "Hakkımda",
+      name: isTurkish ? "Hakkımda" : "About",
       shortcut: ["1"],
-      keywords: "hakkımda",
+      keywords: isTurkish ? "hakkımda" : "about",
       icon: <NavigationItemToIcon type="about" />,
-      section: "Menüler",
+      section: isTurkish ? "Menüler" : "Menus",
       perform: () => router.push("/about"),
     },
     {
       id: "blogAction",
-      name: "Yazılar",
+      name: isTurkish ? "Yazılar" : "Posts",
       shortcut: ["2"],
-      keywords: "yazilar",
+      keywords: isTurkish ? "yazilar" : "posts",
       icon: <NavigationItemToIcon type="blog" />,
-      section: "Menüler",
+      section: isTurkish ? "Menüler" : "Menus",
       perform: () => router.push("/blog"),
     },
     {
       id: "photosAction",
-      name: "Fotoğraflar",
+      name: isTurkish ? "Fotoğraflar" : "Photos",
       shortcut: ["3"],
-      keywords: "fotoğraflar",
+      keywords: isTurkish ? "fotoğraflar" : "photos",
       icon: <NavigationItemToIcon type="photos" />,
-      section: "Menüler",
+      section: isTurkish ? "Menüler" : "Menus",
       perform: () => router.push("/photos"),
     },
     {
       id: "projectsAction",
-      name: "Projeler",
+      name: isTurkish ? "Projeler" : "Projects",
       shortcut: ["4"],
-      keywords: "projeler",
+      keywords: isTurkish ? "projeler" : "projects",
       icon: <NavigationItemToIcon type="projects" />,
-      section: "Menüler",
+      section: isTurkish ? "Menüler" : "Menus",
       perform: () => router.push("/projects"),
     },
     {
       id: "toolsAction",
-      name: "Araçlar",
+      name: isTurkish ? "Araçlar" : "Tools",
       shortcut: ["5"],
-      keywords: "bookmarks",
+      keywords: isTurkish ? "araçlar" : "tools",
       icon: <NavigationItemToIcon type="tools" />,
-      section: "Menüler",
+      section: isTurkish ? "Menüler" : "Menus",
       perform: () => router.push("/tools"),
     },
     {
       id: "bookmarksAction",
-      name: "Yer İmleri",
+      name: isTurkish ? "Yer İmleri" : "Bookmarks",
       shortcut: ["6"],
-      keywords: "bookmarks",
+      keywords: isTurkish ? "bookmarks" : "bookmarks",
       icon: <NavigationItemToIcon type="bookmarks" />,
-      section: "Menüler",
+      section: isTurkish ? "Menüler" : "Menus",
       perform: () => router.push("/bookmarks"),
     },
     {
       id: "twitterAction",
       name: "X",
       keywords: "twitter",
-      section: "Sosyal Medya",
+      section: isTurkish ? "Sosyal Medya" : "Social Media",
       icon: (
         <SocialItemToIcon
           type="twitter"
@@ -176,7 +180,7 @@ const Providers: React.FC<Props> = ({ children }) => {
       id: "githubAction",
       name: "Github",
       keywords: "github",
-      section: "Sosyal Medya",
+      section: isTurkish ? "Sosyal Medya" : "Social Media",
       icon: (
         <SocialItemToIcon
           type="github"
@@ -189,7 +193,7 @@ const Providers: React.FC<Props> = ({ children }) => {
       id: "instagramAction",
       name: "İnstagram",
       keywords: "instagram",
-      section: "Sosyal Medya",
+      section: isTurkish ? "Sosyal Medya" : "Social Media",
       icon: (
         <SocialItemToIcon
           type="instagram"
@@ -203,7 +207,7 @@ const Providers: React.FC<Props> = ({ children }) => {
       id: "linkedinAction",
       name: "Linkedin",
       keywords: "linkedin",
-      section: "Sosyal Medya",
+      section: isTurkish ? "Sosyal Medya" : "Social Media",
       icon: (
         <SocialItemToIcon
           type="linkedin"
@@ -227,11 +231,13 @@ const Providers: React.FC<Props> = ({ children }) => {
           isDetail={isDetail}
           handleThemeChange={handleThemeChange}
           activeTheme={activeTheme}
+          isTurkish={isTurkish}
         />
         {!isDetail && (
           <Sidebar
             handleThemeChange={handleThemeChange}
             activeTheme={activeTheme}
+            isTurkish={isTurkish}
           />
         )}
         {children}

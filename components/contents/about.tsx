@@ -7,11 +7,15 @@ import { updateViewAndLike } from "@/actions/viewLike";
 
 import { Markdown } from "../base";
 
-export default async function AboutContent() {
+export default async function AboutContent({
+  isTurkish = true,
+}: {
+  isTurkish?: boolean;
+}) {
   const { isEnabled } = await draftMode();
-  const { post } = await getPage("about", isEnabled);
+  const { post } = await getPage("about", isEnabled, isTurkish);
 
-  await updateViewAndLike("page", "about", "views");
+  await updateViewAndLike("page", isTurkish ? "" : "en/" + "about", "views");
 
   return (
     <div className="mb-3  detail-content">

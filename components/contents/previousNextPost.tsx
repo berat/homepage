@@ -6,9 +6,19 @@ import { getPostAndMorePosts } from "@/actions/post";
 
 import { PostCard } from "../cards";
 
-const PreviousNextPosts = async ({ slug }: { slug: string }) => {
+const PreviousNextPosts = async ({
+  slug,
+  isTurkish = true,
+}: {
+  slug: string;
+  isTurkish?: boolean;
+}) => {
   const { isEnabled } = await draftMode();
-  const { morePosts: posts } = await getPostAndMorePosts(slug, isEnabled);
+  const { morePosts: posts } = await getPostAndMorePosts(
+    slug,
+    isEnabled,
+    isTurkish,
+  );
 
   if (posts.length === 0) {
     return null;

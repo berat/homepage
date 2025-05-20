@@ -11,19 +11,47 @@ import ProjectDetailView from "../view/project";
 
 type Props = {
   data: ProjectType[];
+  isTurkish?: boolean;
 };
 
 type GroupedData = Record<string, ProjectType[]>;
 const statusDescription = {
-  "Şu an": "Bugünlerde çalıştığım projeler.",
-  Gelecek: "Aklımda olup ama henüz geliştirmeye zamanım olmayan projeler.",
-  Geçmiş: "Bir zamanlar bu projeleri yapmıştım, hey gidi günler!",
+  "Şu an": {
+    turkish: {
+      title: "Şu an",
+      desc: "Bugünlerde çalıştığım projeler.",
+    },
+    english: {
+      title: "Now",
+      desc: "Projects I'm working on these days.",
+    },
+  },
+  Gelecek: {
+    turkish: {
+      desc: "Aklımda olup ama henüz geliştirmeye zamanım olmayan projeler.",
+      title: "Gelecek",
+    },
+    english: {
+      desc: "Projects that are on my mind but I haven't had time to develop yet.",
+      title: "Future",
+    },
+  },
+  Geçmiş: {
+    turkish: {
+      desc: "Bir zamanlar bu projeleri yapmıştım, hey gidi günler!",
+      title: "Geçmiş",
+    },
+    english: {
+      desc: "I used to make these projects, those were the days!",
+      title: "Past",
+    },
+  },
 };
 
-const ProjectList: React.FC<Props> = async ({ data }) => {
+const ProjectList: React.FC<Props> = async ({ data, isTurkish = true }) => {
   const statusOrder = ["Şu an", "Gelecek", "Geçmiş"];
 
-  const sortedGroups = data.reduce((acc: GroupedData, item: ProjectType) => {
+  const sortedGroups = data?.reduce((acc: GroupedData, item: ProjectType) => {
     const { status } = item;
     if (!acc[status]) {
       acc[status] = [];
@@ -47,35 +75,52 @@ const ProjectList: React.FC<Props> = async ({ data }) => {
     .map((key: string) => (
       <ul key={key} className="w-full my-4 block">
         <h3 className="text-2xl text-black font-semibold dark:text-darkText">
-          {key}
+          {isTurkish ? key : statusDescription[key]?.english.title}
         </h3>
         <span className="text-sm mb-3 inline-block text-slate-500 opacity-70 dark:text-darkText">
-          {statusDescription[key]}
+          {isTurkish
+            ? statusDescription[key].turkish.desc
+            : statusDescription[key]?.english.desc}
         </span>
         <div className={"flex gap-4 flex-wrap"}>
           {orderedGroups[key].map((post: ProjectType) => (
-            <ProjectCard key={post.slug} post={post} />
+            <ProjectCard key={post.slug} post={post} isTurkish={isTurkish} />
           ))}
         </div>
       </ul>
     ));
 };
 
-const ProjectContent = async () => {
+const ProjectContent = async ({
+  isTurkish = true,
+}: {
+  isTurkish?: boolean;
+}) => {
   const { isEnabled } = await draftMode();
-  const allProjects = await getAllProjects(100, isEnabled);
-  await updateViewAndLike("page", "projects", "views");
+  const allProjects = await getAllProjects(100, isEnabled, isTurkish);
+
+  await updateViewAndLike("page", isTurkish ? "" : "en/" + "projects", "views");
 
   return (
     <div className={"flex gap-4 flex-col pb-2 items-start "}>
-      <ProjectList data={allProjects} />
+      <ProjectList data={allProjects} isTurkish={isTurkish} />
     </div>
   );
 };
 
-export const ProjectDetail = async ({ slug }: { slug: string }) => {
+export const ProjectDetail = async ({
+  slug,
+  isTurkish = true,
+}: {
+  isTurkish?: boolean;
+  slug: string;
+}) => {
   const { isEnabled } = await draftMode();
-  const { project } = await getProjectAndMoreProjects(slug, isEnabled);
+  const { project } = await getProjectAndMoreProjects(
+    slug,
+    isEnabled,
+    isTurkish,
+  );
 
   if (typeof project === "boolean") {
     return null;
@@ -83,7 +128,7 @@ export const ProjectDetail = async ({ slug }: { slug: string }) => {
 
   const updateView = async () => {
     "use server";
-    await updateViewAndLike("project", slug, "views");
+    await updateViewAndLike("project", isTurkish ? "" : "en/" + slug, "views");
   };
 
   return (

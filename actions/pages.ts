@@ -1,18 +1,5 @@
 import { fetchGraphQL } from "./common";
 
-const PAGES_GRAPHQL_FIELDS = `
-  slug
-  title
-  cover {
-    url(transform: {
-      format: AVIF,
-      quality: 90
-    })
-  }
-  view
-  like
-`;
-
 const PAGES_GRAPHQL_FIELDS_CONTENT = `
   slug
   title
@@ -99,12 +86,16 @@ function extractPost(fetchResponse) {
   return fetchResponse?.data?.pagesCollection?.items?.[0];
 }
 
-export async function getPage(slug: string, preview: boolean) {
+export async function getPage(
+  slug: string,
+  preview: boolean,
+  isTurkish: boolean = true,
+) {
   const entry = await fetchGraphQL(
     `query {
         pagesCollection(where: { slug: "${slug}" }, preview: ${
           preview ? "true" : "false"
-        }, limit: 1) {
+        }, locale: "${isTurkish ? "tr-TR" : "en-US"}", limit: 1) {
           items {
             ${PAGES_GRAPHQL_FIELDS_CONTENT}
           }

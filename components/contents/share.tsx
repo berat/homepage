@@ -9,22 +9,32 @@ import ShareView from "../base/share";
 export default async function ShareButtons({
   category = "blog",
   slug,
+  isTurkish = true,
 }: {
   category?: "blog" | "project";
   slug: string;
+  isTurkish?: boolean;
 }) {
   const { isEnabled } = await draftMode();
   const { data } = await getViewAndLike(
     category === "blog" ? "post" : "project",
-    slug as string,
+    isTurkish ? "" : "en/" + (slug as string),
   );
 
   let post;
   if (category === "blog") {
-    const { post: getPosts } = await getPostAndMorePosts(slug, isEnabled);
+    const { post: getPosts } = await getPostAndMorePosts(
+      slug,
+      isEnabled,
+      isTurkish,
+    );
     post = getPosts;
   } else {
-    const { project } = await getProjectAndMoreProjects(slug, isEnabled);
+    const { project } = await getProjectAndMoreProjects(
+      slug,
+      isEnabled,
+      isTurkish,
+    );
     post = project;
   }
 
@@ -35,7 +45,7 @@ export default async function ShareButtons({
     "use server";
     await updateViewAndLike(
       category === "blog" ? "post" : "project",
-      slug,
+      isTurkish ? "" : "en/" + slug,
       "likes",
       count - data.likes,
     );

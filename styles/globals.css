@@ -1,10 +1,8 @@
+@import "./components/cmdk.css";
+@import "highlight.js/styles/base16/one-light.min.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import "highlight.js/styles/base16/one-light.min.css";
-@import "./components/cmdk.css";
-@import "./components/notion.css";
 
 * {
   transition: 0.2s;

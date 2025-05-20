@@ -46,7 +46,8 @@ const ShareView: React.FC<Props> = ({
     };
   }, []);
 
-  const plusLikes: string = localLikeCount > 0 ? `(+${localLikeCount})` : "";
+  const plusLikes: string =
+    localLikeCount && localLikeCount > 0 ? `(+${localLikeCount})` : "";
   const clickedLikeButton: string =
     isLiked !== undefined && isLiked !== true ? plusLikes : "";
   const totalLike: number = isLiked ? localLikeCount + likeCount : likeCount;

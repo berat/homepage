@@ -18,12 +18,14 @@ import LightIcon from "@/public/icons/sun.svg";
 
 interface SidebarProps {
   activeTheme: string;
+  isTurkish?: boolean;
   handleThemeChange: (theme: string) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
   activeTheme,
   handleThemeChange,
+  isTurkish,
 }) => {
   const pathname = usePathname();
   const router = useRouter();
@@ -38,13 +40,13 @@ const Sidebar: React.FC<SidebarProps> = ({
         !event.metaKey
       ) {
         if (key === "0") {
-          router.push("/");
+          router.push(isTurkish ? "/" : "/en");
         } else if (key >= "1" && key <= "8") {
           const targetIndex = key - 1;
           const targetItem = NAVIGATION_ITEMS[targetIndex];
 
           if (targetItem && !targetItem.disabled) {
-            router.push("/" + targetItem.value);
+            router.push((isTurkish ? "/" : "/en/") + targetItem.value);
           }
         }
       }
@@ -63,11 +65,11 @@ const Sidebar: React.FC<SidebarProps> = ({
         "hidden h-[calc(100vh-4rem)] flex-col gap-8 lg:flex lg:w-[28%] xl:w-[250px] flex-none sticky top-8"
       }
     >
-      <Logo />
+      <Logo isTurkish={false} />
       <span
         className={"font-medium text-xs text-disable tracking-widest pl-21"}
       >
-        SAYFALAR
+        {isTurkish ? "SAYFALAR" : "PAGES"}
       </span>
       <nav>
         <ul className={"-mt-6 flex flex-col gap-1.5"}>
@@ -79,7 +81,15 @@ const Sidebar: React.FC<SidebarProps> = ({
               }`}
             >
               <Link
-                href={item.disabled ? "/" : item.value}
+                href={
+                  item.disabled
+                    ? isTurkish
+                      ? "/"
+                      : "/en"
+                    : isTurkish
+                      ? item.value
+                      : "/en/" + item.value
+                }
                 className={`flex py-1 px-3 gap-2.5 items-center hover:bg-lightGray hover:dark:bg-[#2f313a] rounded ${
                   pathname.includes(item.value) &&
                   "bg-primary" + " text-white hover:bg-primary "
@@ -98,7 +108,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <span
                   className={"w-full text-md dark:text-darkText font-medium"}
                 >
-                  {item.label}
+                  {isTurkish ? item.label : item.english}
                 </span>
                 <small
                   className={`${
@@ -117,7 +127,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       <span
         className={"font-medium text-xs text-disable tracking-widest pl-21"}
       >
-        SOSYAL MEDYA
+        {isTurkish ? "SOSYAL MEDYA" : "SOCIAL MEDIA"}
       </span>
       <nav>
         <ul className={"-mt-6 flex flex-col gap-1.5"}>

@@ -9,10 +9,16 @@ import RightArrowIcon from "@/public/icons/arrow-right.svg";
 interface Props {
   title: string;
   path: string;
+  isTurkish?: boolean;
   children: React.ReactNode;
 }
 
-const SectionTitle: React.FC<Props> = ({ title, path, children }) => {
+const SectionTitle: React.FC<Props> = ({
+  title,
+  path,
+  isTurkish = true,
+  children,
+}) => {
   return (
     <section className={"my-9"}>
       <header className={"w-full mb-3 flex justify-between items-center"}>
@@ -29,7 +35,7 @@ const SectionTitle: React.FC<Props> = ({ title, path, children }) => {
             "flex items-center gap-1 text-xs font-medium text-text dark:text-darkDisable hover:text-primary"
           }
         >
-          HEPSİNİ GÖR{" "}
+          {isTurkish ? "HEPSİNİ GÖR" : "SEE ALL"}{" "}
           <Image
             src={RightArrowIcon}
             alt={"hepsini gör"}

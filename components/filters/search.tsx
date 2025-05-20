@@ -11,9 +11,15 @@ interface Props {
   visible: boolean;
   toggleSearch: (visible: boolean) => void;
   onSearch: (query: string) => void;
+  isTurkish?: boolean;
 }
 
-const Search: React.FC<Props> = ({ visible, toggleSearch, onSearch }) => {
+const Search: React.FC<Props> = ({
+  visible,
+  toggleSearch,
+  onSearch,
+  isTurkish = true,
+}) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   // Debounce'lu search fonksiyonu
@@ -52,7 +58,7 @@ const Search: React.FC<Props> = ({ visible, toggleSearch, onSearch }) => {
           <input
             type="text"
             className={"relative bg-lightGray rounded-lg w-[400px] px-2 py-2"}
-            placeholder={"Ara"}
+            placeholder={isTurkish ? "Ara" : "Search"}
             onChange={handleSearch}
             value={searchQuery}
           />

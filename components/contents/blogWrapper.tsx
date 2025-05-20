@@ -12,6 +12,7 @@ import Search from "../filters/search";
 interface ClientBlogContentProps {
   initialPosts: PostType[];
   categories: string[];
+  isTurkish?: boolean;
 }
 
 type GroupedData = Record<string, PostType[]>;
@@ -19,16 +20,17 @@ type GroupedData = Record<string, PostType[]>;
 const BlogWrapper: React.FC<ClientBlogContentProps> = ({
   initialPosts,
   categories,
+  isTurkish = true,
 }) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([
-    "Hepsi",
+    isTurkish ? "Hepsi" : "All",
   ]);
   const [filteredPosts, setFilteredPosts] = useState<PostType[]>(initialPosts);
   const [visible, setVisible] = useState<boolean>(false);
 
   const handleCategoryChange = (category: string) => {
     setVisible(false);
-    if (category === "Hepsi") {
+    if (category === (isTurkish ? "Hepsi" : "All")) {
       setSelectedCategories([category]);
 
       setFilteredPosts(initialPosts);
@@ -82,6 +84,7 @@ const BlogWrapper: React.FC<ClientBlogContentProps> = ({
           visible={visible}
           toggleSearch={setVisible}
           onSearch={handleSearch}
+          isTurkish={false}
         />
         <Category
           data={categories}
@@ -105,7 +108,9 @@ const BlogWrapper: React.FC<ClientBlogContentProps> = ({
             </ul>
           ))
       ) : (
-        <h3 className="dark:text-darkText">Herhangi bir yazı bulunamadı!</h3>
+        <h3 className="dark:text-darkText">
+          {isTurkish ? "Herhangi bir yazı bulunamadı!" : "No posts found!"}
+        </h3>
       )}
     </div>
   );

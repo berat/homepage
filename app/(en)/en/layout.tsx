@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} dark:bg-darkBlack antialiased transition-all`}
       >
-        <Providers>
+        <Providers isTurkish={false}>
           {children}
           <CommandMenu />
         </Providers>

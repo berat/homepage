@@ -113,12 +113,16 @@ function extractProjectEntries(fetchResponse) {
   return fetchResponse?.data?.projectsCollection?.items;
 }
 
-export async function getAllProjects(limit?: number, isDraftMode?: boolean) {
+export async function getAllProjects(
+  limit?: number,
+  isDraftMode?: boolean,
+  isTurkish: boolean = true,
+) {
   const entries = await fetchGraphQL(
     `query {
         projectsCollection(where: { slug_exists: true }, order: date_DESC, limit: ${limit ?? 100}, preview: ${
           isDraftMode ? "true" : "false"
-        }) {
+        }, locale: "${isTurkish ? "tr-TR" : "en-US"}",) {
           items {
             ${PROJECT_GRAPHQL_FIELDS}
           }
@@ -127,19 +131,19 @@ export async function getAllProjects(limit?: number, isDraftMode?: boolean) {
     isDraftMode,
   );
 
-
   return extractProjectEntries(entries);
 }
 
 export async function getProjectAndMoreProjects(
   slug: string,
   preview: boolean,
+  isTurkish: boolean = true,
 ) {
   const entry = await fetchGraphQL(
     `query {
         projectsCollection(where: { slug: "${slug}" }, preview: ${
           preview ? "true" : "false"
-        }, limit: 1) {
+        }, locale: "${isTurkish ? "tr-TR" : "en-US"}", limit: 1) {
           items {
             ${PROJECT_GRAPHQL_FIELDS_CONTENT}
           }
@@ -147,13 +151,12 @@ export async function getProjectAndMoreProjects(
       }`,
     preview,
   );
-
 
   const entries = await fetchGraphQL(
     `query {
         projectsCollection(where: { slug_not_in: "${slug}" }, order: date_DESC, preview: ${
           preview ? "true" : "false"
-        }, limit: 2) {
+        }, locale: "${isTurkish ? "tr-TR" : "en-US"}", limit: 2) {
           items {
             ${PROJECT_GRAPHQL_FIELDS_CONTENT}
           }
@@ -161,7 +164,6 @@ export async function getProjectAndMoreProjects(
       }`,
     preview,
   );
-
 
   return {
     project: extractProject(entry),

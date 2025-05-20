@@ -95,6 +95,7 @@ const POST_GRAPHQL_FIELDS_CONTENT = `
   sys {
     firstPublishedAt
     publishedAt
+    locale
   }
 `;
 
@@ -106,12 +107,16 @@ function extractPostEntries(fetchResponse) {
   return fetchResponse?.data?.blogCollection?.items;
 }
 
-export async function getAllPosts(limit?: number, isDraftMode?: boolean) {
+export async function getAllPosts(
+  limit?: number,
+  isDraftMode?: boolean,
+  isTurkish: boolean = true,
+) {
   const entries = await fetchGraphQL(
     `query {
         blogCollection(where: { slug_exists: true }, order: date_DESC, limit: ${limit ?? 100}, preview: ${
           isDraftMode ? "true" : "false"
-        }) {
+        }, locale: "${isTurkish ? "tr-TR" : "en-US"}") {
           items {
             ${POST_GRAPHQL_FIELDS}
           }
@@ -123,17 +128,21 @@ export async function getAllPosts(limit?: number, isDraftMode?: boolean) {
   const getExtractPost = extractPostEntries(entries);
 
   let categories = getExtractPost.map((item) => item.category);
-  categories = ["Hepsi", ...new Set(categories.flat())];
+  categories = [isTurkish ? "Hepsi" : "All", ...new Set(categories.flat())];
 
   return { posts: getExtractPost, categories: categories };
 }
 
-export async function getPostAndMorePosts(slug: string, preview: boolean) {
+export async function getPostAndMorePosts(
+  slug: string,
+  preview: boolean,
+  isTurkish: boolean = true,
+) {
   const entry = await fetchGraphQL(
     `query {
         blogCollection(where: { slug: "${slug}" }, preview: ${
           preview ? "true" : "false"
-        }, limit: 1) {
+        }, locale: "${isTurkish ? "tr-TR" : "en-US"}", limit: 1) {
           items {
             ${POST_GRAPHQL_FIELDS_CONTENT}
           }
