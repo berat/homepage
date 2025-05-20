@@ -91,25 +91,30 @@ export const SOCIAL_ITEMS: NavigationType<keyof typeof SocialItem>[] = [
   {
     label: "X",
     value: "twitter",
+    english: "X",
     url: TWITTER,
   },
   {
     label: "BlueSky",
     value: "bluesky",
+    english: "BlueSky",
     url: BLUESKY,
   },
   {
     label: "Github",
     value: "github",
+    english: "Github",
     url: GITHUB,
   },
   {
     label: "Instagram",
     value: "instagram",
+    english: "Instagram",
     url: INSTAGRAM,
   },
   {
     label: "LinkedIn",
+    english: "LinkedIn",
     value: "linkedin",
     url: LINKEDIN,
   },
