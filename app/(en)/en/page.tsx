@@ -55,7 +55,7 @@ export default async function Home() {
         </Link>
         to stay in the loop!
       </p>
-      <SectionTitle title="RECENT POSTS" path="/blog" isTurkish={false}>
+      <SectionTitle title="RECENT POSTS" path="/en/blog" isTurkish={false}>
         <Suspense fallback={<CardSlekeletons.BlogCardSkeleton length={6} />}>
           <HomeContent.PostSection isTurkish={false} />
         </Suspense>
@@ -94,7 +94,7 @@ export default async function Home() {
         engaging with followers. The feedback loop helps me refine and improve
         my work.
       </p>
-      <SectionTitle title="PROJECTS" path="/projects" isTurkish={false}>
+      <SectionTitle title="PROJECTS" path="/en/projects" isTurkish={false}>
         <Suspense fallback={<CardSlekeletons.ProjectCardSkeleton />}>
           <HomeContent.ProjectSection isTurkish={false} />
         </Suspense>
@@ -136,7 +136,7 @@ export default async function Home() {
         where you can explore more of my creations.
       </p>
 
-      <SectionTitle title="RECENT PHOTOS" path="/photos" isTurkish={false}>
+      <SectionTitle title="RECENT PHOTOS" path="/en/photos" isTurkish={false}>
         <Suspense fallback={<CardSlekeletons.PhotoCardSkeleton length={6} />}>
           <HomeContent.PhotoSection />
         </Suspense>

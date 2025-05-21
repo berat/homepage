@@ -102,7 +102,12 @@ const BlogWrapper: React.FC<ClientBlogContentProps> = ({
               </h3>
               <div className={"flex gap-4 flex-wrap"}>
                 {groupedData[key].map((post: PostType) => (
-                  <PostCard key={post.slug} post={post} isPage />
+                  <PostCard
+                    key={post.slug}
+                    post={post}
+                    isPage
+                    isTurkish={isTurkish}
+                  />
                 ))}
               </div>
             </ul>

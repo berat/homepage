@@ -6,7 +6,7 @@ export async function updateViewAndLike(
 ) {
   try {
     if (process.env.NODE_ENV !== "production") {
-      // return true;
+      return true;
     }
     let query: string = `slug=${slug}&type=${type}&pageType=${pageType}`;
 
