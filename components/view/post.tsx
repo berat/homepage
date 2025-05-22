@@ -17,6 +17,7 @@ interface PostDetailProps {
   likeCount: number;
   handleLikeRequest?: (count: number) => void;
   view: number;
+  isTurkish?: boolean;
   updateView: () => void;
 }
 const PostDetailView: React.FC<PostDetailProps> = ({
@@ -24,6 +25,7 @@ const PostDetailView: React.FC<PostDetailProps> = ({
   view,
   likeCount,
   handleLikeRequest,
+  isTurkish = true,
   updateView,
 }) => {
   const [localLikeCount, setLocalLikeCount] = useState<number>(0);
@@ -67,8 +69,8 @@ const PostDetailView: React.FC<PostDetailProps> = ({
         </h1>
         <div className="flex gap-1 items-center mt-1.5">
           <small className="text-sm lg:text-base text-[#737373]">
-            {moment(post.date).format("DD MMMM YYYY")} • {view + 1} görüntülenme
-            •{" "}
+            {moment(post.date).format("DD MMMM YYYY")} • {view + 1}{" "}
+            {isTurkish ? "görüntülenme" : `view${view > 1 ? "s" : ""}`}•{" "}
           </small>
           <button
             onClick={handleLike}

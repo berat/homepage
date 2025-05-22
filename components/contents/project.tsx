@@ -135,6 +135,7 @@ export const ProjectDetail = async ({
     <ProjectDetailView
       post={project as ProjectDetailType}
       updateView={updateView}
+      isTurkish={isTurkish}
     />
   );
 };

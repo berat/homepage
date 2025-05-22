@@ -12,11 +12,13 @@ import ArrowUpRight from "@/public/icons/arrow-up-right.svg";
 
 interface ProjectDetailProps {
   post: ProjectDetailType;
+  isTurkish?: boolean;
   updateView: () => void;
 }
 
 const ProjectDetailView: React.FC<ProjectDetailProps> = ({
   post,
+  isTurkish = true,
   updateView,
 }) => {
   useEffect(() => {
@@ -59,7 +61,7 @@ const ProjectDetailView: React.FC<ProjectDetailProps> = ({
                 target="_blank"
                 className="w-fit  inline-flex justify-center items-center gap-1 bg-lightGray hover:bg-disable font-medium text-black py-2 px-6 rounded-lg"
               >
-                <span>Kaynak</span>
+                <span>{isTurkish ? "Kaynak" : "Source"}</span>
                 <Image
                   src={ArrowUpRight}
                   width={18}
@@ -101,7 +103,7 @@ const ProjectDetailView: React.FC<ProjectDetailProps> = ({
               target="_blank"
               className="w-full inline-flex justify-center items-center gap-1 bg-lightGray hover:bg-disable font-medium text-black py-2 px-6 rounded-lg"
             >
-              <span>Kaynak</span>
+              <span>{isTurkish ? "Kaynak" : "Source"}</span>
               <Image
                 src={ArrowUpRight}
                 width={18}

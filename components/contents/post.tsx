@@ -48,6 +48,7 @@ export default async function PostDetail({
       view={data.views}
       handleLikeRequest={updateLike}
       updateView={updateView}
+      isTurkish={isTurkish}
     />
   );
 }
