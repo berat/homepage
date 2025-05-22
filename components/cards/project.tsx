@@ -17,7 +17,7 @@ const ProjectCard: React.FC<Props> = ({ post, isHome, isTurkish }) => {
       className={`w-full md:w-[48%] ${isHome ? "min-w-[47%] md:min-w-[40%]" : "min-w-[40%]"}`}
     >
       <Link
-        href={`${isTurkish ? "" : "en/"}/projects/${post.slug}`}
+        href={`${isTurkish ? "" : "/en/"}projects/${post.slug}`}
         className="flex flex-col items-start"
       >
         <div
