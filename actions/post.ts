@@ -155,7 +155,7 @@ export async function getPostAndMorePosts(
 
   const entries = await fetchGraphQL(
     `query {
-        blogCollection(where: { slug_not_in: "${slug}", category_contains_some: "${extractPostDetail.category}" }, order: date_DESC, limit: 3) {
+        blogCollection(where: { slug_not_in: "${slug}", category_contains_some: "${extractPostDetail.category}" }, order: date_DESC, limit: 3, locale: "${isTurkish ? "tr-TR" : "en-US"}") {
           items {
             ${POST_GRAPHQL_FIELDS}
           }

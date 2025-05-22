@@ -25,6 +25,7 @@ function RenderResults() {
           "cmdk-item": true,
           "cmdk-item-active": active,
         });
+
         return typeof item === "string" ? (
           <div className="cmdk-group-name">{item}</div>
         ) : (

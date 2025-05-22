@@ -56,6 +56,7 @@ export default async function ShareButtons({
       likeCount={data.likes}
       title={post.title}
       handleLikeRequest={updateLike}
+      isTurkish={isTurkish}
     />
   );
 }

@@ -13,6 +13,9 @@ import { SocialItemToIcon } from "@/utils/social";
 import { MenuPost } from "@/components/base";
 
 import HomeIcon from "@/public/icons/home.svg";
+import DarkIcon from "@/public/icons/moon.svg";
+import SystemIcon from "@/public/icons/server.svg";
+import LightIcon from "@/public/icons/sun.svg";
 
 type Props = {
   isTurkish?: boolean;
@@ -217,6 +220,54 @@ const Providers: React.FC<Props> = ({ isTurkish = true, children }) => {
       perform: () =>
         window.open("https://www.linkedin.com/in/beratbozkurt/", "_blank"),
     },
+    {
+      id: "systemMode",
+      name: isTurkish ? "Sistem" : "System",
+      keywords: "system",
+      section: isTurkish ? "Görünüm" : "Appearance",
+      icon: (
+        <Image
+          src={SystemIcon}
+          width={21}
+          height={21}
+          alt={"icon"}
+          className={`dark:invert dark:opacity-80`}
+        />
+      ),
+      perform: () => handleThemeChange("system"),
+    },
+    {
+      id: "lightMode",
+      name: isTurkish ? "Aydınlık" : "Light",
+      keywords: "light",
+      section: isTurkish ? "Görünüm" : "Appearance",
+      icon: (
+        <Image
+          src={LightIcon}
+          width={21}
+          height={21}
+          alt={"icon"}
+          className={`dark:invert dark:opacity-80`}
+        />
+      ),
+      perform: () => handleThemeChange("light"),
+    },
+    {
+      id: "darkMode",
+      name: isTurkish ? "Karanlık" : "Dark",
+      keywords: "dark",
+      section: isTurkish ? "Görünüm" : "Appearance",
+      icon: (
+        <Image
+          src={DarkIcon}
+          width={21}
+          height={21}
+          alt={"icon"}
+          className={`dark:invert dark:opacity-80`}
+        />
+      ),
+      perform: () => handleThemeChange("dark"),
+    },
   ];
 
   return (
@@ -224,15 +275,18 @@ const Providers: React.FC<Props> = ({ isTurkish = true, children }) => {
       options={{
         enableHistory: true,
       }}
-      actions={actions}
+      actions={actions.filter((item) =>
+        activeTheme === "light"
+          ? item.id !== "lightMode"
+          : activeTheme === "dark"
+            ? item.id !== "darkMode"
+            : activeTheme === "system"
+              ? item.id !== "systemMode"
+              : item,
+      )}
     >
       <div className={classname}>
-        <MenuPost
-          isDetail={isDetail}
-          handleThemeChange={handleThemeChange}
-          activeTheme={activeTheme}
-          isTurkish={isTurkish}
-        />
+        <MenuPost isDetail={isDetail} isTurkish={isTurkish} />
         {!isDetail && (
           <Sidebar
             handleThemeChange={handleThemeChange}

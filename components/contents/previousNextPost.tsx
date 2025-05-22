@@ -27,11 +27,11 @@ const PreviousNextPosts = async ({
   return (
     <section>
       <h3 className="text-xl lg:text-xl font-semibold tracking-tight text-black dark:text-darkText leading-10 mb-4">
-        Benzer Yazılar
+        {isTurkish ? "Benzer Yazılar" : "Related Posts"}
       </h3>
       <div className={"flex lg:flex-row flex-col gap-4 flex-wrap"}>
         {posts.map((post) => (
-          <PostCard isPage key={post.slug} post={post} />
+          <PostCard isPage key={post.slug} post={post} isTurkish />
         ))}
       </div>
     </section>

@@ -7,11 +7,13 @@ import ConfettiExplosion from "react-confetti-explosion";
 interface Props {
   likeCount: number;
   title: string;
+  isTurkish?: boolean;
   handleLikeRequest?: (count: number) => void;
 }
 const ShareView: React.FC<Props> = ({
   likeCount,
   title,
+  isTurkish = true,
   handleLikeRequest,
 }) => {
   const [localLikeCount, setLocalLikeCount] = useState<number>(0);
@@ -66,6 +68,7 @@ const ShareView: React.FC<Props> = ({
       </button>
       <span className="text-disable font-thin text-2xl"> • </span>
       <div className="text-text dark:text-darkText">
+        {!isTurkish && "Share on "}
         <Link
           href={`https://x.com/intent/tweet?url=${url}&via=beratbozkurt0&text=${title}`}
           target="_blank"
@@ -73,8 +76,7 @@ const ShareView: React.FC<Props> = ({
         >
           X (Twitter)
         </Link>
-        {"'"}
-        da paylaş
+        {isTurkish && "' da paylaş"}
       </div>
       {!canLike && <ConfettiExplosion />}
     </div>
