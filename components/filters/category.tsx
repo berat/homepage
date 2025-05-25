@@ -16,19 +16,22 @@ const Category: React.FC<Props> = ({
 }) => {
   return (
     <div className={"my-4 flex flex-wrap gap-2"}>
-      {data.map((category) => (
-        <button
-          key={category}
-          className={`${defaultCategoryStyle} ${
-            selectedCategory?.includes(category)
-              ? "bg-primary text-white"
-              : "bg-lightGray dark:bg-[#464750] dark:text-darkText"
-          }`}
-          onClick={() => onCategoryChange(category)}
-        >
-          {category}
-        </button>
-      ))}
+      {data.map(
+        (category) =>
+          category && (
+            <button
+              key={category}
+              className={`${defaultCategoryStyle} ${
+                selectedCategory?.includes(category)
+                  ? "bg-primary text-white"
+                  : "bg-lightGray dark:bg-[#464750] dark:text-darkText"
+              }`}
+              onClick={() => onCategoryChange(category)}
+            >
+              {category}
+            </button>
+          ),
+      )}
     </div>
   );
 };
