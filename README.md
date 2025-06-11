@@ -11,13 +11,15 @@ This repository contains the source code for my most recent website designs, whi
 - Developed using **Next.js**
 - Utilized **TypeScript** for type safety
 - Styled using **Tailwind CSS**
-- Integrated **Notion** for content management
+- Integrated **Contentful** for content management
+- Used **Upstash** for views and likes
 - Deployed using **Vercel**
 
 ## Features
 
 - Photo page built with **Unsplash API** integration.
-- Content management, views, and likes are handled via **Notion**.
+- Content management via **Contentful**.
+- Views and likes via **Upstash**.
 - The project is still in development, with many new features planned.
 
 ## For Development
