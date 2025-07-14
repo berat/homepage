@@ -19,7 +19,7 @@ export default async function PostDetail({
   const { post } = await getPostAndMorePosts(slug, isEnabled, isTurkish);
   const { data } = await getViewAndLike(
     "post",
-    isTurkish ? "" : "en/" + (slug as string),
+    (isTurkish ? "" : "en/") + (slug as string),
   );
 
   if (typeof post === "boolean") {
@@ -28,14 +28,14 @@ export default async function PostDetail({
 
   const updateView = async () => {
     "use server";
-    await updateViewAndLike("post", isTurkish ? "" : "en/" + slug, "views");
+    await updateViewAndLike("post", (isTurkish ? "" : "en/") + slug, "views");
   };
 
   const updateLike = async (count: number) => {
     "use server";
     await updateViewAndLike(
       "post",
-      isTurkish ? "" : "en/" + slug,
+      (isTurkish ? "" : "en/") + slug,
       "likes",
       count - data.likes,
     );

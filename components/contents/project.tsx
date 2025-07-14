@@ -128,7 +128,11 @@ export const ProjectDetail = async ({
 
   const updateView = async () => {
     "use server";
-    await updateViewAndLike("project", isTurkish ? "" : "en/" + slug, "views");
+    await updateViewAndLike(
+      "project",
+      (isTurkish ? "" : "en/") + slug,
+      "views",
+    );
   };
 
   return (

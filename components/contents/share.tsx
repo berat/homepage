@@ -18,7 +18,7 @@ export default async function ShareButtons({
   const { isEnabled } = await draftMode();
   const { data } = await getViewAndLike(
     category === "blog" ? "post" : "project",
-    isTurkish ? "" : "en/" + (slug as string),
+    (isTurkish ? "" : "en/") + (slug as string),
   );
 
   let post;
@@ -45,7 +45,7 @@ export default async function ShareButtons({
     "use server";
     await updateViewAndLike(
       category === "blog" ? "post" : "project",
-      isTurkish ? "" : "en/" + slug,
+      (isTurkish ? "" : "en/") + slug,
       "likes",
       count - data.likes,
     );
