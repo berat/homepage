@@ -1,10 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import { memo, useMemo } from "react";
 
 type Props = {
   image?: string;
   title: string;
-  caption: string;
+  caption?: string;
   date?: string;
   url?: string;
 };
@@ -14,11 +15,11 @@ const ListItem: React.FC<Props> = ({ image, title, caption, date, url }) => {
 
   return (
     <li>
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`flex gap-3 items-center ${url ? 'group' : ''}`}
+      <Link
+        href={url || "#"}
+        target={isExternal ? "_blank" : "_self"}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+        className={`flex gap-3 items-center ${url ? "group" : ""}`}
       >
         {image && (
           <Image
@@ -29,7 +30,7 @@ const ListItem: React.FC<Props> = ({ image, title, caption, date, url }) => {
             className="rounded-md object-cover"
           />
         )}
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-1 items-center">
           <span
             className={`text-xl text-primary font-semibold group-hover:text-blue-600 ${
               isExternal ? "underline" : ""
@@ -37,14 +38,14 @@ const ListItem: React.FC<Props> = ({ image, title, caption, date, url }) => {
           >
             {title}
           </span>
-          <span className="text-lg font-semibold text-caption">{caption}</span>
+          {caption && <span className="text-lg text-gray font-semibold">— {caption}</span>}
         </div>
         {date && (
           <span className="ml-auto text-description text-base font-semibold">
             {date}
           </span>
         )}
-      </a>
+      </Link>
     </li>
   );
 };

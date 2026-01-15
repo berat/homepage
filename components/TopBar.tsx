@@ -3,9 +3,14 @@
 import { memo, useEffect, useState } from "react";
 import MenuToggle from "./base/MenuToggle";
 import Sidebar from "./Sidebar";
+import Breadcrumb from "./Breadcrumb";
+import { usePathname } from "next/navigation";
 
 const TopBar = () => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+
+  const isHomePage = pathname === "/";
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -22,7 +27,7 @@ const TopBar = () => {
     <>
       <div
         onClick={scrollToTop}
-        className="sticky top-0 z-40 bg-white/80 backdrop-blur-sm pt-6 px-6"
+        className="sticky top-0 z-40 bg-white/80 backdrop-blur-sm pt-6 px-6 flex items-center gap-5"
       >
         <button
           type="button"
@@ -36,6 +41,7 @@ const TopBar = () => {
         >
           <MenuToggle isOpen={isOpen} />
         </button>
+        {!isHomePage && <Breadcrumb />}
       </div>
 
       {isOpen && (

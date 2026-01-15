@@ -6,8 +6,8 @@ import Image from "next/image";
 const LIST = [
   {
     title: "Writings",
-    caption: "Micro Frontend Architecture (Part 1)",
-    url: "/writings",
+    caption: "Notes and other things which are I wrote",
+    url: "/blog",
   },
   {
     title: "Dreamary",
@@ -55,7 +55,7 @@ const PHOTOS = [
 
 export default function Home() {
   return (
-    <div id="home" className="max-w-2xl mx-auto mb-16 flex flex-col gap-10">
+    <div id="home" className="max-w-2xl mx-auto my-16 flex flex-col gap-10">
       <About />
       <section id="projects" className="flex flex-col gap-3.5">
         <SectionTitle title="Projects" />
