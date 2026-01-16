@@ -1,8 +1,18 @@
+"use client";
+
 import { SOCIAL_ITEMS } from "@/constants/config";
+import { messages } from "@/lib/i18n";
 import Image from "next/image";
 import { memo } from "react";
+import { usePathname } from "next/navigation";
+import { getLocaleFromPath } from "@/lib/helpers";
 
 const About = () => {
+  const pathname = usePathname();
+
+  const locale = getLocaleFromPath(pathname);
+
+  const texts = messages[locale];
   return (
     <section id="about" className="flex flex-col gap-6">
       <div className="flex flex-col gap-4">
@@ -16,10 +26,7 @@ const About = () => {
         />
         <h1 className="text-2xl text-primary font-bold">Berat Bozkurt</h1>
       </div>
-      <h2 className="text-description text-2xl font-semibold">
-        I’m a lead frontend developer living in Türkiye.
-        <br />
-        I’m currently making mobile applications.
+      <h2 className="text-description text-2xl font-semibold md:max-w-142.5" dangerouslySetInnerHTML={{__html: texts.about()}}>
       </h2>
       <div className="flex gap-5 items-center mb-2.5">
         {SOCIAL_ITEMS.map((item) => (

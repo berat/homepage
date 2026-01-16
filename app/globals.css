@@ -48,3 +48,13 @@ body {
     display: none;
   }
 }
+
+::selection {
+  background-color: #bedbff; /* blue-600 */
+  color: #19598a;
+}
+
+a::selection {
+  background-color: #bedbff; /* blue-600 */
+  color: #155dfc !important
+}

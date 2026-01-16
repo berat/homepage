@@ -13,6 +13,8 @@ export type NotionItem = {
     slug?: string;
     excerpt?: string;
     featureImage?: string;
+    locale?: string;
+    postId?: string
 };
 
 // Processed block type for rendering

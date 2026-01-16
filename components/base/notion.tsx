@@ -3,8 +3,13 @@ import { RichTextItemResponse } from "@notionhq/client";
 import { ReactNode } from "react";
 import { CodeBlock } from "../ui/Code";
 import { YouTubeEmbed } from "@next/third-parties/google";
-import { getTweetId, getYouTubeVideoId } from "@/lib/helpers";
+import {
+  getTweetId,
+  getYouTubeVideoId,
+} from "@/lib/helpers";
 import { Tweet } from "react-tweet";
+import Zoom from "react-medium-image-zoom";
+import Image from "next/image";
 
 // URL regex pattern to match http/https URLs
 const URL_REGEX = /(https?:\/\/[^\s]+)/g;
@@ -232,13 +237,16 @@ function renderSingleBlock(
     case "image":
       return (
         <div key={block.id}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={block.content[0].text.content}
-            alt=""
-            className="w-full rounded-lg"
-            loading="lazy"
-          />
+          <Zoom zoomMargin={45}>
+            <Image
+              src={block.content[0].text.content}
+              width={800}
+              alt=""
+              height={300}
+              quality={75}
+              className="w-full rounded-lg"
+            />
+          </Zoom>
         </div>
       );
     case "video":
@@ -257,7 +265,7 @@ function renderSingleBlock(
       if (tweetId === null) return null;
 
       return (
-        <div className=" w-full">
+        <div key={tweetId} className="w-full">
           <Tweet id={tweetId as string} />
         </div>
       );

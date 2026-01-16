@@ -3,8 +3,30 @@ import { notion } from "../client";
 import { hasProperties, NotionItem, ProcessedBlock } from "../types";
 import { getAllBlocks } from "../blocks";
 
+export type Locale = "tr" | "en";
+
+
+type WritingProperties = {
+  Name?: { type?: "title"; title: { plain_text: string }[] };
+  Date?: { type?: "date"; date: { start: string } | null };
+  Published?: { type?: "date"; date: { start: string } | null };
+  URL?: { type?: "url"; url: string | null };
+  Slug?: { type?: "rich_text"; rich_text: { plain_text: string }[] };
+  Status?: { status: { name: string } | null };
+
+  // ✅ multi-lang için:
+  Locale?: { type?: "select"; select: { name: string } | null };
+  PostId?: { type?: "rich_text"; rich_text: { plain_text: string }[] };
+};
+
+function firstPlainText(arr?: { plain_text: string }[]) {
+  return arr?.[0]?.plain_text ?? "";
+}
+
+
 // Get random posts efficiently without fetching all posts
 export async function getRandomWritingPosts(
+  locale: Locale,
   count: number = 5,
   excludeSlug?: string,
 ): Promise<NotionItem[]> {
@@ -15,6 +37,10 @@ export async function getRandomWritingPosts(
     const response = await notion.dataSources.query({
       data_source_id: dataSourceId,
       page_size: Math.min(count * 3, 30), // Fetch 3x needed, max 30
+      filter: {
+        property: "Locale",
+        select: { equals: locale },
+      },
       sorts: [
         {
           property: "Date",
@@ -28,13 +54,7 @@ export async function getRandomWritingPosts(
         if (!hasProperties(page)) return null;
 
         const pageWithProps = page as PageObjectResponse;
-        const properties = pageWithProps.properties as {
-          Name?: { title: { plain_text: string }[] };
-          Date?: { date: { start: string } | null };
-          URL?: { url: string };
-          Slug?: { rich_text: { plain_text: string }[] };
-          FeatureImage?: { url: string };
-        };
+        const properties = pageWithProps.properties as WritingProperties
 
         const slug = properties.Slug?.rich_text[0]?.plain_text || "";
 
@@ -54,6 +74,8 @@ export async function getRandomWritingPosts(
             pageWithProps.cover && "file" in pageWithProps.cover
               ? pageWithProps.cover.file.url
               : undefined,
+          locale,
+          postId: firstPlainText(properties.PostId?.rich_text),
         } as NotionItem;
       })
       .filter((item): item is NotionItem => item !== null);
@@ -68,8 +90,10 @@ export async function getRandomWritingPosts(
 }
 
 export async function getWritingDatabaseItems(
+  locale: Locale,
   cursor?: string,
   pageSize: number = 20,
+  onlyPublished: boolean = false,
 ): Promise<{ items: NotionItem[]; nextCursor: string | null }> {
   try {
     const dataSourceId = process.env.NOTION_WRITING_DATASOURCE_ID || "";
@@ -77,6 +101,19 @@ export async function getWritingDatabaseItems(
       data_source_id: dataSourceId,
       page_size: pageSize,
       ...(cursor ? { start_cursor: cursor } : {}),
+      filter: {
+        and: [{
+          property: "Locale",
+          select: { equals: locale },
+        },
+        ...(onlyPublished
+          ? [{
+              property: "Status",
+              status: { equals: "Done" },
+            }]
+          : []),
+        ]
+      },
       sorts: [
         {
           property: "Date",
@@ -89,13 +126,7 @@ export async function getWritingDatabaseItems(
       if (!hasProperties(page)) return null;
 
       const pageWithProps = page as PageObjectResponse;
-      const properties = pageWithProps.properties as {
-        Name?: { title: { plain_text: string }[] };
-        Date?: { date: { start: string } | null };
-        URL?: { url: string };
-        Slug?: { rich_text: { plain_text: string }[] };
-        FeatureImage?: { url: string };
-      };
+      const properties = pageWithProps.properties as WritingProperties
 
       return {
         id: pageWithProps.id,
@@ -110,6 +141,8 @@ export async function getWritingDatabaseItems(
           pageWithProps.cover && "file" in pageWithProps.cover
             ? pageWithProps.cover.file.url
             : undefined,
+        locale,
+        postId: firstPlainText(properties.PostId?.rich_text),
       } as NotionItem;
     });
 
@@ -141,14 +174,7 @@ export async function getWritingPostContent(
     if (!hasProperties(page)) return null;
 
     const pageWithProps = page as PageObjectResponse;
-    const properties = pageWithProps.properties as {
-      Name?: { title: { plain_text: string }[] };
-      Published?: { date: { start: string } | null };
-      URL?: { url: string };
-      Slug?: { rich_text: { plain_text: string }[] };
-      Excerpt?: { rich_text: { plain_text: string }[] };
-      FeatureImage?: { url: string };
-    };
+    const properties = pageWithProps.properties as WritingProperties
 
     const metadata: NotionItem = {
       id: pageWithProps.id,
@@ -159,7 +185,6 @@ export async function getWritingPostContent(
       published: properties.Published?.date?.start || pageWithProps.created_time,
       source: properties.URL?.url?.replace("https://", ""),
       slug: properties.Slug?.rich_text[0]?.plain_text || "",
-      excerpt: properties.Excerpt?.rich_text[0]?.plain_text || "",
       featureImage:
         pageWithProps.cover && pageWithProps.cover.type === "file"
           ? pageWithProps.cover.file.url
@@ -176,6 +201,7 @@ export async function getWritingPostContent(
 }
 
 export async function getWritingPostContentBySlug(
+  locale: Locale,
   slug: string,
 ): Promise<{ blocks: ProcessedBlock[]; metadata: NotionItem } | null> {
   try {
@@ -184,10 +210,16 @@ export async function getWritingPostContentBySlug(
     const response = await notion.dataSources.query({
       data_source_id: dataSourceId,
       filter: {
-        property: "Slug",
-        rich_text: {
-          equals: slug,
+        and: [{
+          property: "Slug",
+          rich_text: {
+            equals: slug,
+          },
         },
+        {
+          property: "Locale",
+          select: { equals: locale },
+        },]
       },
     });
 
@@ -200,14 +232,7 @@ export async function getWritingPostContentBySlug(
 
     // Extract metadata directly from query response (no extra pages.retrieve needed)
     const pageWithProps = page as PageObjectResponse;
-    const properties = pageWithProps.properties as {
-      Name?: { title: { plain_text: string }[] };
-      Published?: { date: { start: string } | null };
-      Date?: { date: { start: string } | null };
-      URL?: { url: string };
-      Slug?: { rich_text: { plain_text: string }[] };
-      Excerpt?: { rich_text: { plain_text: string }[] };
-    };
+    const properties = pageWithProps.properties as WritingProperties
 
     const metadata: NotionItem = {
       id: pageWithProps.id,
@@ -218,13 +243,15 @@ export async function getWritingPostContentBySlug(
       published: properties.Published?.date?.start || properties.Date?.date?.start || pageWithProps.created_time,
       source: properties.URL?.url?.replace("https://", ""),
       slug: properties.Slug?.rich_text[0]?.plain_text || "",
-      excerpt: properties.Excerpt?.rich_text[0]?.plain_text || "",
       featureImage:
         pageWithProps.cover && pageWithProps.cover.type === "file"
           ? pageWithProps.cover.file.url
           : pageWithProps.cover && pageWithProps.cover.type === "external"
             ? pageWithProps.cover.external.url
             : undefined,
+
+      locale,
+      postId: firstPlainText(properties.PostId?.rich_text),
     };
 
     const blocks = await getAllBlocks(page.id);
@@ -232,6 +259,39 @@ export async function getWritingPostContentBySlug(
     return { blocks, metadata };
   } catch (error) {
     console.error(`Error fetching writing post content for slug ${slug}:`, error);
+    return null;
+  }
+}
+
+
+export async function getWritingPostSlugByPostId(
+  locale: Locale,
+  postId: string,
+): Promise<string | null> {
+  try {
+    const dataSourceId = process.env.NOTION_WRITING_DATASOURCE_ID || "";
+
+    const response = await notion.dataSources.query({
+      data_source_id: dataSourceId,
+      filter: {
+        and: [
+          { property: "Locale", select: { equals: locale } },
+          { property: "PostId", rich_text: { equals: postId } },
+        ],
+      },
+      page_size: 1,
+    });
+
+    const page = response.results[0];
+    if (!page || !hasProperties(page)) return null;
+
+    const pageWithProps = page as PageObjectResponse;
+    const properties = pageWithProps.properties as WritingProperties
+
+    const slug = firstPlainText(properties.PostId?.rich_text)
+    return slug || null;
+  } catch (error) {
+    console.error(`Error fetching writing post slug by postId ${postId}:`, error);
     return null;
   }
 }

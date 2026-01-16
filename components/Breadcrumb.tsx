@@ -1,4 +1,5 @@
 import { NAVIGATION_ITEMS } from "@/constants/navigation";
+import { Locale } from "@/lib/i18n";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
@@ -6,10 +7,14 @@ import { useMemo } from "react";
 const Breadcrumb = () => {
   const pathname = usePathname();
 
+  const findLocale = useMemo(() => {
+    return pathname.split("/")[1];
+  }, [pathname]);
+
   const findCurrentPage = useMemo(() => {
     return NAVIGATION_ITEMS.pages.find(
       (item) => {
-        return pathname.includes(item.url as string)
+        return pathname.includes(item.url as string);
       },
       [pathname]
     );
@@ -17,17 +22,19 @@ const Breadcrumb = () => {
 
   return (
     <nav aria-label="Breadcrumb">
-      <Link href="/" className="font-semibold text-primary">
-        Berat Bozkurt
-      </Link>
+      {pathname !== ("/" + findLocale) && (
+        <Link href={"/" + findLocale} className="font-semibold text-primary">
+          Berat Bozkurt
+        </Link>
+      )}
       {findCurrentPage && (
         <>
           <span className=" text-gray mx-3">/</span>
           <Link
             className="font-semibold text-primary"
-            href={findCurrentPage.url as string}
+            href={("/" + findLocale + findCurrentPage.url) as string}
           >
-            {findCurrentPage.label}
+            {findCurrentPage[findLocale as Locale]}
           </Link>
         </>
       )}

@@ -1,3 +1,5 @@
+import { messages } from "@/lib/i18n";
+
 export type NavigationItem =
     | "about"
     | "blog"
@@ -7,7 +9,9 @@ export type NavigationItem =
     | "bookmarks";
 
 export interface NavigationType<T = string> {
-    label: string;
+    label?: string,
+    en?: string;
+    tr?: string;
     value?: T;
     disabled?: boolean;
     url?: string;
@@ -22,29 +26,30 @@ export interface NavigationTypes {
 export const NAVIGATION_ITEMS: NavigationTypes = {
     pages: [
         {
-            label: "Writings",
+            en: messages.en.writings,
+            tr: messages.tr.writings,
             value: "blog",
             disabled: false,
             url: "/blog",
         },
-        {
-            label: "Photos",
-            value: "photos",
-            disabled: false,
-            url: "/photos",
-        },
-        {
-            label: "Tools",
-            value: "tools",
-            url: "/tools",
-            disabled: true,
-        },
-        {
-            label: "Bookmarks",
-            value: "bookmarks",
-            url: "/bookmarks",
-            disabled: true,
-        }
+        // {
+        //     label: "Photos",
+        //     value: "photos",
+        //     disabled: false,
+        //     url: "/photos",
+        // },
+        // {
+        //     label: "Tools",
+        //     value: "tools",
+        //     url: "/tools",
+        //     disabled: true,
+        // },
+        // {
+        //     label: "Bookmarks",
+        //     value: "bookmarks",
+        //     url: "/bookmarks",
+        //     disabled: true,
+        // }
     ],
     projects: [
         {

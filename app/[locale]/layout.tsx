@@ -1,0 +1,95 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "../globals.css";
+import TopBar from "@/components/TopBar";
+import { notFound } from "next/navigation";
+import "react-medium-image-zoom/dist/styles.css";
+import { SITE_CONFIG } from "@/constants/general";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+
+const locales = ["tr", "en"] as const;
+type Locale = (typeof locales)[number];
+
+function isLocale(value: string): value is Locale {
+  return locales.includes(value as Locale);
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const url = SITE_CONFIG.url;
+
+  return {
+    metadataBase: new URL(url),
+    title: {
+      default: SITE_CONFIG.title,
+      template: `%s`,
+    },
+    description: SITE_CONFIG.description,
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      url: url,
+      siteName: SITE_CONFIG.name,
+      title: SITE_CONFIG.title,
+      description: SITE_CONFIG.description,
+      images: [
+        {
+          url: "/og.jpg",
+          width: SITE_CONFIG.ogImage.width,
+          height: SITE_CONFIG.ogImage.height,
+          alt: SITE_CONFIG.title,
+        },
+      ],
+    },
+    twitter: {
+      card: SITE_CONFIG.social.twitter.cardType,
+      title: SITE_CONFIG.title,
+      description: SITE_CONFIG.description,
+      creator: SITE_CONFIG.author.twitter,
+      images: ["/og.jpg"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+    icons: {
+      icon: [{ url: "/favicon.ico", sizes: "16x16 32x32" }],
+    },
+  };
+}
+
+export default async function RootLayout({
+  children,
+  params,
+}: Readonly<{
+  children: React.ReactNode;
+  params: { locale: string };
+}>) {
+  const { locale } = await params;
+
+  if (!isLocale(locale)) {
+    notFound();
+  }
+
+  return (
+    <html lang={locale} suppressHydrationWarning className={inter.variable}>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="theme-color"
+          content="#fff"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="rgb(10, 10, 10)"
+          media="(prefers-color-scheme: dark)"
+        />
+      </head>
+      <body className={`antialiased`}>
+        <TopBar />
+        {children}
+      </body>
+    </html>
+  );
+}
