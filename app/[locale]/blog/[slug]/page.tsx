@@ -68,18 +68,21 @@ export async function generateMetadata({
 }
 
 // Generate static pages at build time for all blog posts
-export async function generateStaticParams({
-  params,
-}: {
-  params: { locale: Locale };
-}) {
-  const { locale } = await params;
-  const posts = await getAllWritingPosts(locale);
-  return posts
-    .filter((post) => post.slug)
-    .map((post) => ({
-      slug: post.slug,
-    }));
+export async function generateStaticParams(): Promise<
+  { locale: Locale; slug: string }[]
+> {
+  const locales: Locale[] = ["tr", "en"];
+
+  const all = await Promise.all(
+    locales.map(async (locale) => {
+      const posts = await getAllWritingPosts(locale);
+      return posts
+        .filter((post) => post.slug)
+        .map((post) => ({ locale, slug: post.slug as string }));
+    })
+  );
+
+  return all.flat();
 }
 
 const PostDetailPage = async ({
@@ -89,15 +92,27 @@ const PostDetailPage = async ({
 }) => {
   const { slug, locale } = await params;
   const texts = messages[locale];
-  const { data } = await getViewAndLike(
-    "post",
-    (locale === "tr" ? "" : "en/") + (slug as string)
-  );
-  await updateViewAndLike(
-    "post",
-    (locale === "tr" ? "" : "en/") + (slug as string),
-    "views"
-  );
+  
+  let views = 0;
+
+  try {
+    const { data } = await getViewAndLike(
+      "post",
+      (locale === "tr" ? "" : "en/") + slug
+    );
+
+    views = (data?.views ?? 0) + 1;
+
+    // prerender sırasında increment zorunlu değil; istersen try içinde bırak
+    await updateViewAndLike(
+      "post",
+      (locale === "tr" ? "" : "en/") + slug,
+      "views"
+    );
+  } catch (e) {
+    // build’i kırma
+    views = 0;
+  }
 
   // Fetch content and random posts in parallel
   const [content, randomPosts] = await Promise.all([
@@ -126,7 +141,7 @@ const PostDetailPage = async ({
                 year: "numeric",
               })
               .replace(/(\d{2} \w+) (\d{4})/, "$1, $2")}{" "}
-          • {data.views + 1} {texts.views}
+          • {views + 1} {texts.views}
         </small>
         <h1 className="text-3xl text-primary font-bold">{metadata.title}</h1>
         {metadata.featureImage && (

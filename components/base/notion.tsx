@@ -3,10 +3,7 @@ import { RichTextItemResponse } from "@notionhq/client";
 import { ReactNode } from "react";
 import { CodeBlock } from "../ui/Code";
 import { YouTubeEmbed } from "@next/third-parties/google";
-import {
-  getTweetId,
-  getYouTubeVideoId,
-} from "@/lib/helpers";
+import { getTweetId, getYouTubeVideoId } from "@/lib/helpers";
 import { Tweet } from "react-tweet";
 import Zoom from "react-medium-image-zoom";
 import Image from "next/image";
@@ -269,6 +266,8 @@ function renderSingleBlock(
           <Tweet id={tweetId as string} />
         </div>
       );
+    case "synced_block":
+      return null;
     default:
       return null;
   }
