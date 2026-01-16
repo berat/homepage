@@ -13,6 +13,7 @@ import { Metadata } from "next";
 import { SITE_URL } from "@/constants/general";
 import { messages } from "@/lib/i18n";
 import Zoom from "react-medium-image-zoom";
+import { getViewAndLike, updateViewAndLike } from "@/lib/redis/views";
 
 export const revalidate = 3600;
 
@@ -88,6 +89,15 @@ const PostDetailPage = async ({
 }) => {
   const { slug, locale } = await params;
   const texts = messages[locale];
+  const { data } = await getViewAndLike(
+    "post",
+    (locale === "tr" ? "" : "en/") + (slug as string)
+  );
+  await updateViewAndLike(
+    "post",
+    (locale === "tr" ? "" : "en/") + (slug as string),
+    "views"
+  );
 
   // Fetch content and random posts in parallel
   const [content, randomPosts] = await Promise.all([
@@ -116,7 +126,7 @@ const PostDetailPage = async ({
                 year: "numeric",
               })
               .replace(/(\d{2} \w+) (\d{4})/, "$1, $2")}{" "}
-          • 45 {texts.views}
+          • {data.views + 1} {texts.views}
         </small>
         <h1 className="text-3xl text-primary font-bold">{metadata.title}</h1>
         {metadata.featureImage && (

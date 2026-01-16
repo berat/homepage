@@ -18,7 +18,6 @@ export async function GET() {
     getWritingDatabaseItems("tr", undefined, 200, true),
     getWritingDatabaseItems("en", undefined, 200, true),
   ]);
-  console.log("BeratLog ~ GET ~ tr:", tr)
 
   // postId -> slug map (eşleştirme için)
   const enByPostId = new Map<string, string>();
@@ -52,8 +51,6 @@ export async function GET() {
     const lastmod = toDateOnly(p.published ?? new Date().toISOString());
 
     const enSlug = p.postId ? enByPostId.get(p.postId) : undefined;
-    console.log("BeratLog ~ GET ~ p.postId:", p.postId)
-    console.log("BeratLog ~ GET ~ enByPostId:", enByPostId)
     const enHref = enSlug ? `${SITE_URL}/en/blog/${enSlug}` : undefined;
 
     urlEntries.push(`
