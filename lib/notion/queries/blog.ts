@@ -288,7 +288,7 @@ export async function getWritingPostSlugByPostId(
     const pageWithProps = page as PageObjectResponse;
     const properties = pageWithProps.properties as WritingProperties
 
-    const slug = firstPlainText(properties.PostId?.rich_text)
+    const slug = firstPlainText(properties.Slug?.rich_text)
     return slug || null;
   } catch (error) {
     console.error(`Error fetching writing post slug by postId ${postId}:`, error);
