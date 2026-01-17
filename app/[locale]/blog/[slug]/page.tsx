@@ -28,7 +28,7 @@ export async function generateMetadata({
 
   const { metadata } = data;
 
-  const canonical = `${SITE_URL}/${locale}/writings/${slug}`;
+  const canonical = `${SITE_URL}/${locale}/blog/${slug}`;
   const otherLocale: Locale = locale === "tr" ? "en" : "tr";
 
   let otherUrl: string | undefined;
@@ -38,7 +38,7 @@ export async function generateMetadata({
       metadata.postId
     );
     if (otherSlug)
-      otherUrl = `${SITE_URL}/${otherLocale}/writings/${otherSlug}`;
+      otherUrl = `${SITE_URL}/${otherLocale}/blog/${otherSlug}`;
   }
 
   return {
