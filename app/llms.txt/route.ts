@@ -8,7 +8,7 @@ function toAbs(path: string) {
 }
 
 export const runtime = "nodejs";
-export const revalidate = 60 * 60; // 1 hour
+export const revalidate = 3600;
 
 type Post = {
   slug: string;
