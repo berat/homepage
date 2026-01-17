@@ -108,7 +108,7 @@ export default async function Home({ params }: { params: { locale: Locale } }) {
                 alt="Photo"
                 width={210}
                 height={250}
-                className="w-full md:w-full rounded-md object-cover"
+                className="w-full md:min-w-52 rounded-md object-cover"
               />
             </Zoom>
           ))}
