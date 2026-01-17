@@ -5,6 +5,9 @@ import TopBar from "@/components/TopBar";
 import { notFound } from "next/navigation";
 import "react-medium-image-zoom/dist/styles.css";
 import { SITE_CONFIG } from "@/constants/general";
+import Script from "next/script";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -88,6 +91,17 @@ export default async function RootLayout({
       <body className={`antialiased`}>
         <TopBar />
         {children}
+        <Analytics mode={"production"} />
+        {process.env.NODE_ENV === "production" && (
+          <Script
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id="9304602d-e4a5-43cb-840d-79560182a0ed"
+          />
+        )}
+        {process.env.NODE_ENV === "production" && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID as string} />
+        )}
       </body>
     </html>
   );
