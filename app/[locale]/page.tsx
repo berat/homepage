@@ -26,12 +26,12 @@ export default async function Home({ params }: { params: { locale: Locale } }) {
     {
       title: "Dreamary",
       caption: texts.captions.dreamary,
-      url: "https://dreamary.burakbozkurt.com",
+      url: "https://dreamary.netlify.app",
     },
     {
       title: "Memoque",
       caption: texts.captions.memoque,
-      url: "https://memoque.burakbozkurt.com",
+      url: "https://memoque.netlify.app",
     },
     // {
     //   title: "Tools",
