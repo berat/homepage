@@ -17,6 +17,7 @@ export const messages = {
 
         captions: {
             writings: "Yazdığım notlar ve diğer içerikler",
+            photos: "Fark ettiğim anlar, mekânlar ve küçük detaylar",
             dreamary: "Yapay zeka detekli rüya günlüğü ve analizi",
             memoque: "Flash kartlarla kelime öğrenme",
         },
@@ -28,9 +29,13 @@ export const messages = {
         },
 
         meta: {
-            blogTitle: "Blogs",
+            blogTitle: "Blog",
             blogDescription: "Düşünceler, notlar ve üretim üzerine. Yazdığım notlar ve diğer içerikler.",
             blogSlug: "/tr/blog",
+
+            photosTitle:"Fotoğraflar",
+            photosDescription: "Fark ettiğim anlar, mekânlar ve küçük detaylar.",
+            photosSlug: "/tr/photos",
 
             homeDescription: "Türkiye'de yaşayan bir frontend developer. Şu anda mobil uygulamalar geliştiriyorum.",
         }
@@ -49,6 +54,7 @@ export const messages = {
 
         captions: {
             writings: "Notes and other things which are I wrote",
+            photos: "Moments, places, and small details I noticed",
             dreamary: "AI dream journal with analysis",
             memoque: "Learn vocabulary with flashcards"
         },
@@ -63,6 +69,10 @@ export const messages = {
             blogTitle: "Writings",
             blogDescription: "Thoughts on notes, building, and creation. Essays and other writings.",
             blogSlug: "/en/blog",
+
+            photosTitle:"Photos",
+            photosDescription: "Moments, places, and small details I noticed.",
+            photosSlug: "/en/photos",
 
 
             homeDescription: SITE_CONFIG.description,

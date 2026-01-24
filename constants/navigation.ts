@@ -32,6 +32,13 @@ export const NAVIGATION_ITEMS: NavigationTypes = {
             disabled: false,
             url: "/blog",
         },
+        {
+            en: messages.en.photos,
+            tr: messages.tr.photos,
+            value: "photos",
+            disabled: false,
+            url: "/photos",
+        },
         // {
         //     label: "Photos",
         //     value: "photos",

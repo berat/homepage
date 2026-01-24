@@ -5,15 +5,13 @@ import Image from "next/image";
 import { Locale } from "@/lib/notion/queries/blog";
 import { messages } from "@/lib/i18n";
 import Zoom from "react-medium-image-zoom";
-
-const PHOTOS = [
-  "/photos/photos-1.jpg",
-  "/photos/photos-2.jpg",
-  "/photos/photos-3.jpg",
-];
+import { getPhotos } from "@/lib/unsplash";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { Key } from "react";
 
 export default async function Home({ params }: { params: { locale: Locale } }) {
   const { locale } = await params;
+  const photoData = await getPhotos(3);
 
   const texts = await messages[locale];
 
@@ -22,6 +20,11 @@ export default async function Home({ params }: { params: { locale: Locale } }) {
       title: texts.writings,
       caption: texts.captions.writings,
       url: "/blog",
+    },
+    {
+      title: "Photos",
+      caption: texts.captions.photos,
+      url: "/photos",
     },
     {
       title: "Dreamary",
@@ -62,7 +65,10 @@ export default async function Home({ params }: { params: { locale: Locale } }) {
   ];
 
   return (
-    <div id="home" className="max-w-[85%] md:max-w-2xl mx-auto my-16 flex flex-col gap-10">
+    <div
+      id="home"
+      className="max-w-[85%] md:max-w-2xl mx-auto my-16 flex flex-col gap-10"
+    >
       <About />
       <section id="projects" className="flex flex-col gap-3.5">
         <SectionTitle title={texts.projects} />
@@ -101,17 +107,23 @@ export default async function Home({ params }: { params: { locale: Locale } }) {
       <section id="photos" className="flex flex-col gap-3.5">
         <SectionTitle title={texts.photos} />
         <ul className="flex md:flex-row flex-col gap-[20.5px]">
-          {PHOTOS.map((item) => (
-            <Zoom zoomMargin={45} key={item}>
-              <Image
-                src={item}
-                alt="Photo"
-                width={210}
-                height={250}
-                className="w-full md:min-w-52 rounded-md object-cover"
-              />
-            </Zoom>
-          ))}
+          {photoData.map(
+            (data: {
+              id: Key | null | undefined;
+              urls: { full: string | StaticImport };
+              alt_description: string;
+            }) => (
+              <Zoom zoomMargin={45} key={data.id}>
+                <Image
+                  src={data.urls.full}
+                  alt={data.alt_description ?? ""}
+                  width={210}
+                  height={250}
+                  className="w-full md:min-w-52 rounded-md object-cover"
+                />
+              </Zoom>
+            ),
+          )}
         </ul>
       </section>
     </div>
