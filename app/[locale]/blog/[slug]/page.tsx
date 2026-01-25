@@ -1,23 +1,18 @@
 import { renderBlocks } from "@/components/base/notion";
-import SectionTitle from "@/components/base/Title";
 import { getAllWritingPosts } from "@/lib/blog";
-import {
-  getRandomWritingPosts,
-  getWritingPostContentBySlug,
-} from "@/lib/notion";
+import { getWritingPostContentBySlug } from "@/lib/notion";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import ListItem from "@/components/base/List";
 import { getWritingPostSlugByPostId, Locale } from "@/lib/notion/queries/blog";
+import { RandomPosts } from "@/components/blog/RandomPosts";
+import { RandomPostsSkeleton } from "@/components/suspenses/RandomPosts";
 import { Metadata } from "next";
 import { SITE_URL } from "@/constants/general";
-import { messages } from "@/lib/i18n";
 import Zoom from "react-medium-image-zoom";
 import { updateViewAndLike } from "@/lib/redis/views";
 import { Suspense } from "react";
 import { PageViews } from "@/components/views/post";
 import ViewsSuspense from "@/components/suspenses/Views";
-import { LikeButton } from "@/components/base/Like";
 import { PageLikes } from "@/components/likes/post";
 
 export const revalidate = 3600;
@@ -95,13 +90,8 @@ const PostDetailPage = async ({
   params: Promise<{ slug: string; locale: Locale }>;
 }) => {
   const { slug, locale } = await params;
-  const texts = messages[locale];
 
-  // Fetch content and random posts in parallel
-  const [content, randomPosts] = await Promise.all([
-    getWritingPostContentBySlug(locale, slug),
-    getRandomWritingPosts(locale, 5, slug),
-  ]);
+  const content = await getWritingPostContentBySlug(locale, slug);
 
   if (!content) {
     notFound();
@@ -158,20 +148,9 @@ const PostDetailPage = async ({
       <div className="flex min-w-0 flex-col gap-4 text-lg">
         {renderBlocks(blocks)}
       </div>
-      <div className="flex flex-col gap-5 mt-14">
-        <SectionTitle title={texts.readNext} />
-        <ul className="flex flex-col gap-3">
-          {randomPosts.map((post) => (
-            <li key={post.id} className="flex">
-              <ListItem
-                key={post.id}
-                title={post.title}
-                url={`/${locale}/blog/${post.slug}`}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Suspense fallback={<RandomPostsSkeleton locale={locale} />}>
+        <RandomPosts locale={locale} excludeSlug={slug} />
+      </Suspense>
     </div>
   );
 };

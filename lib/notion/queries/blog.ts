@@ -2,6 +2,7 @@ import { PageObjectResponse } from "@notionhq/client";
 import { notion } from "../client";
 import { hasProperties, NotionItem, ProcessedBlock } from "../types";
 import { getAllBlocks } from "../blocks";
+import { cache } from "react";
 
 export type Locale = "tr" | "en";
 
@@ -25,11 +26,11 @@ function firstPlainText(arr?: { plain_text: string }[]) {
 
 
 // Get random posts efficiently without fetching all posts
-export async function getRandomWritingPosts(
+export const getRandomWritingPosts = cache(async (
   locale: Locale,
   count: number = 5,
   excludeSlug?: string,
-): Promise<NotionItem[]> {
+): Promise<NotionItem[]> => {
   try {
     const dataSourceId = process.env.NOTION_WRITING_DATASOURCE_ID || "";
 
@@ -87,7 +88,7 @@ export async function getRandomWritingPosts(
     console.error("Error fetching random writing posts:", error);
     return [];
   }
-}
+});
 
 export async function getWritingDatabaseItems(
   locale: Locale,
@@ -200,10 +201,10 @@ export async function getWritingPostContent(
   }
 }
 
-export async function getWritingPostContentBySlug(
+export const getWritingPostContentBySlug = cache(async (
   locale: Locale,
   slug: string,
-): Promise<{ blocks: ProcessedBlock[]; metadata: NotionItem } | null> {
+): Promise<{ blocks: ProcessedBlock[]; metadata: NotionItem } | null> => {
   try {
     const dataSourceId = process.env.NOTION_WRITING_DATASOURCE_ID || "";
 
@@ -261,13 +262,13 @@ export async function getWritingPostContentBySlug(
     console.error(`Error fetching writing post content for slug ${slug}:`, error);
     return null;
   }
-}
+});
 
 
-export async function getWritingPostSlugByPostId(
+export const getWritingPostSlugByPostId = cache(async (
   locale: Locale,
   postId: string,
-): Promise<string | null> {
+): Promise<string | null> => {
   try {
     const dataSourceId = process.env.NOTION_WRITING_DATASOURCE_ID || "";
 
@@ -294,4 +295,4 @@ export async function getWritingPostSlugByPostId(
     console.error(`Error fetching writing post slug by postId ${postId}:`, error);
     return null;
   }
-}
+});

@@ -5,6 +5,7 @@ import type {
 
 import { notion } from "./client";
 import type { ProcessedBlock, RichTextContent } from "./types";
+import { cache } from "react";
 
 // Helper to convert Notion rich text to our processed format
 function processRichText(richText: RichTextItemResponse[]): RichTextContent[] {
@@ -231,7 +232,7 @@ export function processBlockFromResponse(block: BlockObjectResponse): ProcessedB
 }
 
 // Fetch all blocks from a page with pagination support
-export async function getAllBlocks(pageId: string): Promise<ProcessedBlock[]> {
+export const getAllBlocks = cache(async (pageId: string): Promise<ProcessedBlock[]> => {
   try {
     const blocksResponse = await notion.blocks.children.list({
       block_id: pageId,
@@ -287,4 +288,4 @@ export async function getAllBlocks(pageId: string): Promise<ProcessedBlock[]> {
     console.error(`Error fetching blocks for page ${pageId}:`, error);
     return [];
   }
-}
+});
