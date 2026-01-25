@@ -8,6 +8,7 @@ export const messages = {
         works: "Tecrübe",
         photos: "Fotoğraflar",
         writings: "Blog",
+        bookmarks: "Yer İmleri",
         views: "görüntülenme",
         totalViews: "toplam görüntülenme",
         sum: (count: number) => `Topla  ${count} yazı`,
@@ -20,6 +21,7 @@ export const messages = {
         captions: {
             writings: "Yazdığım notlar ve diğer içerikler",
             photos: "Fark ettiğim anlar, mekânlar ve küçük detaylar",
+            bookmarks: "Notlar, bağlantılar ve ilham kıvılcımları",
             dreamary: "Yapay zeka detekli rüya günlüğü ve analizi",
             memoque: "Flash kartlarla kelime öğrenme",
         },
@@ -31,13 +33,17 @@ export const messages = {
         },
 
         meta: {
-            blogTitle: "Blog " + SITE_CONFIG.name,
+            blogTitle: "Blog | " + SITE_CONFIG.name,
             blogDescription: "Düşünceler, notlar ve üretim üzerine. Yazdığım notlar ve diğer içerikler.",
             blogSlug: "/tr/blog",
 
-            photosTitle: "Fotoğraflar " + SITE_CONFIG.name,
+            photosTitle: "Fotoğraflar | " + SITE_CONFIG.name,
             photosDescription: "Fark ettiğim anlar, mekânlar ve küçük detaylar.",
             photosSlug: "/tr/photos",
+
+            bookmarksTitle: "Yer İmleri | " + SITE_CONFIG.name,
+            bookmarksDescription: "Notlar, bağlantılar ve ilham kıvılcımları",
+            bookmarksSlug: "/tr/bookmarks",
 
             homeDescription: "Türkiye'de yaşayan bir frontend developer. Şu anda mobil uygulamalar geliştiriyorum.",
         },
@@ -51,6 +57,7 @@ export const messages = {
         works: "Works",
         photos: "Photos",
         writings: "Writings",
+        bookmarks: "Bookmarks",
         views: "views",
         totalViews: "total views",
         sum: (count: number) => `Total ${count} posts`,
@@ -63,6 +70,7 @@ export const messages = {
         captions: {
             writings: "Notes and other things which are I wrote",
             photos: "Moments, places, and small details I noticed",
+            bookmarks: "Notes, links, and sparks of inspiration",
             dreamary: "AI dream journal with analysis",
             memoque: "Learn vocabulary with flashcards"
         },
@@ -74,13 +82,17 @@ export const messages = {
         },
 
         meta: {
-            blogTitle: "Writings " + SITE_CONFIG.name,
+            blogTitle: "Writings | " + SITE_CONFIG.name,
             blogDescription: "Thoughts on notes, building, and creation. Essays and other writings.",
             blogSlug: "/en/blog",
 
-            photosTitle: "Photos " + SITE_CONFIG.name,
+            photosTitle: "Photos | " + SITE_CONFIG.name,
             photosDescription: "Moments, places, and small details I noticed.",
             photosSlug: "/en/photos",
+
+            bookmarksTitle: "Bookmarks " + SITE_CONFIG.name,
+            bookmarksDescription: "Notes, links, and sparks of inspiration",
+            bookmarksSlug: "/en/bookmarks",
 
 
             homeDescription: SITE_CONFIG.description,
