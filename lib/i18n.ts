@@ -31,11 +31,11 @@ export const messages = {
         },
 
         meta: {
-            blogTitle: "Blog",
+            blogTitle: "Blog " + SITE_CONFIG.name,
             blogDescription: "Düşünceler, notlar ve üretim üzerine. Yazdığım notlar ve diğer içerikler.",
             blogSlug: "/tr/blog",
 
-            photosTitle:"Fotoğraflar",
+            photosTitle: "Fotoğraflar " + SITE_CONFIG.name,
             photosDescription: "Fark ettiğim anlar, mekânlar ve küçük detaylar.",
             photosSlug: "/tr/photos",
 
@@ -74,11 +74,11 @@ export const messages = {
         },
 
         meta: {
-            blogTitle: "Writings",
+            blogTitle: "Writings " + SITE_CONFIG.name,
             blogDescription: "Thoughts on notes, building, and creation. Essays and other writings.",
             blogSlug: "/en/blog",
 
-            photosTitle:"Photos",
+            photosTitle: "Photos " + SITE_CONFIG.name,
             photosDescription: "Moments, places, and small details I noticed.",
             photosSlug: "/en/photos",
 

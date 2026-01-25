@@ -2,16 +2,18 @@ import About from "@/components/About";
 import SectionTitle from "@/components/base/Title";
 import ListItem from "@/components/base/List";
 import Image from "next/image";
-import { Locale } from "@/lib/notion/queries/blog";
+import { getWritingDatabaseItems, Locale } from "@/lib/notion/queries/blog";
 import { messages } from "@/lib/i18n";
 import Zoom from "react-medium-image-zoom";
 import { getPhotos } from "@/lib/unsplash";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { Key } from "react";
+import { getAllWritingPosts } from "@/lib/blog";
 
 export default async function Home({ params }: { params: { locale: Locale } }) {
   const { locale } = await params;
   const photoData = await getPhotos(3);
+  const { items: posts } = await getWritingDatabaseItems(locale, undefined, 5);
 
   const texts = await messages[locale];
 
@@ -70,6 +72,20 @@ export default async function Home({ params }: { params: { locale: Locale } }) {
       className="max-w-[85%] md:max-w-2xl mx-auto my-16 flex flex-col gap-10"
     >
       <About />
+      <section id="writings" className="flex flex-col gap-3.5">
+        <SectionTitle title={texts.writings} path={`/${locale}/blog`} />
+        <ul className="flex flex-col gap-2.5">
+          {posts.map((post) => {
+            return (
+              <ListItem
+                key={post.id}
+                title={post.title}
+                url={`/${locale}/blog/${post.slug}`}
+              />
+            );
+          })}
+        </ul>
+      </section>
       <section id="projects" className="flex flex-col gap-3.5">
         <SectionTitle title={texts.projects} />
         <ul className="flex flex-col gap-2.5">

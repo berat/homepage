@@ -18,13 +18,26 @@ const getStats = () => {
 };
 
 const getPhotos = unstable_cache(
-    (numPhotos: number = 30) => {
-        const url = buildUrl("photos", `per_page=${numPhotos}&`);
-        return getData(url);
+    async (numPhotos?: number) => {
+        if (numPhotos) {
+            const url = buildUrl("photos", `per_page=${numPhotos}&`);
+            return getData(url);
+        }
+
+        // Yoksa 3 sayfa paralel çek
+        const perPage = 30;
+
+        const pages = await Promise.all([
+            getData(buildUrl("photos", `per_page=${perPage}&page=1&`)),
+            getData(buildUrl("photos", `per_page=${perPage}&page=2&`)),
+        ]);
+
+        // 3 response'u tek diziye indir
+        return pages.flat();
     },
-    [],
+    ["unsplash-photos"], // cache key sabit olmalı
     {
-        revalidate: 10800, // 3 hour
+        revalidate: 10800, // 3 saat
     }
 );
 
