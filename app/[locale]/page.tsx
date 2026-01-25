@@ -8,7 +8,6 @@ import Zoom from "react-medium-image-zoom";
 import { getPhotos } from "@/lib/unsplash";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { Key } from "react";
-import { getAllWritingPosts } from "@/lib/blog";
 
 export default async function Home({ params }: { params: { locale: Locale } }) {
   const { locale } = await params;
@@ -24,9 +23,14 @@ export default async function Home({ params }: { params: { locale: Locale } }) {
       url: "/blog",
     },
     {
-      title: "Photos",
+      title: texts.photos,
       caption: texts.captions.photos,
       url: "/photos",
+    },
+    {
+      title: texts.bookmarks,
+      caption: texts.captions.bookmarks,
+      url: "/bookmarks",
     },
     {
       title: "Dreamary",
@@ -77,11 +81,12 @@ export default async function Home({ params }: { params: { locale: Locale } }) {
         <ul className="flex flex-col gap-2.5">
           {posts.map((post) => {
             return (
-              <ListItem
-                key={post.id}
-                title={post.title}
-                url={`/${locale}/blog/${post.slug}`}
-              />
+              <li key={post.id} className="flex">
+                <ListItem
+                  title={post.title}
+                  url={`/${locale}/blog/${post.slug}`}
+                />
+              </li>
             );
           })}
         </ul>
@@ -91,16 +96,17 @@ export default async function Home({ params }: { params: { locale: Locale } }) {
         <ul className="flex flex-col gap-2.5">
           {LIST.map((item) => {
             return (
-              <ListItem
-                key={item.title}
-                title={item.title}
-                caption={item.caption}
-                url={
-                  item.url.startsWith("http")
-                    ? item.url
-                    : "/" + locale + item.url
-                }
-              />
+              <li key={item.title} className="flex">
+                <ListItem
+                  title={item.title}
+                  caption={item.caption}
+                  url={
+                    item.url.startsWith("http")
+                      ? item.url
+                      : "/" + locale + item.url
+                  }
+                />
+              </li>
             );
           })}
         </ul>

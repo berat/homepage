@@ -28,7 +28,7 @@ export async function generateMetadata({
   });
 }
 
-export default async function Home({
+export default async function Photos({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
@@ -41,14 +41,16 @@ export default async function Home({
   return (
     <div
       id="photos"
-      className="max-w-[85%] md:max-w-5xl mx-auto my-16 flex flex-col gap-10"
+      className="max-w-[85%] md:max-w-6xl mx-auto my-16 flex flex-col gap-10"
     >
       <header className="flex flex-col gap-2.5">
         <small className="text-gray text-sm font-medium">
           <Suspense fallback={<ViewsSuspense locale={locale} />}>
             <PageViews
               locale={locale}
-              slug={"page:" + (locale === "tr" ? "" : "en/") + "photos"}
+              increase
+              type="page"
+              slug={(locale === "tr" ? "" : "en/") + "photos"}
             />
           </Suspense>
         </small>

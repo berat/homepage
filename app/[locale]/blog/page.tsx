@@ -66,7 +66,7 @@ export default async function Home({
           {texts.sum(posts.length)}
           {" • "}
           <Suspense fallback={<ViewsSuspense locale={locale} />}>
-            <PageViews locale={locale} slug={"post:" + (locale === "tr" ? "" : "en/")}/>
+            <PageViews type="page" locale={locale} slug={(locale === "tr" ? "" : "en/") + "blog"}/>
           </Suspense>
         </small>
         <h1 className="text-4xl text-primary font-bold">{texts.writings}</h1>
@@ -77,11 +77,13 @@ export default async function Home({
           {postsByYear[year]
             .filter((post) => post.slug) // Only show posts that have slugs
             .map((post) => (
+              <li key={post.id} className="flex">
               <ListItem
                 key={post.id}
                 title={post.title}
                 url={`/${locale}/blog/${post.slug}`}
               />
+              </li>
             ))}
         </ul>
       ))}

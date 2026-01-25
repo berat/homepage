@@ -13,7 +13,7 @@ import { Metadata } from "next";
 import { SITE_URL } from "@/constants/general";
 import { messages } from "@/lib/i18n";
 import Zoom from "react-medium-image-zoom";
-import {  updateViewAndLike } from "@/lib/redis/views";
+import { updateViewAndLike } from "@/lib/redis/views";
 import { Suspense } from "react";
 import { PageViews } from "@/components/views/post";
 import ViewsSuspense from "@/components/suspenses/Views";
@@ -105,9 +105,15 @@ const PostDetailPage = async ({
     notFound();
   }
 
-  await updateViewAndLike(
+  updateViewAndLike(
     "post",
     (locale === "tr" ? "" : "en/") + slug,
+    "views",
+  );
+
+  updateViewAndLike(
+    "page",
+    (locale === "tr" ? "" : "en/") + "blog",
     "views",
   );
 
@@ -156,11 +162,13 @@ const PostDetailPage = async ({
         <SectionTitle title={texts.readNext} />
         <ul className="flex flex-col gap-3">
           {randomPosts.map((post) => (
-            <ListItem
-              key={post.id}
-              title={post.title}
-              url={`/${locale}/blog/${post.slug}`}
-            />
+            <li key={post.id} className="flex">
+              <ListItem
+                key={post.id}
+                title={post.title}
+                url={`/${locale}/blog/${post.slug}`}
+              />
+            </li>
           ))}
         </ul>
       </div>

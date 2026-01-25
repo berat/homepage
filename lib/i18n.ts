@@ -11,7 +11,7 @@ export const messages = {
         bookmarks: "Yer İmleri",
         views: "görüntülenme",
         totalViews: "toplam görüntülenme",
-        sum: (count: number) => `Topla  ${count} yazı`,
+        sum: (count: number) => `Toplam  ${count} yazı`,
         readNext: "Sonraki Yazılar",
         about: () => `
         Türkiye'de lead frontend developer olarak çalışıyorum. Şu anda mobil uygulamalar geliştiriyorum.`,
@@ -90,7 +90,7 @@ export const messages = {
             photosDescription: "Moments, places, and small details I noticed.",
             photosSlug: "/en/photos",
 
-            bookmarksTitle: "Bookmarks " + SITE_CONFIG.name,
+            bookmarksTitle: "Bookmarks | " + SITE_CONFIG.name,
             bookmarksDescription: "Notes, links, and sparks of inspiration",
             bookmarksSlug: "/en/bookmarks",
 
