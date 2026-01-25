@@ -5,7 +5,12 @@ import { Locale } from "@/lib/notion/queries/blog";
 import { messages } from "@/lib/i18n";
 import { Metadata } from "next";
 import { createMetadata } from "@/lib/helpers";
-import { getViewAndLike } from "@/lib/redis/views";
+import { Suspense } from "react";
+import {  PageViews } from "@/components/views/page";
+import ViewsSuspense from "@/components/suspenses/Views";
+
+// Cache blog listesini 60 saniye - Notion API'yi her seferinde çağırmaz
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,
@@ -35,16 +40,6 @@ export default async function Home({
 
   const texts = messages[locale];
 
-  let views = 0;
-
-  try {
-    const { data } = await getViewAndLike("page", "post:" +(locale === "tr" ? "" : "en/"));
-
-    views = (data?.views ?? 0) + 1;
-  } catch (e) {
-    // build’i kırma
-    views = 0;
-  }
   // Group posts by year
   const postsByYear: Record<string, typeof posts> = {};
   posts.forEach((post) => {
@@ -68,7 +63,11 @@ export default async function Home({
     >
       <header className="flex flex-col gap-2.5">
         <small className="text-gray text-sm font-medium">
-          {texts.sum(posts.length)} • {Number(views).toLocaleString("tr-TR")} {texts.totalViews}
+          {texts.sum(posts.length)}
+          {" • "}
+          <Suspense fallback={<ViewsSuspense locale={locale} />}>
+            <PageViews locale={locale} slug={"post:" + (locale === "tr" ? "" : "en/")}/>
+          </Suspense>
         </small>
         <h1 className="text-4xl text-primary font-bold">{texts.writings}</h1>
       </header>

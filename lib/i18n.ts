@@ -40,6 +40,10 @@ export const messages = {
             photosSlug: "/tr/photos",
 
             homeDescription: "Türkiye'de yaşayan bir frontend developer. Şu anda mobil uygulamalar geliştiriyorum.",
+        },
+
+        suspense: {
+            views: "görüntülenme yükleniyor...",
         }
     },
     en: {
@@ -80,6 +84,10 @@ export const messages = {
 
 
             homeDescription: SITE_CONFIG.description,
+        },
+
+        suspense: {
+            views: "loading views...",
         }
     },
 } as const;

@@ -13,7 +13,10 @@ import { Metadata } from "next";
 import { SITE_URL } from "@/constants/general";
 import { messages } from "@/lib/i18n";
 import Zoom from "react-medium-image-zoom";
-import { getViewAndLike, updateViewAndLike } from "@/lib/redis/views";
+import {  updateViewAndLike } from "@/lib/redis/views";
+import { Suspense } from "react";
+import { PageViews } from "@/components/views/post";
+import ViewsSuspense from "@/components/suspenses/Views";
 
 export const revalidate = 3600;
 
@@ -35,10 +38,9 @@ export async function generateMetadata({
   if (metadata.postId) {
     const otherSlug = await getWritingPostSlugByPostId(
       otherLocale,
-      metadata.postId
+      metadata.postId,
     );
-    if (otherSlug)
-      otherUrl = `${SITE_URL}/${otherLocale}/blog/${otherSlug}`;
+    if (otherSlug) otherUrl = `${SITE_URL}/${otherLocale}/blog/${otherSlug}`;
   }
 
   return {
@@ -79,7 +81,7 @@ export async function generateStaticParams(): Promise<
       return posts
         .filter((post) => post.slug)
         .map((post) => ({ locale, slug: post.slug as string }));
-    })
+    }),
   );
 
   return all.flat();
@@ -92,7 +94,7 @@ const PostDetailPage = async ({
 }) => {
   const { slug, locale } = await params;
   const texts = messages[locale];
-  
+
   // Fetch content and random posts in parallel
   const [content, randomPosts] = await Promise.all([
     getWritingPostContentBySlug(locale, slug),
@@ -103,27 +105,11 @@ const PostDetailPage = async ({
     notFound();
   }
 
-
-  let views = 0;
-
-  try {
-    const { data } = await getViewAndLike(
-      "post",
-      (locale === "tr" ? "" : "en/") + slug
-    );
-
-    views = (data?.views ?? 0) + 1;
-
-    // prerender sırasında increment zorunlu değil; istersen try içinde bırak
-    await updateViewAndLike(
-      "post",
-      (locale === "tr" ? "" : "en/") + slug,
-      "views"
-    );
-  } catch (e) {
-    // build’i kırma
-    views = 0;
-  }
+  await updateViewAndLike(
+    "post",
+    (locale === "tr" ? "" : "en/") + slug,
+    "views",
+  );
 
   const { blocks, metadata } = content;
 
@@ -142,7 +128,13 @@ const PostDetailPage = async ({
                 year: "numeric",
               })
               .replace(/(\d{2} \w+) (\d{4})/, "$1, $2")}{" "}
-          • {views + 1} {texts.views}
+          {"• "}
+          <Suspense fallback={<ViewsSuspense locale={locale} />}>
+            <PageViews
+              locale={locale}
+              slug={"post:" + (locale === "tr" ? "" : "en/") + slug}
+            />
+          </Suspense>
         </small>
         <h1 className="text-3xl text-primary font-bold">{metadata.title}</h1>
         {metadata.featureImage && (
