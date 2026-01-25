@@ -5,6 +5,7 @@ import { Locale } from "@/lib/notion/queries/blog";
 import { messages } from "@/lib/i18n";
 import { Metadata } from "next";
 import { createMetadata } from "@/lib/helpers";
+import { getViewAndLike } from "@/lib/redis/views";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,16 @@ export default async function Home({
 
   const texts = messages[locale];
 
+  let views = 0;
+
+  try {
+    const { data } = await getViewAndLike("page", "post:" +(locale === "tr" ? "" : "en/"));
+
+    views = (data?.views ?? 0) + 1;
+  } catch (e) {
+    // build’i kırma
+    views = 0;
+  }
   // Group posts by year
   const postsByYear: Record<string, typeof posts> = {};
   posts.forEach((post) => {
@@ -47,7 +58,7 @@ export default async function Home({
 
   // Sort years in descending order
   const sortedYears = Object.keys(postsByYear).sort(
-    (a, b) => parseInt(b) - parseInt(a)
+    (a, b) => parseInt(b) - parseInt(a),
   );
 
   return (
@@ -55,8 +66,12 @@ export default async function Home({
       id="writings"
       className="max-w-[85%] md:max-w-2xl mx-auto my-16 flex flex-col gap-10"
     >
-      <h1 className="text-4xl text-primary font-bold">{texts.writings}</h1>
-
+      <header className="flex flex-col gap-2.5">
+        <small className="text-gray text-sm font-medium">
+          {texts.sum(posts.length)} • {Number(views).toLocaleString("tr-TR")} {texts.totalViews}
+        </small>
+        <h1 className="text-4xl text-primary font-bold">{texts.writings}</h1>
+      </header>
       {sortedYears.map((year) => (
         <ul key={year} className="flex flex-col gap-3">
           <SectionTitle title={year} />

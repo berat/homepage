@@ -9,6 +9,8 @@ export const messages = {
         photos: "Fotoğraflar",
         writings: "Blog",
         views: "görüntülenme",
+        totalViews: "toplam görüntülenme",
+        sum: (count: number) => `Topla  ${count} yazı`,
         readNext: "Sonraki Yazılar",
         about: () => `
         Türkiye'de lead frontend developer olarak çalışıyorum. Şu anda mobil uygulamalar geliştiriyorum.`,
@@ -46,6 +48,8 @@ export const messages = {
         photos: "Photos",
         writings: "Writings",
         views: "views",
+        totalViews: "total views",
+        sum: (count: number) => `Total ${count} posts`,
         readNext: "Read Next",
         about: () => `
         I’m a lead frontend developer living in Türkiye. I’m currently making mobile applications.`,

@@ -93,6 +93,17 @@ const PostDetailPage = async ({
   const { slug, locale } = await params;
   const texts = messages[locale];
   
+  // Fetch content and random posts in parallel
+  const [content, randomPosts] = await Promise.all([
+    getWritingPostContentBySlug(locale, slug),
+    getRandomWritingPosts(locale, 5, slug),
+  ]);
+
+  if (!content) {
+    notFound();
+  }
+
+
   let views = 0;
 
   try {
@@ -112,16 +123,6 @@ const PostDetailPage = async ({
   } catch (e) {
     // build’i kırma
     views = 0;
-  }
-
-  // Fetch content and random posts in parallel
-  const [content, randomPosts] = await Promise.all([
-    getWritingPostContentBySlug(locale, slug),
-    getRandomWritingPosts(locale, 5, slug),
-  ]);
-
-  if (!content) {
-    notFound();
   }
 
   const { blocks, metadata } = content;
