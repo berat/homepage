@@ -17,6 +17,7 @@ export const messages = {
         Türkiye'de lead frontend developer olarak çalışıyorum. Şu anda mobil uygulamalar geliştiriyorum.`,
         pages: "Sayfalar",
         homepage: "Anasayfa",
+        likes: "beğeni",
 
         captions: {
             writings: "Yazdığım notlar ve diğer içerikler",
@@ -50,6 +51,7 @@ export const messages = {
 
         suspense: {
             views: "görüntülenme yükleniyor...",
+            likes: "beğenmeler yükleniyor..."
         }
     },
     en: {
@@ -66,6 +68,7 @@ export const messages = {
         I’m a lead frontend developer living in Türkiye. I’m currently making mobile applications.`,
         pages: "Pages",
         homepage: "Homepage",
+        likes: "likes",
 
         captions: {
             writings: "Notes and other things which are I wrote",
@@ -100,6 +103,7 @@ export const messages = {
 
         suspense: {
             views: "loading views...",
+            likes: "loading likes..."
         }
     },
 } as const;

@@ -17,6 +17,8 @@ import { updateViewAndLike } from "@/lib/redis/views";
 import { Suspense } from "react";
 import { PageViews } from "@/components/views/post";
 import ViewsSuspense from "@/components/suspenses/Views";
+import { LikeButton } from "@/components/base/Like";
+import { PageLikes } from "@/components/likes/post";
 
 export const revalidate = 3600;
 
@@ -105,17 +107,9 @@ const PostDetailPage = async ({
     notFound();
   }
 
-  updateViewAndLike(
-    "post",
-    (locale === "tr" ? "" : "en/") + slug,
-    "views",
-  );
+  updateViewAndLike("post", (locale === "tr" ? "" : "en/") + slug, "views");
 
-  updateViewAndLike(
-    "page",
-    (locale === "tr" ? "" : "en/") + "blog",
-    "views",
-  );
+  updateViewAndLike("page", (locale === "tr" ? "" : "en/") + "blog", "views");
 
   const { blocks, metadata } = content;
 
@@ -125,7 +119,13 @@ const PostDetailPage = async ({
       className="max-w-[85%] md:max-w-2xl mx-auto my-16 flex flex-col gap-5"
     >
       <header className="flex flex-col gap-2.5">
-        <small className="text-gray text-sm font-medium">
+        <small className="flex items-center text-gray text-sm font-medium">
+          <Suspense fallback={<ViewsSuspense isLike locale={locale} />}>
+            <PageLikes
+              type="post"
+              slug={(locale === "tr" ? "" : "en/") + slug}
+            />
+          </Suspense>
           {metadata.published &&
             new Date(metadata.published)
               .toLocaleDateString("en-GB", {

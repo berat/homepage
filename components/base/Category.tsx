@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Locale } from "@/lib/i18n";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -16,9 +16,13 @@ export default function Category({
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const selectedCategory = searchParams.get("category") || (locale === "tr" ? "hepsi" : "all");
+  const selectedCategory =
+    searchParams.get("category") || (locale === "tr" ? "hepsi" : "all");
 
-  const allCategory = useMemo(() => ([locale === "tr" ? "hepsi" : "all"]), [locale]);
+  const allCategory = useMemo(
+    () => [locale === "tr" ? "hepsi" : "all"],
+    [locale],
+  );
 
   const handleCategoryChange = (category: string) => {
     if (!category) return;
@@ -40,7 +44,7 @@ export default function Category({
                   className={`${defaultCategoryStyle} ${
                     selectedCategory === category
                       ? "bg-primary text-white"
-                      : "bg-lightGray dark:bg-[#464750] dark:text-darkText"
+                      : "bg-lightGray "
                   }`}
                   onClick={() => handleCategoryChange(category)}
                 >

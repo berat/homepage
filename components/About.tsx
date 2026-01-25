@@ -26,7 +26,7 @@ const About = () => {
         />
         <h1 className="text-2xl text-primary font-bold">Berat Bozkurt</h1>
       </div>
-      <h2 className="text-description text-2xl font-semibold md:max-w-142.5" dangerouslySetInnerHTML={{__html: texts.about()}}>
+      <h2 className="text-description text-xl md:text-2xl font-semibold md:max-w-142.5" dangerouslySetInnerHTML={{__html: texts.about()}}>
       </h2>
       <div className="flex gap-5 items-center mb-2.5">
         {SOCIAL_ITEMS.map((item) => (

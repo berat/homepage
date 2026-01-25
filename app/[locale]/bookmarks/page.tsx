@@ -11,6 +11,7 @@ import Link from "next/link";
 import SectionTitle from "@/components/base/Title";
 import { randomInt } from "crypto";
 import Category from "@/components/base/Category";
+import { PageLikes } from "@/components/likes/post";
 
 export async function generateMetadata({
   params,
@@ -78,7 +79,13 @@ export default async function Bookmarks({
       className="max-w-[85%] md:max-w-[90%] xl:max-w-6xl mx-auto my-16 flex flex-col gap-10"
     >
       <header className="flex flex-col gap-2.5">
-        <small className="text-gray text-sm font-medium">
+        <small className="text-gray flex gap-1 items-center text-sm font-medium">
+          <Suspense fallback={<ViewsSuspense locale={locale} />}>
+            <PageLikes
+              type="page"
+              slug={(locale === "tr" ? "" : "en/") + "bookmarks"}
+            />
+          </Suspense>
           <Suspense fallback={<ViewsSuspense locale={locale} />}>
             <PageViews
               type="page"

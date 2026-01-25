@@ -1,6 +1,12 @@
 import { SITE_CONFIG } from "@/constants/general";
 import { Locale } from "./i18n";
 import { Metadata } from "next";
+import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from "clsx";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export function getRandomPosts<T>(posts: T[], count: number): T[] {
   const shuffled = [...posts].sort(() => Math.random() - 0.5);
@@ -101,10 +107,10 @@ export function createMetadata(params: CreateMetadataParams = {}): Metadata {
       ],
       ...(type === "article" &&
         publishedTime && {
-          publishedTime,
-          modifiedTime: modifiedTime || publishedTime,
-          authors: [SITE_CONFIG.author.name],
-        }),
+        publishedTime,
+        modifiedTime: modifiedTime || publishedTime,
+        authors: [SITE_CONFIG.author.name],
+      }),
     },
     twitter: {
       card: SITE_CONFIG.social.twitter.cardType,

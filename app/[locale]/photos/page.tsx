@@ -1,14 +1,15 @@
+/* eslint-disable @next/next/no-img-element */
 import { Locale } from "@/lib/notion/queries/blog";
 import { messages } from "@/lib/i18n";
 import { Metadata } from "next";
 import { createMetadata } from "@/lib/helpers";
 import Zoom from "react-medium-image-zoom";
-import Image from "next/image";
 import { getPhotos } from "@/lib/unsplash";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { Key, Suspense } from "react";
 import ViewsSuspense from "@/components/suspenses/Views";
 import { PageViews } from "@/components/views/page";
+import { PageLikes } from "@/components/likes/post";
 
 export async function generateMetadata({
   params,
@@ -44,7 +45,13 @@ export default async function Photos({
       className="max-w-[85%] md:max-w-6xl mx-auto my-16 flex flex-col gap-10"
     >
       <header className="flex flex-col gap-2.5">
-        <small className="text-gray text-sm font-medium">
+        <small className="text-gray flex gap-1 items-center text-sm font-medium">
+          <Suspense fallback={<ViewsSuspense locale={locale} />}>
+            <PageLikes
+              type="page"
+              slug={(locale === "tr" ? "" : "en/") + "photos"}
+            />
+          </Suspense>
           <Suspense fallback={<ViewsSuspense locale={locale} />}>
             <PageViews
               locale={locale}
@@ -68,8 +75,8 @@ export default async function Photos({
               className="masonry-item mb-4 bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
               <Zoom zoomMargin={45}>
-                <Image
-                  src={data.urls.full}
+                <img
+                  src={data.urls.full as string}
                   alt={data.alt_description ?? ""}
                   width={800}
                   height={450}

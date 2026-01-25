@@ -35,14 +35,14 @@ const ListItem: React.FC<Props> = ({
         )}
 
         <div
-          className={`flex  gap-1  ${
+          className={`gap-1 ${
             isProject
               ? "flex-row items-center"
-              : "flex-col md:flex-row md:items-center"
+              : "flex flex-col md:flex-row md:items-center"
           }`}
         >
           <span
-            className={`text-xl text-primary font-semibold leading-[1.6] ${
+            className={`text-lg md:text-xl text-primary font-semibold leading-[1.6] ${
               url ? "group-hover:text-blue-600" : ""
             } ${isExternal && url ? "underline" : ""}`}
           >
@@ -50,7 +50,7 @@ const ListItem: React.FC<Props> = ({
           </span>
 
           {caption && (
-            <span className="text-lg text-gray font-semibold">
+            <span className="text-base md:text-lg text-gray font-semibold">
               <span className="hidden md:inline-flex">—</span> {caption}
             </span>
           )}
