@@ -33,6 +33,8 @@ export async function GET() {
     `${SITE_URL}/en/blog`,
     `${SITE_URL}/tr/photos`,
     `${SITE_URL}/en/photos`,
+    `${SITE_URL}/tr/bookmarks`,
+    `${SITE_URL}/en/bookmarks`,
   ];
 
   const urlEntries: string[] = [];
