@@ -31,7 +31,7 @@ export async function GET() {
 
     if (data.result === true) {
       const { items } = data;
-      const categories = ["All"];
+      const categories = [""];
 
       items.map((item: BookmarkType) => {
         item.tags.map((t) => t && categories.push(t));
