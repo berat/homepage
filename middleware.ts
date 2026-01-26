@@ -59,11 +59,20 @@ function getPreferredLocale(req: NextRequest): string {
 }
 
 export function middleware(req: NextRequest) {
-    const { pathname } = req.nextUrl;
+      const url = req.nextUrl.clone();
+    const { pathname, search } = req.nextUrl;
     const userAgent = req.headers.get("user-agent") || "";
 
     // Bot mu kontrol et - botları redirect etme (SEO için)
     const isCrawler = isBot(userAgent);
+
+    if (pathname === "/blog" || pathname.startsWith("/blog/")) {
+        const rest = pathname.slice("/blog".length); // "" veya "/slug"
+        url.pathname = `/tr/blog${rest}`;
+        // query paramlarını koru
+        url.search = search;
+        return NextResponse.redirect(url, 301);
+    }
 
     // 1) root -> kullanıcılar için dil tespiti, botlar için default locale
     if (pathname === "/") {
