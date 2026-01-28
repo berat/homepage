@@ -37,7 +37,7 @@ export async function GET() {
 
     return `
     <item>
-      <title>${esc(post.title || post.slug)}</title>
+      <title>${esc(post?.title || post?.slug || "")}</title>
       <link>${esc(url)}</link>
       <guid isPermaLink="true">${esc(url)}</guid>
       <pubDate>${toRFC822(pubDate)}</pubDate>
