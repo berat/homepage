@@ -24,7 +24,9 @@ const About = () => {
           className="rounded-full"
           quality={100}
         />
-        <h1 className="text-2xl text-primary font-bold">Berat Bozkurt</h1>
+        <h1 className="text-2xl text-primary font-bold">
+          Berat Bozkurt <span className="sr-only">- Frontend Developer</span>
+        </h1>
       </div>
       <h2 className="text-description text-xl md:text-2xl font-semibold md:max-w-142.5" dangerouslySetInnerHTML={{__html: texts.about()}}>
       </h2>

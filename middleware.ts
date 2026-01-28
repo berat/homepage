@@ -87,7 +87,7 @@ export function middleware(req: NextRequest) {
             url.pathname = `/${preferredLocale}`;
         }
 
-        return NextResponse.redirect(url);
+        return NextResponse.redirect(url, 301);
     }
 
     // 2) /tr veya /en ile başlamıyorsa
@@ -97,14 +97,14 @@ export function middleware(req: NextRequest) {
             // Botlar için varsayılan dile yönlendir
             const url = req.nextUrl.clone();
             url.pathname = `/${defaultLocale}${pathname}`;
-            return NextResponse.redirect(url);
+            return NextResponse.redirect(url, 301);
         }
 
         // Normal kullanıcılar için tercih edilen dile yönlendir
         const preferredLocale = getPreferredLocale(req);
         const url = req.nextUrl.clone();
         url.pathname = `/${preferredLocale}${pathname}`;
-        return NextResponse.redirect(url);
+        return NextResponse.redirect(url, 301);
     }
 
     return NextResponse.next();

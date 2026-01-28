@@ -8,6 +8,28 @@ import Zoom from "react-medium-image-zoom";
 import { getPhotos } from "@/lib/unsplash";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { Key } from "react";
+import { Metadata } from "next";
+import { createMetadata } from "@/lib/helpers";
+import { SITE_CONFIG } from "@/constants/general";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const texts = messages[locale];
+
+  const title = SITE_CONFIG.title;
+  const description = texts.meta.homeDescription;
+
+  return createMetadata({
+    title,
+    description,
+    path: `/${locale}`,
+    locale,
+  });
+}
 
 export default async function Home({ params }: { params: { locale: Locale } }) {
   const { locale } = await params;

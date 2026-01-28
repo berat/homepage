@@ -8,6 +8,7 @@ import { SITE_CONFIG } from "@/constants/general";
 import Script from "next/script";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";
+import { getPersonSchema, getWebSiteSchema } from "@/lib/schema";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -86,6 +87,24 @@ export default async function RootLayout({
           name="theme-color"
           content="rgb(10, 10, 10)"
           media="(prefers-color-scheme: dark)"
+        />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Berat Bozkurt - Blog RSS Feed"
+          href="/feed.xml"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getWebSiteSchema()),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getPersonSchema()),
+          }}
         />
       </head>
       <body className={`antialiased`}>

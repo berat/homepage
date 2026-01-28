@@ -70,6 +70,8 @@ interface CreateMetadataParams {
   publishedTime?: string;
   modifiedTime?: string;
   type?: "website" | "article";
+  locale?: "tr" | "en";
+  alternateLocalePath?: string;
 }
 
 export function createMetadata(params: CreateMetadataParams = {}): Metadata {
@@ -82,15 +84,29 @@ export function createMetadata(params: CreateMetadataParams = {}): Metadata {
     publishedTime,
     modifiedTime,
     type = "website",
+    locale,
+    alternateLocalePath,
   } = params;
 
   const url = `${SITE_CONFIG.url}${path}`;
 
-  const ogImage = image || "/img/og.png";
+  const ogImage = image || "/og.jpg";
+
+  const otherLocale = locale === "tr" ? "en" : "tr";
+  const otherPath = alternateLocalePath || path.replace(`/${locale}/`, `/${otherLocale}/`);
+  const otherUrl = `${SITE_CONFIG.url}${otherPath}`;
 
   const metadata: Metadata = {
     title,
     description,
+    alternates: locale ? {
+      canonical: url,
+      languages: {
+        [locale]: url,
+        [otherLocale]: otherUrl,
+        "x-default": locale === "en" ? url : otherUrl,
+      },
+    } : undefined,
     openGraph: {
       type,
       url,

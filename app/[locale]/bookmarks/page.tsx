@@ -28,6 +28,7 @@ export async function generateMetadata({
     title,
     description,
     path: texts.meta.bookmarksSlug,
+    locale,
   });
 }
 

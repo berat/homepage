@@ -26,25 +26,33 @@ export async function GET() {
   const trByPostId = new Map<string, string>();
   for (const p of tr.items) if (p.postId && p.slug) trByPostId.set(p.postId, p.slug);
 
-  const staticUrls = [
-    `${SITE_URL}/tr`,
-    `${SITE_URL}/en`,
-    `${SITE_URL}/tr/blog`,
-    `${SITE_URL}/en/blog`,
-    `${SITE_URL}/tr/photos`,
-    `${SITE_URL}/en/photos`,
-    `${SITE_URL}/tr/bookmarks`,
-    `${SITE_URL}/en/bookmarks`,
+  const staticPages = [
+    { tr: `${SITE_URL}/tr`, en: `${SITE_URL}/en` },
+    { tr: `${SITE_URL}/tr/blog`, en: `${SITE_URL}/en/blog` },
+    { tr: `${SITE_URL}/tr/photos`, en: `${SITE_URL}/en/photos` },
+    { tr: `${SITE_URL}/tr/bookmarks`, en: `${SITE_URL}/en/bookmarks` },
   ];
 
   const urlEntries: string[] = [];
 
-  // static
-  for (const u of staticUrls) {
+  // static pages with hreflang alternates
+  for (const page of staticPages) {
+    // TR version
     urlEntries.push(`
       <url>
-        <loc>${esc(u)}</loc>
-        <lastmod>${toDateOnly(new Date().toISOString())}</lastmod>
+        <loc>${esc(page.tr)}</loc>
+        <xhtml:link rel="alternate" hreflang="tr" href="${esc(page.tr)}"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${esc(page.en)}"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${esc(page.en)}"/>
+      </url>
+    `);
+    // EN version
+    urlEntries.push(`
+      <url>
+        <loc>${esc(page.en)}</loc>
+        <xhtml:link rel="alternate" hreflang="tr" href="${esc(page.tr)}"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${esc(page.en)}"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${esc(page.en)}"/>
       </url>
     `);
   }
@@ -52,7 +60,7 @@ export async function GET() {
   // TR posts (+ alternates)
   for (const p of tr.items) {
     const loc = `${SITE_URL}/tr/blog/${p.slug}`;
-    const lastmod = toDateOnly(p.published ?? new Date().toISOString());
+    const lastmod = p.published ? toDateOnly(p.published) : undefined;
 
     const enSlug = p.postId ? enByPostId.get(p.postId) : undefined;
     const enHref = enSlug ? `${SITE_URL}/en/blog/${enSlug}` : undefined;
@@ -60,9 +68,10 @@ export async function GET() {
     urlEntries.push(`
       <url>
         <loc>${esc(loc)}</loc>
-        <lastmod>${esc(lastmod)}</lastmod>
+        ${lastmod ? `<lastmod>${esc(lastmod)}</lastmod>` : ""}
         <xhtml:link rel="alternate" hreflang="tr" href="${esc(loc)}"/>
         ${enHref ? `<xhtml:link rel="alternate" hreflang="en" href="${esc(enHref)}"/>` : ""}
+        ${enHref ? `<xhtml:link rel="alternate" hreflang="x-default" href="${esc(enHref)}"/>` : ""}
       </url>
     `);
   }
@@ -70,7 +79,7 @@ export async function GET() {
   // EN posts (+ alternates)
   for (const p of en.items) {
     const loc = `${SITE_URL}/en/blog/${p.slug}`;
-    const lastmod = toDateOnly(p.published ?? new Date().toISOString());
+    const lastmod = p.published ? toDateOnly(p.published) : undefined;
 
     const trSlug = p.postId ? trByPostId.get(p.postId) : undefined;
     const trHref = trSlug ? `${SITE_URL}/tr/blog/${trSlug}` : undefined;
@@ -78,9 +87,10 @@ export async function GET() {
     urlEntries.push(`
       <url>
         <loc>${esc(loc)}</loc>
-        <lastmod>${esc(lastmod)}</lastmod>
+        ${lastmod ? `<lastmod>${esc(lastmod)}</lastmod>` : ""}
         <xhtml:link rel="alternate" hreflang="en" href="${esc(loc)}"/>
         ${trHref ? `<xhtml:link rel="alternate" hreflang="tr" href="${esc(trHref)}"/>` : ""}
+        <xhtml:link rel="alternate" hreflang="x-default" href="${esc(loc)}"/>
       </url>
     `);
   }

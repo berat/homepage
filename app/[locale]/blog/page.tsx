@@ -27,6 +27,7 @@ export async function generateMetadata({
     title,
     description,
     path: texts.meta.blogSlug,
+    locale,
   });
 }
 

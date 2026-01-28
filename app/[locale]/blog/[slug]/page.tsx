@@ -14,6 +14,7 @@ import { Suspense } from "react";
 import { PageViews } from "@/components/views/post";
 import ViewsSuspense from "@/components/suspenses/Views";
 import { PageLikes } from "@/components/likes/post";
+import { getArticleSchema, getBreadcrumbSchema } from "@/lib/schema";
 
 export const revalidate = 3600;
 
@@ -103,11 +104,37 @@ const PostDetailPage = async ({
 
   const { blocks, metadata } = content;
 
+  const canonical = `${SITE_URL}/${locale}/blog/${slug}`;
+  const blogLabel = locale === "tr" ? "Blog" : "Writings";
+
+  const articleSchema = getArticleSchema({
+    title: metadata.title,
+    description: metadata.excerpt,
+    url: canonical,
+    image: metadata.featureImage,
+    publishedTime: metadata.published,
+  });
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: locale === "tr" ? "Ana Sayfa" : "Home", url: `${SITE_URL}/${locale}` },
+    { name: blogLabel, url: `${SITE_URL}/${locale}/blog` },
+    { name: metadata.title, url: canonical },
+  ]);
+
   return (
-    <div
-      id="writings-detail"
-      className="max-w-[85%] md:max-w-2xl mx-auto my-16 flex flex-col gap-5"
-    >
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <div
+        id="writings-detail"
+        className="max-w-[85%] md:max-w-2xl mx-auto my-16 flex flex-col gap-5"
+      >
       <header className="flex flex-col gap-2.5">
         <small className="flex items-center text-gray text-sm font-medium">
           <Suspense fallback={<ViewsSuspense isLike locale={locale} />}>
@@ -151,7 +178,8 @@ const PostDetailPage = async ({
       <Suspense fallback={<RandomPostsSkeleton locale={locale} />}>
         <RandomPosts locale={locale} excludeSlug={slug} />
       </Suspense>
-    </div>
+      </div>
+    </>
   );
 };
 
