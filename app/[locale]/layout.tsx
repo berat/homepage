@@ -9,6 +9,7 @@ import Script from "next/script";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";
 import { getPersonSchema, getWebSiteSchema } from "@/lib/schema";
+import { OpenToWorkFixed } from "@/components/base/OpenToWork";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -118,6 +119,7 @@ export default async function RootLayout({
             data-website-id="9304602d-e4a5-43cb-840d-79560182a0ed"
           />
         )}
+        <OpenToWorkFixed />
         {process.env.NODE_ENV === "production" && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID as string} />
         )}
