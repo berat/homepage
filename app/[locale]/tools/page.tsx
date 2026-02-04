@@ -60,13 +60,8 @@ const categoryLabels: Record<ToolCategory, Record<Locale, string>> = {
 };
 
 function LargeToolCard({ tool }: { tool: ToolItem }) {
-  return (
-    <Link
-      href={tool.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex flex-col w-[265.5px] rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors overflow-hidden"
-    >
+  const content = (
+    <>
       {tool.cover ? (
         <img
           src={tool.cover}
@@ -83,18 +78,31 @@ function LargeToolCard({ tool }: { tool: ToolItem }) {
           {tool.description}
         </span>
       </div>
-    </Link>
+    </>
   );
-}
 
-function ToolCard({ tool }: { tool: ToolItem }) {
+  const className =
+    "flex flex-col w-[265.5px] rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors overflow-hidden";
+
+  if (!tool.url) {
+    return <div className={className}>{content}</div>;
+  }
+
   return (
     <Link
       href={tool.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-start gap-3 p-3 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+      className={className}
     >
+      {content}
+    </Link>
+  );
+}
+
+function ToolCard({ tool }: { tool: ToolItem }) {
+  const content = (
+    <>
       <div className="bg-[#EBEBEB] dark:bg-zinc-700 min-w-16 h-16 flex items-center justify-center rounded-lg">
         {tool.cover ? (
           <img
@@ -113,6 +121,24 @@ function ToolCard({ tool }: { tool: ToolItem }) {
           {tool.description}
         </span>
       </div>
+    </>
+  );
+
+  const className =
+    "flex items-start gap-3 p-3 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors";
+
+  if (!tool.url) {
+    return <div className={className}>{content}</div>;
+  }
+
+  return (
+    <Link
+      href={tool.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className}
+    >
+      {content}
     </Link>
   );
 }
