@@ -8,6 +8,7 @@ export const messages = {
         works: "Tecrübe",
         photos: "Fotoğraflar",
         writings: "Blog",
+        tools: "Araçlar",
         bookmarks: "Yer İmleri",
         views: "görüntülenme",
         totalViews: "toplam görüntülenme",
@@ -21,6 +22,7 @@ export const messages = {
 
         captions: {
             writings: "Yazdığım notlar ve diğer içerikler",
+            tools: "Günlük hayatta kullandığım ve beğendiğim uygulamalar",
             photos: "Fark ettiğim anlar, mekânlar ve küçük detaylar",
             bookmarks: "Notlar, bağlantılar ve ilham kıvılcımları",
             dreamary: "Yapay zeka detekli rüya günlüğü ve analizi",
@@ -42,6 +44,10 @@ export const messages = {
             photosDescription: "Fark ettiğim anlar, mekânlar ve küçük detaylar.",
             photosSlug: "/tr/photos",
 
+            toolsTitle: "Araçlar | " + SITE_CONFIG.name,
+            toolsDescription: "",
+            toolsSlug: "tr/tools",
+
             bookmarksTitle: "Yer İmleri | " + SITE_CONFIG.name,
             bookmarksDescription: "Notlar, bağlantılar ve ilham kıvılcımları",
             bookmarksSlug: "/tr/bookmarks",
@@ -58,6 +64,7 @@ export const messages = {
         projects: "Projects",
         works: "Works",
         photos: "Photos",
+        tools: "Tools",
         writings: "Writings",
         bookmarks: "Bookmarks",
         views: "views",
@@ -72,6 +79,7 @@ export const messages = {
 
         captions: {
             writings: "Notes and other things which are I wrote",
+            tools: "Applications and stuff which are I use on my daily",
             photos: "Moments, places, and small details I noticed",
             bookmarks: "Notes, links, and sparks of inspiration",
             dreamary: "AI dream journal with analysis",
@@ -92,6 +100,10 @@ export const messages = {
             photosTitle: "Photos | " + SITE_CONFIG.name,
             photosDescription: "Moments, places, and small details I noticed.",
             photosSlug: "/en/photos",
+
+            toolsTitle: "Tools | " + SITE_CONFIG.name,
+            toolsDescription: "",
+            toolsSlug: "tr/tools",
 
             bookmarksTitle: "Bookmarks | " + SITE_CONFIG.name,
             bookmarksDescription: "Notes, links, and sparks of inspiration",

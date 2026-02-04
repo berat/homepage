@@ -50,6 +50,11 @@ export default async function Home({ params }: { params: { locale: Locale } }) {
       url: "/photos",
     },
     {
+      title: texts.tools,
+      caption: texts.captions.tools,
+      url: "/tools",
+    },
+    {
       title: texts.bookmarks,
       caption: texts.captions.bookmarks,
       url: "/bookmarks",

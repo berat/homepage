@@ -46,6 +46,13 @@ export const NAVIGATION_ITEMS: NavigationTypes = {
             disabled: false,
             url: "/bookmarks",
         },
+        {
+            en: messages.en.tools,
+            tr: messages.tr.tools,
+            value: "tools",
+            disabled: false,
+            url: "/tools",
+        },
         // {
         //     label: "Photos",
         //     value: "photos",
