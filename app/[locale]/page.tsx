@@ -52,7 +52,7 @@ export default async function Home({ params }: { params: { locale: Locale } }) {
     {
       title: texts.tools,
       caption: texts.captions.tools,
-      url: "/tools",
+      url: "/uses",
     },
     {
       title: texts.bookmarks,
@@ -69,11 +69,6 @@ export default async function Home({ params }: { params: { locale: Locale } }) {
       caption: texts.captions.memoque,
       url: "https://memoque.netlify.app",
     },
-    // {
-    //   title: "Tools",
-    //   caption: "My daily digital and professional tools list",
-    //   url: "/tools",
-    // },
   ];
 
   const WORKS = [

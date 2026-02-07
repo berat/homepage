@@ -29,7 +29,7 @@ export async function GET() {
   const staticPages = [
     { tr: `${SITE_URL}/tr`, en: `${SITE_URL}/en` },
     { tr: `${SITE_URL}/tr/blog`, en: `${SITE_URL}/en/blog` },
-    { tr: `${SITE_URL}/tr/tools`, en: `${SITE_URL}/en/tools` },
+    { tr: `${SITE_URL}/tr/uses`, en: `${SITE_URL}/en/uses` },
     { tr: `${SITE_URL}/tr/photos`, en: `${SITE_URL}/en/photos` },
     { tr: `${SITE_URL}/tr/bookmarks`, en: `${SITE_URL}/en/bookmarks` },
   ];

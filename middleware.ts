@@ -59,12 +59,21 @@ function getPreferredLocale(req: NextRequest): string {
 }
 
 export function middleware(req: NextRequest) {
-      const url = req.nextUrl.clone();
+    const url = req.nextUrl.clone();
     const { pathname, search } = req.nextUrl;
     const userAgent = req.headers.get("user-agent") || "";
 
     // Bot mu kontrol et - botları redirect etme (SEO için)
     const isCrawler = isBot(userAgent);
+
+    if (pathname.startsWith("/tools")) {
+        const rest = pathname.slice("/tools".length); // "" veya "/something"
+        const preferredLocale = getPreferredLocale(req);
+        url.pathname = `/${preferredLocale}/uses${rest}`;
+        // query paramlarını koru
+        url.search = search;
+        return NextResponse.redirect(url, 301);
+    }
 
     if (pathname === "/blog" || pathname.startsWith("/blog/")) {
         const rest = pathname.slice("/blog".length); // "" veya "/slug"

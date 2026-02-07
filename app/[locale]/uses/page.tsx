@@ -109,7 +109,7 @@ function ToolCard({ tool }: { tool: ToolItem }) {
             src={tool.cover}
             alt={tool.name}
             loading="lazy"
-            className="w-11 h-11 object-cover"
+            className="w-10 h-10 object-fit"
           />
         ) : (
           <div className="w-11 h-11" />
@@ -149,7 +149,6 @@ export default async function Tools({
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
-  console.log("BeratLog ~ Tools ~ locale:", locale);
   const toolsByCategory = await getToolsByCategory(locale);
 
   const texts = messages[locale];
@@ -164,7 +163,7 @@ export default async function Tools({
           <Suspense fallback={<ViewsSuspense locale={locale} />}>
             <PageLikes
               type="page"
-              slug={(locale === "tr" ? "" : "en/") + "tools"}
+              slug={(locale === "tr" ? "" : "en/") + "uses"}
             />
           </Suspense>
           <Suspense fallback={<ViewsSuspense locale={locale} />}>
@@ -172,7 +171,7 @@ export default async function Tools({
               locale={locale}
               increase
               type="page"
-              slug={(locale === "tr" ? "" : "en/") + "tools"}
+              slug={(locale === "tr" ? "" : "en/") + "uses"}
             />
           </Suspense>
         </small>
@@ -182,10 +181,10 @@ export default async function Tools({
       <div className="w-full rounded-2xl overflow-hidden">
         <img
           src={
-            "https://images.unsplash.com/photo-1734361794901-76f694f3bb0a?q=80&w=2548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            "/tools-bg.jpg"
           }
           alt={"Tools hero"}
-          className="w-full h-auto object-fit max-h-137"
+          className="w-full h-auto object-cover max-h-140"
         />
       </div>
 

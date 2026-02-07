@@ -46,7 +46,7 @@ export const messages = {
 
             toolsTitle: "Araçlar | " + SITE_CONFIG.name,
             toolsDescription: "",
-            toolsSlug: "tr/tools",
+            toolsSlug: "tr/uses",
 
             bookmarksTitle: "Yer İmleri | " + SITE_CONFIG.name,
             bookmarksDescription: "Notlar, bağlantılar ve ilham kıvılcımları",
@@ -103,7 +103,7 @@ export const messages = {
 
             toolsTitle: "Tools | " + SITE_CONFIG.name,
             toolsDescription: "",
-            toolsSlug: "tr/tools",
+            toolsSlug: "tr/uses",
 
             bookmarksTitle: "Bookmarks | " + SITE_CONFIG.name,
             bookmarksDescription: "Notes, links, and sparks of inspiration",

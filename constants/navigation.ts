@@ -51,7 +51,7 @@ export const NAVIGATION_ITEMS: NavigationTypes = {
             tr: messages.tr.tools,
             value: "tools",
             disabled: false,
-            url: "/tools",
+            url: "/uses",
         },
         // {
         //     label: "Photos",
